@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B646DC0F1DDEA5FD009038D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC0E1DDEA5FD009038D6 /* AppDelegate.m */; };
+		B646DC121DDEA5FD009038D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC111DDEA5FD009038D6 /* main.m */; };
+		B646DC141DDEA5FD009038D6 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B646DC131DDEA5FD009038D6 /* GameScene.sks */; };
+		B646DC161DDEA5FD009038D6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B646DC151DDEA5FD009038D6 /* Actions.sks */; };
+		B646DC191DDEA5FD009038D6 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC181DDEA5FD009038D6 /* GameScene.m */; };
+		B646DC1C1DDEA5FD009038D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC1B1DDEA5FD009038D6 /* ViewController.m */; };
+		B646DC1E1DDEA5FD009038D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B646DC1D1DDEA5FD009038D6 /* Assets.xcassets */; };
+		B646DC211DDEA5FD009038D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B646DC1F1DDEA5FD009038D6 /* Main.storyboard */; };
+		B646DC2C1DDEA5FD009038D6 /* gameOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC2B1DDEA5FD009038D6 /* gameOnMacTests.m */; };
+		B646DC371DDEA5FD009038D6 /* gameOnMacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC361DDEA5FD009038D6 /* gameOnMacUITests.m */; };
+		B646DC461DDEAE2A009038D6 /* HelloScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC451DDEAE2A009038D6 /* HelloScene.m */; };
+		B6B13A7F1DDEE98D00B9188E /* SpaceShipScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */; };
+		B6B13A811DDEEC2C00B9188E /* 火箭32.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B13A801DDEEC2C00B9188E /* 火箭32.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B646DC281DDEA5FD009038D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B646DC021DDEA5FD009038D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B646DC091DDEA5FD009038D6;
+			remoteInfo = gameOnMac;
+		};
+		B646DC331DDEA5FD009038D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B646DC021DDEA5FD009038D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B646DC091DDEA5FD009038D6;
+			remoteInfo = gameOnMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B646DC0A1DDEA5FD009038D6 /* gameOnMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOnMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B646DC0D1DDEA5FD009038D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B646DC0E1DDEA5FD009038D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B646DC111DDEA5FD009038D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B646DC131DDEA5FD009038D6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		B646DC151DDEA5FD009038D6 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		B646DC171DDEA5FD009038D6 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		B646DC181DDEA5FD009038D6 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		B646DC1A1DDEA5FD009038D6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B646DC1B1DDEA5FD009038D6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B646DC1D1DDEA5FD009038D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B646DC201DDEA5FD009038D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B646DC221DDEA5FD009038D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B646DC271DDEA5FD009038D6 /* gameOnMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gameOnMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B646DC2B1DDEA5FD009038D6 /* gameOnMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = gameOnMacTests.m; sourceTree = "<group>"; };
+		B646DC2D1DDEA5FD009038D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B646DC321DDEA5FD009038D6 /* gameOnMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gameOnMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B646DC361DDEA5FD009038D6 /* gameOnMacUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = gameOnMacUITests.m; sourceTree = "<group>"; };
+		B646DC381DDEA5FD009038D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B646DC441DDEAE2A009038D6 /* HelloScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloScene.h; sourceTree = "<group>"; };
+		B646DC451DDEAE2A009038D6 /* HelloScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloScene.m; sourceTree = "<group>"; };
+		B6B13A7D1DDEE98D00B9188E /* SpaceShipScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceShipScene.h; sourceTree = "<group>"; };
+		B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpaceShipScene.m; sourceTree = "<group>"; };
+		B6B13A801DDEEC2C00B9188E /* 火箭32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "火箭32.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B646DC071DDEA5FD009038D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC241DDEA5FD009038D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC2F1DDEA5FD009038D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B646DC011DDEA5FD009038D6 = {
+			isa = PBXGroup;
+			children = (
+				B646DC0C1DDEA5FD009038D6 /* gameOnMac */,
+				B646DC2A1DDEA5FD009038D6 /* gameOnMacTests */,
+				B646DC351DDEA5FD009038D6 /* gameOnMacUITests */,
+				B646DC0B1DDEA5FD009038D6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B646DC0B1DDEA5FD009038D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B646DC0A1DDEA5FD009038D6 /* gameOnMac.app */,
+				B646DC271DDEA5FD009038D6 /* gameOnMacTests.xctest */,
+				B646DC321DDEA5FD009038D6 /* gameOnMacUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B646DC0C1DDEA5FD009038D6 /* gameOnMac */ = {
+			isa = PBXGroup;
+			children = (
+				B646DC0D1DDEA5FD009038D6 /* AppDelegate.h */,
+				B646DC0E1DDEA5FD009038D6 /* AppDelegate.m */,
+				B646DC131DDEA5FD009038D6 /* GameScene.sks */,
+				B646DC151DDEA5FD009038D6 /* Actions.sks */,
+				B646DC171DDEA5FD009038D6 /* GameScene.h */,
+				B646DC181DDEA5FD009038D6 /* GameScene.m */,
+				B646DC1A1DDEA5FD009038D6 /* ViewController.h */,
+				B646DC1B1DDEA5FD009038D6 /* ViewController.m */,
+				B646DC441DDEAE2A009038D6 /* HelloScene.h */,
+				B646DC451DDEAE2A009038D6 /* HelloScene.m */,
+				B6B13A7D1DDEE98D00B9188E /* SpaceShipScene.h */,
+				B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */,
+				B646DC1D1DDEA5FD009038D6 /* Assets.xcassets */,
+				B646DC1F1DDEA5FD009038D6 /* Main.storyboard */,
+				B646DC221DDEA5FD009038D6 /* Info.plist */,
+				B646DC101DDEA5FD009038D6 /* Supporting Files */,
+			);
+			path = gameOnMac;
+			sourceTree = "<group>";
+		};
+		B646DC101DDEA5FD009038D6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B6B13A801DDEEC2C00B9188E /* 火箭32.png */,
+				B646DC111DDEA5FD009038D6 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B646DC2A1DDEA5FD009038D6 /* gameOnMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				B646DC2B1DDEA5FD009038D6 /* gameOnMacTests.m */,
+				B646DC2D1DDEA5FD009038D6 /* Info.plist */,
+			);
+			path = gameOnMacTests;
+			sourceTree = "<group>";
+		};
+		B646DC351DDEA5FD009038D6 /* gameOnMacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B646DC361DDEA5FD009038D6 /* gameOnMacUITests.m */,
+				B646DC381DDEA5FD009038D6 /* Info.plist */,
+			);
+			path = gameOnMacUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B646DC091DDEA5FD009038D6 /* gameOnMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B646DC3B1DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMac" */;
+			buildPhases = (
+				B646DC061DDEA5FD009038D6 /* Sources */,
+				B646DC071DDEA5FD009038D6 /* Frameworks */,
+				B646DC081DDEA5FD009038D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gameOnMac;
+			productName = gameOnMac;
+			productReference = B646DC0A1DDEA5FD009038D6 /* gameOnMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B646DC261DDEA5FD009038D6 /* gameOnMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B646DC3E1DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMacTests" */;
+			buildPhases = (
+				B646DC231DDEA5FD009038D6 /* Sources */,
+				B646DC241DDEA5FD009038D6 /* Frameworks */,
+				B646DC251DDEA5FD009038D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B646DC291DDEA5FD009038D6 /* PBXTargetDependency */,
+			);
+			name = gameOnMacTests;
+			productName = gameOnMacTests;
+			productReference = B646DC271DDEA5FD009038D6 /* gameOnMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B646DC311DDEA5FD009038D6 /* gameOnMacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B646DC411DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMacUITests" */;
+			buildPhases = (
+				B646DC2E1DDEA5FD009038D6 /* Sources */,
+				B646DC2F1DDEA5FD009038D6 /* Frameworks */,
+				B646DC301DDEA5FD009038D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B646DC341DDEA5FD009038D6 /* PBXTargetDependency */,
+			);
+			name = gameOnMacUITests;
+			productName = gameOnMacUITests;
+			productReference = B646DC321DDEA5FD009038D6 /* gameOnMacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B646DC021DDEA5FD009038D6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "胡杨林";
+				TargetAttributes = {
+					B646DC091DDEA5FD009038D6 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HUH8GRN724;
+						ProvisioningStyle = Automatic;
+					};
+					B646DC261DDEA5FD009038D6 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HUH8GRN724;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B646DC091DDEA5FD009038D6;
+					};
+					B646DC311DDEA5FD009038D6 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HUH8GRN724;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B646DC091DDEA5FD009038D6;
+					};
+				};
+			};
+			buildConfigurationList = B646DC051DDEA5FD009038D6 /* Build configuration list for PBXProject "gameOnMac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B646DC011DDEA5FD009038D6;
+			productRefGroup = B646DC0B1DDEA5FD009038D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B646DC091DDEA5FD009038D6 /* gameOnMac */,
+				B646DC261DDEA5FD009038D6 /* gameOnMacTests */,
+				B646DC311DDEA5FD009038D6 /* gameOnMacUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B646DC081DDEA5FD009038D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B646DC141DDEA5FD009038D6 /* GameScene.sks in Resources */,
+				B6B13A811DDEEC2C00B9188E /* 火箭32.png in Resources */,
+				B646DC1E1DDEA5FD009038D6 /* Assets.xcassets in Resources */,
+				B646DC161DDEA5FD009038D6 /* Actions.sks in Resources */,
+				B646DC211DDEA5FD009038D6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC251DDEA5FD009038D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC301DDEA5FD009038D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B646DC061DDEA5FD009038D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B646DC461DDEAE2A009038D6 /* HelloScene.m in Sources */,
+				B646DC121DDEA5FD009038D6 /* main.m in Sources */,
+				B646DC191DDEA5FD009038D6 /* GameScene.m in Sources */,
+				B6B13A7F1DDEE98D00B9188E /* SpaceShipScene.m in Sources */,
+				B646DC1C1DDEA5FD009038D6 /* ViewController.m in Sources */,
+				B646DC0F1DDEA5FD009038D6 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC231DDEA5FD009038D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B646DC2C1DDEA5FD009038D6 /* gameOnMacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B646DC2E1DDEA5FD009038D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B646DC371DDEA5FD009038D6 /* gameOnMacUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B646DC291DDEA5FD009038D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B646DC091DDEA5FD009038D6 /* gameOnMac */;
+			targetProxy = B646DC281DDEA5FD009038D6 /* PBXContainerItemProxy */;
+		};
+		B646DC341DDEA5FD009038D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B646DC091DDEA5FD009038D6 /* gameOnMac */;
+			targetProxy = B646DC331DDEA5FD009038D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B646DC1F1DDEA5FD009038D6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B646DC201DDEA5FD009038D6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B646DC391DDEA5FD009038D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B646DC3A1DDEA5FD009038D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B646DC3C1DDEA5FD009038D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B646DC3D1DDEA5FD009038D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B646DC3F1DDEA5FD009038D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gameOnMac.app/Contents/MacOS/gameOnMac";
+			};
+			name = Debug;
+		};
+		B646DC401DDEA5FD009038D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gameOnMac.app/Contents/MacOS/gameOnMac";
+			};
+			name = Release;
+		};
+		B646DC421DDEA5FD009038D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = gameOnMac;
+			};
+			name = Debug;
+		};
+		B646DC431DDEA5FD009038D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HUH8GRN724;
+				INFOPLIST_FILE = gameOnMacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.testProject.gameOnMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = gameOnMac;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B646DC051DDEA5FD009038D6 /* Build configuration list for PBXProject "gameOnMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B646DC391DDEA5FD009038D6 /* Debug */,
+				B646DC3A1DDEA5FD009038D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B646DC3B1DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B646DC3C1DDEA5FD009038D6 /* Debug */,
+				B646DC3D1DDEA5FD009038D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B646DC3E1DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B646DC3F1DDEA5FD009038D6 /* Debug */,
+				B646DC401DDEA5FD009038D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B646DC411DDEA5FD009038D6 /* Build configuration list for PBXNativeTarget "gameOnMacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B646DC421DDEA5FD009038D6 /* Debug */,
+				B646DC431DDEA5FD009038D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B646DC021DDEA5FD009038D6 /* Project object */;
+}
