@@ -96,10 +96,11 @@
     SKSpriteNode *node = (SKSpriteNode *)[self childNodeWithName:@"MySpace"];
     if (node != nil) {
         CGPoint point = [event locationInNode:[self childNodeWithName:@"background"]];
-
+        NSPoint point2 = [event locationInWindow];
+        NSLog(@"直接从背景上获取的点击坐标x = %f， y = %f",point2.x,point2.y);
     SKAction *move = [SKAction moveTo:point duration:0.2];
     [node runAction:move completion:^{
-        NSLog(@"x = %f y = %f",[event locationInWindow].x,[event locationInWindow].y);
+        NSLog(@"从背景Node上获取的点击坐标x = %f y = %f",point.x,point.y);
         NSLog(@"移动完成");
     }];
     }

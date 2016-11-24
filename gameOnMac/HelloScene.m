@@ -8,7 +8,7 @@
 
 #import "HelloScene.h"
 #import "SpaceShipScene.h"
-
+#import "FlyingBirds.h"
 @interface HelloScene()
 
 @property BOOL contentCreated;
@@ -33,7 +33,7 @@
 
 -(SKLabelNode *)newHelloNode{
     SKLabelNode *helloNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    helloNode.text = @"Hello, World!";
+    helloNode.text = @"Hello, Game!";
     helloNode.fontSize = 42;
     helloNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     helloNode.name = @"helloNode";
@@ -52,18 +52,21 @@
         SKAction *remove = [SKAction removeFromParent];
         SKAction *requence = [SKAction sequence:@[moveup,wait,zoom,fadeAway,remove]];
         [node runAction:requence completion:^{
-            SKScene *scene = [[SpaceShipScene alloc ]initWithSize:self.size];
+            SpaceShipScene *scene = [[SpaceShipScene alloc ]initWithSize:self.size];
             SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:1.0];
             [self.view presentScene:scene transition:doors];
         }];
+        [node runAction:requence withKey:@"SSS"];
     }
 }
 -(void)mouseDragged:(NSEvent *)event{
 //    NSLog(@"鼠标拖拽中");
 //    NSLog(@"鼠标经由坐标点 x = %f y = %f",    event.locationInWindow.x,     event.locationInWindow.y);
 }
+
+//helloWorld 键盘输入检测
 -(void)keyDown:(NSEvent *)event{
-//            NSLog(@"keyDown:'%@' keyCode: 0x%02X", event.characters, event.keyCode);
+//    NSLog(@"keyDown:'%@' keyCode: 0x%02X", event.characters, event.keyCode);
     switch (event.keyCode) {
         
         case 0x7B:
@@ -78,7 +81,13 @@
         case 0x7E:
             NSLog(@"上");
             break;
-            
+        case 0x03:
+        {
+            FlyingBirds *scene = [[FlyingBirds alloc]initWithSize:self.size];
+            SKTransition *transition = [SKTransition doorsCloseVerticalWithDuration:1.0];
+            [self.view presentScene:scene transition:transition];
+            break;
+        }
         default:
             break;
     }

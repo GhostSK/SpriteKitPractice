@@ -18,8 +18,12 @@
 		B646DC2C1DDEA5FD009038D6 /* gameOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC2B1DDEA5FD009038D6 /* gameOnMacTests.m */; };
 		B646DC371DDEA5FD009038D6 /* gameOnMacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC361DDEA5FD009038D6 /* gameOnMacUITests.m */; };
 		B646DC461DDEAE2A009038D6 /* HelloScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC451DDEAE2A009038D6 /* HelloScene.m */; };
+		B64C3CF31DE6802F001AAC5D /* hinder-up.png in Resources */ = {isa = PBXBuildFile; fileRef = B64C3CF11DE6802F001AAC5D /* hinder-up.png */; };
+		B64C3CF41DE6802F001AAC5D /* hinder-down.png in Resources */ = {isa = PBXBuildFile; fileRef = B64C3CF21DE6802F001AAC5D /* hinder-down.png */; };
+		B64C3CF61DE691B0001AAC5D /* birds.png in Resources */ = {isa = PBXBuildFile; fileRef = B64C3CF51DE691B0001AAC5D /* birds.png */; };
 		B6B13A7F1DDEE98D00B9188E /* SpaceShipScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */; };
 		B6B13A811DDEEC2C00B9188E /* 火箭32.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B13A801DDEEC2C00B9188E /* 火箭32.png */; };
+		B6FFF9851DE59884003CCD58 /* FlyingBirds.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FFF9841DE59884003CCD58 /* FlyingBirds.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,9 +65,14 @@
 		B646DC381DDEA5FD009038D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B646DC441DDEAE2A009038D6 /* HelloScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloScene.h; sourceTree = "<group>"; };
 		B646DC451DDEAE2A009038D6 /* HelloScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloScene.m; sourceTree = "<group>"; };
+		B64C3CF11DE6802F001AAC5D /* hinder-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hinder-up.png"; sourceTree = "<group>"; };
+		B64C3CF21DE6802F001AAC5D /* hinder-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hinder-down.png"; sourceTree = "<group>"; };
+		B64C3CF51DE691B0001AAC5D /* birds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = birds.png; sourceTree = "<group>"; };
 		B6B13A7D1DDEE98D00B9188E /* SpaceShipScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceShipScene.h; sourceTree = "<group>"; };
 		B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpaceShipScene.m; sourceTree = "<group>"; };
 		B6B13A801DDEEC2C00B9188E /* 火箭32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "火箭32.png"; sourceTree = "<group>"; };
+		B6FFF9831DE59884003CCD58 /* FlyingBirds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyingBirds.h; sourceTree = "<group>"; };
+		B6FFF9841DE59884003CCD58 /* FlyingBirds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyingBirds.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +135,8 @@
 				B646DC451DDEAE2A009038D6 /* HelloScene.m */,
 				B6B13A7D1DDEE98D00B9188E /* SpaceShipScene.h */,
 				B6B13A7E1DDEE98D00B9188E /* SpaceShipScene.m */,
+				B6FFF9831DE59884003CCD58 /* FlyingBirds.h */,
+				B6FFF9841DE59884003CCD58 /* FlyingBirds.m */,
 				B646DC1D1DDEA5FD009038D6 /* Assets.xcassets */,
 				B646DC1F1DDEA5FD009038D6 /* Main.storyboard */,
 				B646DC221DDEA5FD009038D6 /* Info.plist */,
@@ -137,7 +148,10 @@
 		B646DC101DDEA5FD009038D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B64C3CF51DE691B0001AAC5D /* birds.png */,
 				B6B13A801DDEEC2C00B9188E /* 火箭32.png */,
+				B64C3CF11DE6802F001AAC5D /* hinder-up.png */,
+				B64C3CF21DE6802F001AAC5D /* hinder-down.png */,
 				B646DC111DDEA5FD009038D6 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -270,10 +284,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64C3CF61DE691B0001AAC5D /* birds.png in Resources */,
 				B646DC141DDEA5FD009038D6 /* GameScene.sks in Resources */,
 				B6B13A811DDEEC2C00B9188E /* 火箭32.png in Resources */,
 				B646DC1E1DDEA5FD009038D6 /* Assets.xcassets in Resources */,
+				B64C3CF41DE6802F001AAC5D /* hinder-down.png in Resources */,
 				B646DC161DDEA5FD009038D6 /* Actions.sks in Resources */,
+				B64C3CF31DE6802F001AAC5D /* hinder-up.png in Resources */,
 				B646DC211DDEA5FD009038D6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +318,7 @@
 			files = (
 				B646DC461DDEAE2A009038D6 /* HelloScene.m in Sources */,
 				B646DC121DDEA5FD009038D6 /* main.m in Sources */,
+				B6FFF9851DE59884003CCD58 /* FlyingBirds.m in Sources */,
 				B646DC191DDEA5FD009038D6 /* GameScene.m in Sources */,
 				B6B13A7F1DDEE98D00B9188E /* SpaceShipScene.m in Sources */,
 				B646DC1C1DDEA5FD009038D6 /* ViewController.m in Sources */,

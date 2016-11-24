@@ -28,5 +28,8 @@
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
 }
+-(void)rightMouseDown:(NSEvent *)event{
+    [self.skView.scene rightMouseDown:event];
+}
 
 @end
