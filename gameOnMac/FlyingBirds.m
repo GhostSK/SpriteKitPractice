@@ -7,14 +7,16 @@
 //
 
 #import "FlyingBirds.h"
-
-@interface FlyingBirds()
+#import "flyingbirdSuccessScene.h"
+@interface FlyingBirds()<SKPhysicsContactDelegate>
 
 @property(nonatomic,strong)SKAction *hindermove;
 @property(nonatomic,strong)NSTimer *mapmoveTimer;
 @property(nonatomic,strong)NSTimer *scoreTimer;
 @property(nonatomic,strong)SKLabelNode *timeLabel;
 @property(nonatomic,strong)SKLabelNode *scoreLabel;
+@property(nonatomic,strong)SKLabelNode *clickLabel;
+@property NSInteger click;
 @property BOOL isgameover;
 @property NSInteger time;
 @property NSInteger score;
@@ -29,9 +31,11 @@
     FlyingBirds *scene = [super initWithSize:size];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(self.frame.origin.x - 500, self.frame.origin.y, self.size.width + 500, self.size.height)];
     self.physicsWorld.gravity = CGVectorMake(0.0, -4.9);
-    
+    self.click = 0;
     self.interval = 4.0;
     self.time = 0;
+    self.score = 0;
+    self.physicsWorld.contactDelegate = self;
     SKSpriteNode *node = [[SKSpriteNode alloc]init];
     node.size = self.size;
     node.position = CGPointZero;  //设置自身锚点在父节点的坐标
@@ -44,14 +48,20 @@
     return scene;
 }
 -(void)buildTimeAndScore{
-    self.score = 0;
+
     self.timeLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     self.timeLabel.text = [NSString stringWithFormat:@"TIME: %3ld",(long)self.time];
     self.timeLabel.fontSize = 40;
     self.timeLabel.position = CGPointMake(120, 50);
     self.timeLabel.fontColor = [SKColor blackColor];
-    
     [self.scene addChild:self.timeLabel];
+    
+    self.clickLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    self.clickLabel.text = [NSString stringWithFormat:@"click: %4ld",(long)self.click];
+    self.clickLabel.fontSize = 40;
+    self.clickLabel.position = CGPointMake(460, 50);
+    self.clickLabel.fontColor = [SKColor blackColor];
+    [self.scene addChild:self.clickLabel];
     
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
@@ -76,36 +86,70 @@
 -(void)ChangeInterval{
     
     self.time += 1;
+    if (self.time >= 300) {
+        _score +=200;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
+        [self success];
+        
+        return;
+    }
     self.score += 100;
     self.timeLabel.text = [NSString stringWithFormat:@"TIME: %3ld",(long)self.time];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
+    SKSpriteNode *bird = (SKSpriteNode *)[self.scene childNodeWithName:@"bird"];
     if (self.time > 200) {
         self.interval = 2.0;
+        self.score += 100;
+         bird.physicsBody.restitution = 0.9;
     }else if (self.time > 100){
         self.interval = 2.8;
+        self.score += 50;
+        bird.physicsBody.restitution = 0.8;
     }else if (self.time > 50){
         self.interval = 3.4;
+        self.score += 20;
+         bird.physicsBody.restitution = 0.7;
     }else{
         self.interval = 4.0;
     }
-
+    if (bird.position.x < -200 && !self.isgameover) {
+        [self gameover];
+    }
+    
 
 }
-
+-(void)success{
+    for (SKSpriteNode *node in self.children) {
+        [node removeAllActions];
+    }
+    flyingbirdSuccessScene *scene = [[flyingbirdSuccessScene alloc]initWithSize:CGSizeMake(1024, 768)];
+    scene.position = CGPointZero;
+    scene.anchorPoint = CGPointZero;
+    SKTransition *trans = [SKTransition doorwayWithDuration:1.0];
+    [self.view presentScene:scene transition:trans];
+}
 -(void)mouseDown:(NSEvent *)event{
-//    CGPoint point = [event locationInNode:[self childNodeWithName:@"background"]];
-//    NSLog(@"x = %f y = %f",point.x, point.y);
-    SKSpriteNode *bird = (SKSpriteNode *)[self childNodeWithName:@"bird"];
-    if (bird) {
-//        [bird.physicsBody applyForce:CGVectorMake(0.0, 490)];
-//        [bird.physicsBody applyForce:CGVectorMake(0.0, 9.8) atPoint:CGPointMake(CGRectGetMidX(bird.frame), 768)];
-        [bird.physicsBody applyImpulse:CGVectorMake(0.0, 200)];
+    if (!_isgameover) {
+        self.click += 1;
+        self.score -= 5;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
+        self.clickLabel.text = [NSString stringWithFormat:@"click:%4ld",self.click];
+        SKSpriteNode *bird = (SKSpriteNode *)[self childNodeWithName:@"bird"];
+        if (bird) {
+            [bird.physicsBody applyImpulse:CGVectorMake(0.0, 200)];
+        }
     }
 }
 -(void)rightMouseDown:(NSEvent *)event{
-    SKSpriteNode *bird = (SKSpriteNode *)[self childNodeWithName:@"bird"];
-    if (bird) {
-        [bird.physicsBody applyImpulse:CGVectorMake(40.0, 0.0)];
+    if (!_isgameover) {
+        self.click += 1;
+        self.score -= 5;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
+        self.clickLabel.text = [NSString stringWithFormat:@"click:%4ld",self.click];
+        SKSpriteNode *bird = (SKSpriteNode *)[self childNodeWithName:@"bird"];
+        if (bird) {
+            [bird.physicsBody applyImpulse:CGVectorMake(40.0, 0.0)];
+        }
     }
 }
 
@@ -123,15 +167,15 @@
     bird.physicsBody.contactTestBitMask = 2;
     bird.anchorPoint = CGPointMake(0.5, 0.5);
     bird.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    bird.physicsBody.restitution = 0.8;
+    bird.physicsBody.restitution = 0.6;
     [self addChild:bird];
     
 }
 
 
 -(void)buildHinder{
-    CGFloat position = rand() * 0.8 / RAND_MAX;
-//    NSLog(@"%f",position);
+//    CGFloat position = rand() * 0.8 / RAND_MAX;
+    CGFloat position = arc4random()%100 / 100.0 * 0.8;
     SKSpriteNode *upHinder = [[SKSpriteNode alloc]initWithImageNamed:@"hinder-up.png"];
     upHinder.name = @"hinder";
     SKSpriteNode *downHinder = [[SKSpriteNode alloc]initWithImageNamed:@"hinder-down.png"];
@@ -160,6 +204,10 @@
         [self.scoreLabel removeFromParent];
         [self addChild:self.scoreLabel];
     }
+    if (self.clickLabel) {
+        [self.clickLabel removeFromParent];
+        [self addChild:self.clickLabel];
+    }
     
                                  
     
@@ -172,17 +220,24 @@
 
 -(void)didSimulatePhysics{
     [self enumerateChildNodesWithName:@"hinder" usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
-        if (node.position.x < -128) {
+        if (node.position.x < -300) {
             [node removeFromParent];
         }
     }];
     //当障碍物向左移出屏幕时，移除节点节约性能
     SKSpriteNode *bird = (SKSpriteNode *)[self childNodeWithName:@"bird"];
-    if (bird.position.x < -300 && !self.isgameover) {
+    if (bird.position.x < -200 && !self.isgameover) {
+    [self gameover];
+    }
+    
+}
+-(void)gameover{
+
         self.isgameover = YES;
         for (SKSpriteNode *node in self.children) {
             [node removeAllActions];
         }
+        self.physicsWorld.contactDelegate = nil;
         [self.mapmoveTimer invalidate];
         [_scoreTimer invalidate];
         SKLabelNode *gameover = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -191,8 +246,19 @@
         gameover.position = CGPointMake(200, 600);
         gameover.fontColor = [SKColor blackColor];
         [self addChild:gameover];
+  
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact{
+    
+    SKSpriteNode *planeNode = (SKSpriteNode *)[contact.bodyA node];
+    SKSpriteNode *rockNode = (SKSpriteNode *)[contact.bodyB node];
+    if (planeNode.physicsBody.categoryBitMask == 1 && rockNode.physicsBody.categoryBitMask == 2) {
+        self.score -= 10;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %7ld",(long)self.score];
     }
     
 }
+
 
 @end

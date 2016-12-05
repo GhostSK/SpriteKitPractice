@@ -159,13 +159,23 @@
         rockNode = (SKSpriteNode *)[contact.bodyA node];
     }
     if (planeNode.physicsBody.categoryBitMask == 1 && rockNode.physicsBody.categoryBitMask == 2) {
-        [rockNode removeAllActions];
-        [rockNode removeFromParent];
-        [planeNode removeAllActions];
-        SKAction *fade = [SKAction fadeInWithDuration:1.0];
-        [planeNode runAction:fade];
-        [planeNode removeFromParent];
-        NSLog(@"gameover");
+//        [rockNode removeAllActions];
+//        [rockNode removeFromParent];
+//        [planeNode removeAllActions];
+//        SKAction *fade = [SKAction fadeInWithDuration:1.0];
+//        [planeNode runAction:fade];
+//        [planeNode removeFromParent];
+//        for (SKSpriteNode *node in self.children) {
+//            [node removeAllActions];
+//        }
+//        SKLabelNode *gameover = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+//        gameover.text = @"GAME OVER!";
+//        gameover.fontSize = 55;
+//        gameover.position = CGPointMake(200, 600);
+//        gameover.fontColor = [SKColor whiteColor];
+//        [self removeAllActions];
+//        [self addChild:gameover];
+        
     }
 }
 @end

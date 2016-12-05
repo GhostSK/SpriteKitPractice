@@ -9,6 +9,7 @@
 #import "HelloScene.h"
 #import "SpaceShipScene.h"
 #import "FlyingBirds.h"
+#import "LinkScene.h"
 @interface HelloScene()
 
 @property BOOL contentCreated;
@@ -66,7 +67,7 @@
 
 //helloWorld 键盘输入检测
 -(void)keyDown:(NSEvent *)event{
-//    NSLog(@"keyDown:'%@' keyCode: 0x%02X", event.characters, event.keyCode);
+   NSLog(@"keyDown:'%@' keyCode: %02D", event.characters, event.keyCode);
     switch (event.keyCode) {
         
         case 0x7B:
@@ -85,6 +86,12 @@
         {
             FlyingBirds *scene = [[FlyingBirds alloc]initWithSize:self.size];
             SKTransition *transition = [SKTransition doorsCloseVerticalWithDuration:1.0];
+            [self.view presentScene:scene transition:transition];
+            break;
+        }
+        case 37:{
+            LinkScene *scene = [[LinkScene alloc]initWithSize:self.size];
+            SKTransition *transition = [SKTransition fadeWithColor:[SKColor greenColor] duration:2.0];
             [self.view presentScene:scene transition:transition];
             break;
         }
