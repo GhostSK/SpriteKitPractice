@@ -10,6 +10,7 @@
 #import "SpaceShipScene.h"
 #import "FlyingBirds.h"
 #import "LinkScene.h"
+#import "PushScene.h"
 @interface HelloScene()
 
 @property BOOL contentCreated;
@@ -87,6 +88,11 @@
             FlyingBirds *scene = [[FlyingBirds alloc]initWithSize:self.size];
             SKTransition *transition = [SKTransition doorsCloseVerticalWithDuration:1.0];
             [self.view presentScene:scene transition:transition];
+            break;
+        }
+        case 35:{
+            PushScene *scene = [[PushScene alloc]initWithSize:self.size];
+            [self.view presentScene:scene];
             break;
         }
         case 37:{

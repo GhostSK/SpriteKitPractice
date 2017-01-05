@@ -49,7 +49,8 @@
     spaceship.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:spaceship.size center:CGPointMake(0.5, 0.5)];
     spaceship.physicsBody.dynamic = NO;
     spaceship.physicsBody.categoryBitMask = 1; //飞机的碰撞标识符为1
-    spaceship.physicsBody.contactTestBitMask = 2; //可与2类物理体碰撞
+    spaceship.physicsBody.collisionBitMask = 1;
+    spaceship.physicsBody.contactTestBitMask = 1;
     [self addChild:spaceship];
     
     //生成岩石
@@ -79,8 +80,9 @@
     rock.name = @"rock";
     rock.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rock.size center:CGPointMake(0.5, 0.5)];
     rock.physicsBody.dynamic = YES;
-    rock.physicsBody.categoryBitMask = 2; //岩石的标识符为2
-    rock.physicsBody.contactTestBitMask = 1; //可以与1类物理体碰撞
+    rock.physicsBody.categoryBitMask = 3; //岩石的标识符为2
+    rock.physicsBody.collisionBitMask = 3; //可以与1类物理体碰撞
+    rock.physicsBody.contactTestBitMask = 3;
     [self addChild:rock];
 }
 
@@ -152,29 +154,29 @@
 }
 #pragma mark 碰撞检测
 -(void)didBeginContact:(SKPhysicsContact *)contact{
-    SKSpriteNode *planeNode = (SKSpriteNode *)[contact.bodyA node];
-    SKSpriteNode *rockNode = (SKSpriteNode *)[contact.bodyB node];
+    SKSpriteNode *planeNode = (SKSpriteNode *)contact.bodyA.node;
+    SKSpriteNode *rockNode = (SKSpriteNode *)contact.bodyB.node;
     if ([planeNode.name isEqualToString:@"rock"]) {
         planeNode = (SKSpriteNode *)[contact.bodyB node];
         rockNode = (SKSpriteNode *)[contact.bodyA node];
     }
-    if (planeNode.physicsBody.categoryBitMask == 1 && rockNode.physicsBody.categoryBitMask == 2) {
-//        [rockNode removeAllActions];
-//        [rockNode removeFromParent];
-//        [planeNode removeAllActions];
-//        SKAction *fade = [SKAction fadeInWithDuration:1.0];
-//        [planeNode runAction:fade];
-//        [planeNode removeFromParent];
-//        for (SKSpriteNode *node in self.children) {
-//            [node removeAllActions];
-//        }
-//        SKLabelNode *gameover = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-//        gameover.text = @"GAME OVER!";
-//        gameover.fontSize = 55;
-//        gameover.position = CGPointMake(200, 600);
-//        gameover.fontColor = [SKColor whiteColor];
-//        [self removeAllActions];
-//        [self addChild:gameover];
+    if (planeNode.physicsBody.categoryBitMask == 1 && rockNode.physicsBody.categoryBitMask == 3) {
+        [rockNode removeAllActions];
+        [rockNode removeFromParent];
+        [planeNode removeAllActions];
+        SKAction *fade = [SKAction fadeInWithDuration:1.0];
+        [planeNode runAction:fade];
+        [planeNode removeFromParent];
+        for (SKSpriteNode *node in self.children) {
+            [node removeAllActions];
+        }
+        SKLabelNode *gameover = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        gameover.text = @"GAME OVER!";
+        gameover.fontSize = 55;
+        gameover.position = CGPointMake(200, 600);
+        gameover.fontColor = [SKColor whiteColor];
+        [self removeAllActions];
+        [self addChild:gameover];
         
     }
 }

@@ -189,7 +189,7 @@
     upHinder.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:upHinder.size center:CGPointMake(upHinder.anchorPoint.x + upHinder.size.width / 2, upHinder.anchorPoint.y - upHinder.size.height / 2)];
     upHinder.physicsBody.dynamic = NO;
     upHinder.physicsBody.categoryBitMask = 2;
-    upHinder.physicsBody.contactTestBitMask = 1;
+    upHinder.physicsBody.contactTestBitMask = 3;
     downHinder.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:downHinder.size center:CGPointMake(downHinder.anchorPoint.x + downHinder.size.width / 2, downHinder.anchorPoint.y + downHinder.size.height / 2)];
     downHinder.physicsBody.dynamic = NO;
     downHinder.physicsBody.categoryBitMask = 2;

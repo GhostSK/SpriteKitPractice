@@ -56,7 +56,7 @@
         case 18:{ //大键盘数字1
             NSLog(@"现在是弹簧连接spring");
             _nodeA.position = CGPointMake(400, 700);
-            _nodeA.physicsBody.dynamic = YES;
+            _nodeA.physicsBody.dynamic = NO;
             [self.scene addChild:_nodeA];
             _nodeB.position = CGPointMake(400, 500);
             [self.scene addChild:_nodeB];
@@ -68,17 +68,27 @@
             break;
         }
         case 19:{ //大键盘数字2
-            SKSpriteNode *point = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(5, 5)];
-            point.position = CGPointMake(500, 600);
+            SKSpriteNode *point = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(50, 50)];
+            point.position = CGPointMake(300, 400);
             point.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:point.size];
             point.physicsBody.dynamic = NO;
+            SKSpriteNode *point2 = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(50, 50)];
+            point2.position = CGPointMake(250, 450);
+            point2.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:point.size];
+            point2.physicsBody.dynamic = NO;
+            SKSpriteNode *point3 = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(50, 50)];
+            point3.position = CGPointMake(350, 450);
+            point3.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:point.size];
+            point3.physicsBody.dynamic = NO;
             [self.scene addChild:point];
+            [self.scene addChild:point2];
+            [self.scene addChild:point3];
             _nodeA.position = CGPointMake(300, 650);
-            _nodeB.position = CGPointMake(400, 730);
+            _nodeB.position = CGPointMake(500, 730);
             [self.scene addChild:_nodeA];
-            _nodeA.physicsBody.dynamic = NO;
+            _nodeA.physicsBody.dynamic = YES;
             [self.scene addChild:_nodeB];
-            SKPhysicsJointLimit *limit = [SKPhysicsJointLimit jointWithBodyA:_nodeA.physicsBody bodyB:_nodeB.physicsBody anchorA:CGPointMake(300, 700) anchorB:CGPointMake(300, 630)];
+            SKPhysicsJointLimit *limit = [SKPhysicsJointLimit jointWithBodyA:_nodeA.physicsBody bodyB:_nodeB.physicsBody anchorA:CGPointMake(400, 650) anchorB:_nodeB.position];
             limit.maxLength = 300;
             [self.scene.physicsWorld addJoint:limit];
             break;
@@ -87,12 +97,23 @@
         }
         case 20:{//大键盘数字3
             _nodeA.position = CGPointMake(500, 500);
-            _nodeB.position = CGPointMake(564, 500);
+            _nodeB.position = CGPointMake(600, 600);
             [self.scene addChild:_nodeB];
             [self.scene addChild:_nodeA];
+            
+            SKSpriteNode *node = [[SKSpriteNode alloc]initWithColor:[SKColor blackColor] size:CGSizeMake(3, 3)];
+            node.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(3, 3)];
+            node.physicsBody.dynamic = NO;
+            node.position = CGPointMake(532, 300);
+            [self.scene addChild:node];
+            
             _nodeA.physicsBody.dynamic = NO;
-            SKPhysicsJointPin *pin = [SKPhysicsJointPin jointWithBodyA:_nodeA.physicsBody bodyB:_nodeB.physicsBody anchor:CGPointMake(564, 436)];
+            SKPhysicsJointPin *pin = [SKPhysicsJointPin jointWithBodyA:_nodeA.physicsBody bodyB:_nodeB.physicsBody anchor:CGPointMake(560, 500)];
+            pin.rotationSpeed = 100;
             [self.scene.physicsWorld addJoint:pin];
+            
+            
+            
             break;
             
         }
@@ -102,7 +123,19 @@
             _nodeA.anchorPoint = CGPointZero;
             _slide.anchorPoint = CGPointZero;
             _slide.position = CGPointMake(200, 500);
-            _slide.physicsBody.dynamic = NO;
+            _slide.physicsBody.dynamic = YES;
+            
+            SKSpriteNode *node = [[SKSpriteNode alloc]initWithColor:[SKColor blackColor] size:CGSizeMake(3, 3)];
+            node.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(3, 3)];
+            node.physicsBody.dynamic = NO;
+            node.position = CGPointMake(190, 300);
+            [self.scene addChild:node];
+            SKSpriteNode *node2 = [[SKSpriteNode alloc]initWithColor:[SKColor blackColor] size:CGSizeMake(3, 3)];
+            node2.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(3, 3)];
+            node2.physicsBody.dynamic = NO;
+            node2.position = CGPointMake(700, 300);
+            [self.scene addChild:node2];
+            
             [self.scene addChild:_slide];
             _nodeA.physicsBody.dynamic = YES;
             SKPhysicsJointSliding *sliding = [SKPhysicsJointSliding jointWithBodyA:_nodeA.physicsBody bodyB:_slide.physicsBody anchor:_nodeA.anchorPoint axis:CGVectorMake(5.0, 0.0)];
@@ -110,7 +143,7 @@
             sliding.shouldEnableLimits = YES;
             sliding.lowerDistanceLimit = -100;
             sliding.upperDistanceLimit = 300;
-            self.physicsWorld.gravity = CGVectorMake(-4.9, 0.0);
+            self.physicsWorld.gravity = CGVectorMake(0.0,-9.8);
             break;
         }
         case 23:{//大键盘数字5
@@ -129,6 +162,7 @@
             if ([self.scene childNodeWithName:@"A"]) {
                 [_nodeA removeFromParent];
                 [_nodeB removeFromParent];
+//                SKTransition;
             }
         }
         default:

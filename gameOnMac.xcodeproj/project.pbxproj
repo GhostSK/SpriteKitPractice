@@ -11,6 +11,7 @@
 		B637210E1DEC0F52007D4EB9 /* LinkScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B637210D1DEC0F52007D4EB9 /* LinkScene.m */; };
 		B63721101DEC1EC0007D4EB9 /* rocket2.png in Resources */ = {isa = PBXBuildFile; fileRef = B637210F1DEC1EC0007D4EB9 /* rocket2.png */; };
 		B63721121DEC1EC6007D4EB9 /* rocket.png in Resources */ = {isa = PBXBuildFile; fileRef = B63721111DEC1EC6007D4EB9 /* rocket.png */; };
+		B63F76021E1365FE00FC0D2C /* PushScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B63F76011E1365FE00FC0D2C /* PushScene.m */; };
 		B646DC0F1DDEA5FD009038D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC0E1DDEA5FD009038D6 /* AppDelegate.m */; };
 		B646DC121DDEA5FD009038D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B646DC111DDEA5FD009038D6 /* main.m */; };
 		B646DC141DDEA5FD009038D6 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B646DC131DDEA5FD009038D6 /* GameScene.sks */; };
@@ -57,6 +58,8 @@
 		B637210D1DEC0F52007D4EB9 /* LinkScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkScene.m; sourceTree = "<group>"; };
 		B637210F1DEC1EC0007D4EB9 /* rocket2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rocket2.png; sourceTree = "<group>"; };
 		B63721111DEC1EC6007D4EB9 /* rocket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rocket.png; sourceTree = "<group>"; };
+		B63F76001E1365FE00FC0D2C /* PushScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushScene.h; sourceTree = "<group>"; };
+		B63F76011E1365FE00FC0D2C /* PushScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushScene.m; sourceTree = "<group>"; };
 		B646DC0A1DDEA5FD009038D6 /* gameOnMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOnMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B646DC0D1DDEA5FD009038D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B646DC0E1DDEA5FD009038D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				B6352A8D1DE8190F0097A974 /* flyingbirdSuccessScene.m */,
 				B637210C1DEC0F52007D4EB9 /* LinkScene.h */,
 				B637210D1DEC0F52007D4EB9 /* LinkScene.m */,
+				B63F76001E1365FE00FC0D2C /* PushScene.h */,
+				B63F76011E1365FE00FC0D2C /* PushScene.m */,
 				B646DC1D1DDEA5FD009038D6 /* Assets.xcassets */,
 				B646DC1F1DDEA5FD009038D6 /* Main.storyboard */,
 				B646DC221DDEA5FD009038D6 /* Info.plist */,
@@ -262,7 +267,7 @@
 		B646DC021DDEA5FD009038D6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "胡杨林";
 				TargetAttributes = {
 					B646DC091DDEA5FD009038D6 = {
@@ -350,6 +355,7 @@
 				B646DC121DDEA5FD009038D6 /* main.m in Sources */,
 				B637210E1DEC0F52007D4EB9 /* LinkScene.m in Sources */,
 				B6FFF9851DE59884003CCD58 /* FlyingBirds.m in Sources */,
+				B63F76021E1365FE00FC0D2C /* PushScene.m in Sources */,
 				B646DC191DDEA5FD009038D6 /* GameScene.m in Sources */,
 				B6352A8E1DE8190F0097A974 /* flyingbirdSuccessScene.m in Sources */,
 				B6B13A7F1DDEE98D00B9188E /* SpaceShipScene.m in Sources */,
@@ -419,6 +425,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -466,6 +473,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
