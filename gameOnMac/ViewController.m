@@ -32,4 +32,21 @@
     [self.skView.scene rightMouseDown:event];
 }
 
+-(void)otherMouseDown:(NSEvent *)event{
+    NSLog(@"BBBBBB");
+    [self.skView.scene otherMouseDown:event];
+}
+-(void)otherMouseDragged:(NSEvent *)event{
+    NSLog(@"CCCCCC");
+}
+-(void)scrollWheel:(NSEvent *)event{
+    NSLog(@"DDDDDD");
+}
+-(void)mouseMoved:(NSEvent *)event{
+    NSLog(@"EEEEE");
+}
+-(void)mouseEntered:(NSEvent *)event{
+    NSLog(@"FFFFFF");
+}
+
 @end

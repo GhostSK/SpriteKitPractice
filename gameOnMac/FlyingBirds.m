@@ -54,6 +54,7 @@
     self.timeLabel.fontSize = 40;
     self.timeLabel.position = CGPointMake(120, 50);
     self.timeLabel.fontColor = [SKColor blackColor];
+    self.timeLabel.zPosition = 1.0;
     [self.scene addChild:self.timeLabel];
     
     self.clickLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -61,6 +62,7 @@
     self.clickLabel.fontSize = 40;
     self.clickLabel.position = CGPointMake(460, 50);
     self.clickLabel.fontColor = [SKColor blackColor];
+    self.clickLabel.zPosition = 1.0;
     [self.scene addChild:self.clickLabel];
     
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -68,6 +70,7 @@
     self.scoreLabel.fontSize = 40;
     self.scoreLabel.position = CGPointMake(850, 50);
     self.scoreLabel.fontColor = [SKColor blackColor];
+    self.scoreLabel.zPosition = 1.0;
     [self.scene addChild:self.scoreLabel];
     
     
@@ -152,7 +155,9 @@
         }
     }
 }
-
+-(void)otherMouseDown:(NSEvent *)event{
+    NSLog(@"AAAAA");
+}
 
 -(void)mapAction{
     [self movehinder];
@@ -174,7 +179,6 @@
 
 
 -(void)buildHinder{
-//    CGFloat position = rand() * 0.8 / RAND_MAX;
     CGFloat position = arc4random()%100 / 100.0 * 0.8;
     SKSpriteNode *upHinder = [[SKSpriteNode alloc]initWithImageNamed:@"hinder-up.png"];
     upHinder.name = @"hinder";
@@ -196,18 +200,6 @@
     downHinder.physicsBody.contactTestBitMask = 1;
     [self addChild:upHinder];
     [self addChild:downHinder];
-    if (self.timeLabel) {
-        [self.timeLabel removeFromParent];
-        [self.scene addChild:self.timeLabel];
-    }
-    if (self.scoreLabel) {
-        [self.scoreLabel removeFromParent];
-        [self addChild:self.scoreLabel];
-    }
-    if (self.clickLabel) {
-        [self.clickLabel removeFromParent];
-        [self addChild:self.clickLabel];
-    }
     
                                  
     
