@@ -43,7 +43,7 @@ class GameScene: SKScene {
     var turnPoint2 :CGPoint? = nil
     
     override func didMove(to view: SKView) {
-        
+
         
         for i in (0..<100) {
             let wid = 31
@@ -160,7 +160,7 @@ class GameScene: SKScene {
             return
         }
         let p1 = objectArr[0]
-        let p :SKSpriteNode = p1 as! SKSpriteNode
+        let p = p1 as! SKSpriteNode
         if selected1 == nil {
             selected1 = p
             selected1?.color = SKColor.red
@@ -316,46 +316,46 @@ class GameScene: SKScene {
     }
     func isLink() -> Bool {
         let name1 = selected1?.name
-        let Point1x:Int = Int(name1!)! / 10 + 2 //第一个方块的横坐标
-        let Point1y:Int = Int(name1!)! % 10 + 2 //第一个方块的纵坐标
-        let Point1StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，最后一个例外，方块左侧
-        let Point1StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，最后一个不拓展，方块右侧
-        let Point1StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，最后一个不拓展，方块上方
-        let Point1StartArrYDown = NSMutableArray()  //每一个元素做横向拓展，最后一个不拓展，方块下方
+        let Point1x:Int = Int(name1!)! / 10 + 1 //第一个方块的横坐标
+        let Point1y:Int = Int(name1!)! % 10 + 1 //第一个方块的纵坐标
+        let Point1StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，方块左侧
+        let Point1StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，方块右侧
+        let Point1StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，方块上方
+        let Point1StartArrYDown = NSMutableArray()  //每一个元素做横向拓展，方块下方
         let Po1 = selected1?.position
         for i in 1...Point1x{ // 第一个点的左边
             let PointNow = CGPoint(x: (Po1?.x)! - CGFloat(i) * 31, y: (Po1?.y)!)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
-            Point1StartArrXLeft.add(PointNowValue)
-            if nodes(at: PointNow).count > 0 { //如果撞到实体方块，该方块成为列表最后一个（不会拓展），结束循环
-                //否则撞到外界第二层边界，不做拓展
+            if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
+                Point1StartArrXLeft.add(PointNowValue)
+            }else{
                 break
             }
         }
-        for i in 1...13-Point1x {  //第一个点的右边
+        for i in 1...11-Point1x {  //第一个点的右边
             let PointNow = CGPoint(x: (Po1?.x)! + CGFloat(i) * 31, y: (Po1?.y)!)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
-            Point1StartArrXRight.add(PointNowValue)
-            if nodes(at: PointNow).count > 0 { //如果撞到实体方块，该方块成为列表最后一个（不会拓展），结束循环
-                //否则撞到外界第二层边界，不做拓展
+            if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
+                Point1StartArrXRight.add(PointNowValue)
+            }else{
                 break
             }
         }
         for i in 1...Point1y{ // 第一个点的上边
             let PointNow = CGPoint(x: (Po1?.x)!, y: (Po1?.y)! + CGFloat(i) * 31)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
-            Point1StartArrYUp.add(PointNowValue)
-            if nodes(at: PointNow).count > 0 { //如果撞到实体方块，该方块成为列表最后一个（不会拓展），结束循环
-                //否则撞到外界第二层边界，不做拓展
+            if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
+                Point1StartArrYUp.add(PointNowValue)
+            }else{
                 break
             }
         }
-        for i in 1...13-Point1y {
+        for i in 1...11-Point1y {
             let PointNow = CGPoint(x: (Po1?.x)!, y: (Po1?.y)! - CGFloat(i) * 31)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
-            Point1StartArrYDown.add(PointNowValue)
-            if nodes(at: PointNow).count > 0 { //如果撞到实体方块，该方块成为列表最后一个（不会拓展），结束循环
-                //否则撞到外界第二层边界，不做拓展
+            if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
+                Point1StartArrYDown.add(PointNowValue)
+            }else{
                 break
             }
         }
@@ -363,10 +363,10 @@ class GameScene: SKScene {
         let name2 = selected2?.name
         let Point2x:Int = Int(name2!)! / 10 + 1 //第一个方块的横坐标
         let Point2y:Int = Int(name2!)! % 10 + 1 //第一个方块的纵坐标
-        let Point2StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，最后一个例外，方块左侧
-        let Point2StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，最后一个不拓展，方块右侧
-        let Point2StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，最后一个不拓展，方块上方
-        let Point2StartArrYDown = NSMutableArray()  //每一个元素做横向拓展，最后一个不拓展，方块下方
+        let Point2StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，方块左侧
+        let Point2StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，方块右侧
+        let Point2StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，方块上方
+        let Point2StartArrYDown = NSMutableArray()  //每一个元素做横向拓展，方块下方
         let Po2 = selected2?.position
         for i in 1...Point2x{ // 第二个点的左边
             let PointNow = CGPoint(x: (Po2?.x)! - CGFloat(i) * 31, y: (Po2?.y)!)
@@ -406,30 +406,65 @@ class GameScene: SKScene {
         }
         //以上为第二点四项拓展，只包括空位，不包括邻接方块
         //开始判断连线情况，首先第一种情况，两个方块直线相连口-----口
-        //这种情况第二点一定位于第一点四个方向的终端节点上，直接进行判断
-        var a = Point1StartArrXLeft.lastObject as! NSValue
-        var aP = a.cgPointValue
-        if aP.x == selected2?.position.x && aP.y == selected2?.position.y {
-            print("成功配对-左")
-            return true
+       
+        //如果两个方块直接相邻，则双方横纵坐标中会有一个相等而另一个仅相差一个边长值
+        if (selected1?.position.x)!  == (selected2?.position.x)! {
+            if (selected1?.position.y)! + 31 == (selected2?.position.y)! || (selected1?.position.y)! - 31 == (selected2?.position.y)! {
+                print("成功配对相邻-纵向")
+                return true
+            }
+        }else if (selected1?.position.y)!  == (selected2?.position.y)! {
+            if (selected1?.position.x)! + 31 == (selected2?.position.x)! || (selected1?.position.x)! - 31 == (selected2?.position.x)! {
+                print("成功配对相邻-横向")
+                return true
+            }
         }
-        a = Point1StartArrXRight.lastObject as! NSValue
-        aP = a.cgPointValue
-        if aP.x == selected2?.position.x && aP.y == selected2?.position.y {
-            print("成功配对-右")
-            return true
+        //排除了直接相邻的情况，利用四向列表进行判断
+        var a: NSValue? = nil
+        var aP: CGPoint? = nil
+        var b: NSValue? = nil
+        var bP: CGPoint? = nil
+        
+        if Point1StartArrXLeft.count > 0 && Point2StartArrXRight.count > 0 {
+            a = Point1StartArrXLeft.lastObject as? NSValue
+            aP = a?.cgPointValue
+            b = Point2StartArrXRight.firstObject as? NSValue
+            bP = b?.cgPointValue
+            
+            if aP?.x == bP?.x && aP?.y == bP?.y {
+                print("成功配对-左")
+                return true
+            }
         }
-        a = Point1StartArrYUp.lastObject as! NSValue
-        aP = a.cgPointValue
-        if aP.x == selected2?.position.x && aP.y == selected2?.position.y {
-            print("成功配对-上")
-            return true
+        if Point1StartArrXRight.count > 0  && Point2StartArrXLeft.count > 0 {
+            a = Point1StartArrXRight.lastObject as? NSValue
+            aP = a?.cgPointValue
+            b = Point2StartArrXLeft.firstObject as? NSValue
+            bP = b?.cgPointValue
+            if aP?.x == bP?.x && aP?.y == bP?.y {
+                print("成功配对-右")
+                return true
+            }
         }
-        a = Point1StartArrYDown.lastObject as! NSValue
-        aP = a.cgPointValue
-        if aP.x == selected2?.position.x && aP.y == selected2?.position.y {
-            print("成功配对-下")
-            return true
+        if Point1StartArrYUp.count > 0 && Point2StartArrYDown.count > 0 {
+            a = Point1StartArrYUp.lastObject as? NSValue
+            aP = a?.cgPointValue
+            b = Point2StartArrYDown.firstObject as? NSValue
+            bP = b?.cgPointValue
+            if aP?.x == bP?.x && aP?.y == bP?.y {
+                print("成功配对-上")
+                return true
+            }
+        }
+        if Point1StartArrYDown.count > 0 && Point2StartArrYUp.count > 0 {
+            a = Point1StartArrYDown.lastObject as? NSValue
+            aP = a?.cgPointValue
+            b = Point2StartArrYUp.firstObject as? NSValue
+            bP = b?.cgPointValue
+            if aP?.x == bP?.x && aP?.y == bP?.y {
+                print("成功配对-下")
+                return true
+            }
         }
         //如果直线没配对成功，一个转折，用点1的拓展队列（去末尾）跟点二的四项搜索重合，重合则连接成功
         /*可以判断两点的相对方位从而减少工作量，一个折角的话方向都是接近的方向，
