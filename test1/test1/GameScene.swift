@@ -11,16 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var Arr1 :NSMutableArray = []
-    var Arr2 :NSMutableArray = []
-    var Arr3 :NSMutableArray = []
-    var Arr4 :NSMutableArray = []
-    var Arr5 :NSMutableArray = []
-    var Arr6 :NSMutableArray = []
-    var Arr7 :NSMutableArray = []
-    var Arr8 :NSMutableArray = []
-    var Arr9 :NSMutableArray = []
-    var Arr0 :NSMutableArray = []
+    var nodesofGame :NSMutableArray = []
     var selected1 : SKSpriteNode? = nil
     var selected2 : SKSpriteNode? = nil
     let text1 :SKTexture = SKTexture(imageNamed: "text1")
@@ -41,123 +32,23 @@ class GameScene: SKScene {
     var text8Num: Int = 0
     var turnPoint1 :CGPoint? = nil
     var turnPoint2 :CGPoint? = nil
+    var level = 0
+    var canclick : Bool = true
+    var isLocationUpdated: Bool = false
+    
     
     override func didMove(to view: SKView) {
-
-        
-        for i in (0..<100) {
-            let wid = 31
-          let node = SKSpriteNode(color: SKColor.red, size: CGSize(width: wid, height: wid) )
-            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            node.zPosition = 0.0
-            var a = arc4random()%7 + 1
-            if i >= 92 {
-                /*最坏的情况，到第93个方块时（总数-纹理数量个方块）,所有类型的方块数量均为奇数（无法配对消除）
-                这时开始依次对各个种类的方块数量进行判断，如果为奇数，定向补足为偶数，如果全部为偶数，则重新随机
-                 因为最终总的数量为偶数个，所以第100个一定能补上最后一个奇数类
-                 */
-                if text1Num % 2 == 1 {
-                    a = 1
-                }else if text2Num % 2 == 1{
-                    a = 2
-                }else if text3Num % 2 == 1{
-                    a = 3
-                }else if text4Num % 2 == 1{
-                    a = 4
-                }else if text5Num % 2 == 1{
-                    a = 5
-                }else if text6Num % 2 == 1{
-                    a = 6
-                }else if text7Num % 2 == 1{
-                    a = 7
-                }else if text8Num % 2 == 1{
-                    a = 8
-                }else{
-                    a = arc4random()%7 + 1
-                }
-            }
-            switch a {
-            case 1:
-                node.texture = text1
-                text1Num += 1
-                break
-            case 2:
-                node.texture = text2
-                text2Num += 1
-                break
-            case 3:
-                node.texture = text3
-                text3Num += 1
-                break
-            case 4:
-                node.texture = text4
-                text4Num += 1
-                break
-            case 5:
-                node.texture = text5
-                text5Num += 1
-                break
-            case 6:
-                node.texture = text6
-                text6Num += 1
-                break
-            case 7:
-                node.texture = text7
-                text7Num += 1
-                break
-            case 8:
-                node.texture = text8
-                text8Num += 1
-                break
-            default:
-                break
-            }
-            let i10 :Int = i / 10
-            let i1 :Int = i % 10
-            let position = CGPoint(x: ((self.view?.frame.width)! - 310) / 2 + CGFloat(i10) * 31 + 15, y: CGFloat(i1) * 31 + 115)
-            node.position = position
-            node.name = String(format: "%d", i)
-            addChild(node)
-            switch i10 {
-            case 0:
-                Arr0.add(node)
-                break
-            case 1:
-                Arr1.add(node)
-                break
-            case 2:
-                Arr2.add(node)
-                break
-            case 3:
-                Arr3.add(node)
-                break
-            case 4:
-                Arr4.add(node)
-                break
-            case 5:
-                Arr5.add(node)
-                break
-            case 6:
-                Arr6.add(node)
-                break
-            case 7:
-                Arr7.add(node)
-                break
-            case 8:
-                Arr8.add(node)
-                break
-            default:
-                Arr9.add(node)
-                break
-            }
-        }
+        self.newLevel()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !canclick {
+            return
+        }
         let touch : UITouch = (touches as NSSet).anyObject() as! UITouch
         let point = touch.location(in: self)
         let objectArr = self.nodes(at: point)
         if objectArr.count == 0 {
-            return
+            return  //点到空处，什么都不做
         }
         let p1 = objectArr[0]
         let p = p1 as! SKSpriteNode
@@ -170,129 +61,13 @@ class GameScene: SKScene {
             selected1?.colorBlendFactor = 0.0
             selected1 = nil
         }else{
+            canclick = false  //防止点击过快导致崩溃
             selected2 = p
             selected2?.color = SKColor.red
             selected2?.colorBlendFactor = 0.4
             if selected1?.texture == selected2?.texture { //首先你点的两个纹理要一样，否则直接取消两个选中
                 if isLink() {  //然后如果纹理一样，调用isLink判断能否连接
-                    //添加消除连线
-                    //连线顺序点一-（转折点1）-（转折点2）-点二
-                    //连线精灵的起点为起始点锚点-2 -2，终点为终点锚点+2 +2
-                    var line1 : SKSpriteNode? = nil
-                    var line2 : SKSpriteNode? = nil
-                    var line3 : SKSpriteNode? = nil
-                    if turnPoint1 == nil  {  //直线相连
-                        let linePoint1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
-                        let linePoint2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
-                        let width = abs((selected2?.position.x)! - (selected1?.position.x)!) + 4
-                        let height = abs((selected1?.position.y)! - (selected2?.position.y)!) + 4
-                        line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1) , size: CGSize(width: width, height: height))
-                        line1?.zPosition = +1.0
-                        line1?.anchorPoint = CGPoint.zero
-                        if (selected1?.position.x)! < (selected2?.position.x)! || (selected1?.position.y)! < (selected2?.position.y)! {
-                            line1?.position = linePoint1
-                        }else{
-                            line1?.position = linePoint2
-                        }
-                        
-                        addChild(line1!)
-                        
-                        
-                    }else if turnPoint2 == nil{  //单折角连线
-                        let line1Point1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
-                        let line1Point2 = CGPoint(x: (turnPoint1?.x)! - 2, y: (turnPoint1?.y)! - 2)
-                        let line2Point2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
-                        let width1 = abs((turnPoint1?.x)! - (selected1?.position.x)!) + 4
-                        let height1 = abs((turnPoint1?.y)! - (selected1?.position.y)!) + 4
-                        line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width1, height: height1))
-                        line1?.anchorPoint = CGPoint.zero
-                        if (selected1?.position.x)! < (turnPoint1?.x)! || (selected1?.position.y)! < (turnPoint1?.y)!  {
-                            line1?.position = line1Point1
-                        }else{
-                            line1?.position = line1Point2
-                        }
-                        let width2 = abs((turnPoint1?.x)! - (selected2?.position.x)!) + 4
-                        let height2 = abs((turnPoint1?.y)! - (selected2?.position.y)!) + 4
-                        line2 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width2, height: height2))
-                        line2?.anchorPoint = CGPoint.zero
-                        if (selected2?.position.x)! < (turnPoint1?.x)! || (selected2?.position.y)! < (turnPoint1?.y)!  {
-                            line2?.position = line2Point2
-                        }else{
-                            line2?.position = line1Point2
-                        }
-                        addChild(line1!)
-                        addChild(line2!)
-                        
-                        
-                    }else{  //双折角连线
-                        let line1Point1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
-                        let line1Point2 = CGPoint(x: (turnPoint1?.x)! - 2, y: (turnPoint1?.y)! - 2)
-                        let line2Point1 = CGPoint(x: (turnPoint2?.x)! - 2, y: (turnPoint2?.y)! - 2)
-                        let line2Point2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
-                        let width1 = abs((turnPoint1?.x)! - (selected1?.position.x)!) + 4
-                        let height1 = abs((turnPoint1?.y)! - (selected1?.position.y)!) + 4
-                        line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width1, height: height1))
-                        line1?.anchorPoint = CGPoint.zero
-                        if (selected1?.position.x)! < (turnPoint1?.x)! || (selected1?.position.y)! < (turnPoint1?.y)!  {
-                            line1?.position = line1Point1
-                        }else{
-                            line1?.position = line1Point2
-                        }
-                        let width2 = abs((turnPoint1?.x)! - (turnPoint2?.x)!) + 4
-                        let height2 = abs((turnPoint1?.y)! - (turnPoint2?.y)!) + 4
-                        line2 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width2, height: height2))
-                        line2?.anchorPoint = CGPoint.zero
-                        if (turnPoint2?.x)! < (turnPoint1?.x)! || (turnPoint2?.y)! < (turnPoint1?.y)!  {
-                            line2?.position = line2Point1
-                        }else{
-                            line2?.position = line1Point2
-                        }
-                        let width3 = abs((selected2?.position.x)! - (turnPoint2?.x)!) + 4
-                        let height3 = abs((selected2?.position.y)! - (turnPoint2?.y)!) + 4
-                        line3 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width3, height: height3))
-                        line3?.anchorPoint = CGPoint.zero
-                        if (turnPoint2?.x)! < (selected2?.position.x)! || (turnPoint2?.y)! < (selected2?.position.y)! {
-                            line3?.position = line2Point1
-                        }else{
-                            line3?.position = line2Point2
-                        }
-                        addChild(line1!)
-                        addChild(line2!)
-                        addChild(line3!)
-                    }
-                    turnPoint1 = nil
-                    turnPoint2 = nil
-                    //播放音乐,同时等待0.2s
-                    let time02 : TimeInterval = 0.2
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time02, execute: {
-                                            if line1 != nil {
-                                                line1!.removeFromParent()
-                                            }
-                                            if line2 != nil{
-                                                line2!.removeFromParent()
-                                            }
-                                            if line3 != nil{
-                                                line3?.removeFromParent()
-                                            }
-                        
-                        
-                        
-                        self.selected1!.removeFromParent()
-                        self.selected1?.color = SKColor.clear
-                        self.selected1?.colorBlendFactor = 0.0
-                        self.selected1 = nil
-                        self.selected2!.removeFromParent()
-                        self.selected2?.color = SKColor.clear
-                        self.selected2?.colorBlendFactor = 0.0
-                        self.selected2 = nil
-                        if self.children.count == 0 {
-                            let label = SKLabelNode(text: "YOU WIN!")
-                            label.position = CGPoint(x: 200, y: 400)
-                            label.fontSize = 55
-                            label.fontColor = SKColor.white
-                            self.addChild(label)
-                        }
-                    })
+                    self.LinkLine()
                 }else{ //不能连接则取消两个选择
                     selected1?.color = SKColor.clear
                     selected1?.colorBlendFactor = 0.0
@@ -300,6 +75,7 @@ class GameScene: SKScene {
                     selected2?.colorBlendFactor = 0.0
                     selected1 = nil
                     selected2 = nil
+                    canclick = true
                 }
             }else{
                 selected1?.color = SKColor.clear
@@ -308,16 +84,17 @@ class GameScene: SKScene {
                 selected2?.colorBlendFactor = 0.0
                 selected1 = nil
                 selected2 = nil
+                canclick = true
             }
         }
-        
-        
-        
     }
     func isLink() -> Bool {
-        let name1 = selected1?.name
-        let Point1x:Int = Int(name1!)! / 10 + 1 //第一个方块的横坐标
-        let Point1y:Int = Int(name1!)! % 10 + 1 //第一个方块的纵坐标
+        var z = selected1?.position.x
+        var z1 = z! - 15 - ((self.view?.frame.width)! - 310) / 2
+        let Point1x:Int = Int(z1 / 31) + 1 //第一个方块的横坐标
+        z = selected1?.position.y       //通过坐标还原位置可以对方块四项延伸距离进行实时更新
+        z1 = (z! - 115) / 31
+        let Point1y:Int = Int(z1) + 1 //第一个方块的纵坐标
         let Point1StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，方块左侧
         let Point1StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，方块右侧
         let Point1StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，方块上方
@@ -341,7 +118,7 @@ class GameScene: SKScene {
                 break
             }
         }
-        for i in 1...Point1y{ // 第一个点的上边
+        for i in 1...11-Point1y{ // 第一个点的上边
             let PointNow = CGPoint(x: (Po1?.x)!, y: (Po1?.y)! + CGFloat(i) * 31)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
             if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
@@ -350,7 +127,7 @@ class GameScene: SKScene {
                 break
             }
         }
-        for i in 1...11-Point1y {
+        for i in 1...Point1y {
             let PointNow = CGPoint(x: (Po1?.x)!, y: (Po1?.y)! - CGFloat(i) * 31)
             let PointNowValue = NSValue.init(cgPoint: PointNow)
             if nodes(at: PointNow).count == 0 { //如果位置为空，加入列表
@@ -360,9 +137,12 @@ class GameScene: SKScene {
             }
         }
         //到这里，第一个点的四个方向的拓展保存完毕，同样道理对第二个点做同样操作
-        let name2 = selected2?.name
-        let Point2x:Int = Int(name2!)! / 10 + 1 //第一个方块的横坐标
-        let Point2y:Int = Int(name2!)! % 10 + 1 //第一个方块的纵坐标
+        z = selected2?.position.x
+        z1 = z! - 15 - ((self.view?.frame.width)! - 310) / 2
+        let Point2x:Int = Int(z1 / 31) + 1 //第二个方块的横坐标
+        z = selected2?.position.y       //通过坐标还原位置可以对方块四项延伸距离进行实时更新
+        z1 = (z! - 115) / 31
+        let Point2y:Int = Int(z1) + 1 //第二个方块的纵坐标
         let Point2StartArrXLeft = NSMutableArray() //每一个元素做纵向拓展，方块左侧
         let Point2StartArrXRight = NSMutableArray()  //每一个元素做纵向拓展，方块右侧
         let Point2StartArrYUp = NSMutableArray()  //每一个元素做横向拓展，方块上方
@@ -1225,6 +1005,391 @@ class GameScene: SKScene {
         
         //全部方法配对失败，返回false
         return false
+    }
+    
+    func newLevel() {
+        for i in (0..<100) {
+            let wid = 31
+            let node = SKSpriteNode(color: SKColor.red, size: CGSize(width: wid, height: wid) )
+            node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            node.zPosition = 0.0
+            var a = arc4random()%8 + 1
+            if i >= 92 {
+                /*最坏的情况，到第93个方块时（总数-纹理数量个方块）,所有类型的方块数量均为奇数（无法配对消除）
+                 这时开始依次对各个种类的方块数量进行判断，如果为奇数，定向补足为偶数，如果全部为偶数，则重新随机
+                 因为最终总的数量为偶数个，所以第100个一定能补上最后一个奇数类
+                 */
+                if text1Num % 2 == 1 {
+                    a = 1
+                }else if text2Num % 2 == 1{
+                    a = 2
+                }else if text3Num % 2 == 1{
+                    a = 3
+                }else if text4Num % 2 == 1{
+                    a = 4
+                }else if text5Num % 2 == 1{
+                    a = 5
+                }else if text6Num % 2 == 1{
+                    a = 6
+                }else if text7Num % 2 == 1{
+                    a = 7
+                }else if text8Num % 2 == 1{
+                    a = 8
+                }else{
+                    a = arc4random()%7 + 1
+                }
+            }
+            switch a {
+            case 1:
+                node.texture = text1
+                text1Num += 1
+                break
+            case 2:
+                node.texture = text2
+                text2Num += 1
+                break
+            case 3:
+                node.texture = text3
+                text3Num += 1
+                break
+            case 4:
+                node.texture = text4
+                text4Num += 1
+                break
+            case 5:
+                node.texture = text5
+                text5Num += 1
+                break
+            case 6:
+                node.texture = text6
+                text6Num += 1
+                break
+            case 7:
+                node.texture = text7
+                text7Num += 1
+                break
+            case 8:
+                node.texture = text8
+                text8Num += 1
+                break
+            default:
+                break
+            }
+            let i10 :Int = i / 10
+            let i1 :Int = i % 10
+            let position = CGPoint(x: ((self.view?.frame.width)! - 310) / 2 + CGFloat(i10) * 31 + 15, y: CGFloat(i1) * 31 + 115)
+            node.position = position
+            addChild(node)
+            node.name = String(format: "%d", i)
+            nodesofGame.add(node)
+        }
+        //极限情况，在第93块生成时，所有类型均为偶数，此时第93块随机，94块配齐93，95随机，96配齐95从而导致四个连接对
+        //因此在生成结束后将93 95 97 99四块与37 41 63 12对换位置 避免过于简单
+        var temp1 = self.childNode(withName: "93")
+        var temp2 = self.childNode(withName: "37")
+        temp1?.removeFromParent()
+        var tempPosition = temp1?.position
+        temp1?.position = (temp2?.position)!
+        temp2?.removeFromParent()
+        addChild(temp1!)
+        temp2?.position = tempPosition!
+        addChild(temp2!)
+        
+        temp1 = self.childNode(withName: "95")
+        temp2 = self.childNode(withName: "41")
+        temp1?.removeFromParent()
+        tempPosition = temp1?.position
+        temp1?.position = (temp2?.position)!
+        temp2?.removeFromParent()
+        addChild(temp1!)
+        temp2?.position = tempPosition!
+        addChild(temp2!)
+        
+        temp1 = self.childNode(withName: "97")
+        temp2 = self.childNode(withName: "63")
+        temp1?.removeFromParent()
+        tempPosition = temp1?.position
+        temp1?.position = (temp2?.position)!
+        temp2?.removeFromParent()
+        addChild(temp1!)
+        temp2?.position = tempPosition!
+        addChild(temp2!)
+        
+        temp1 = self.childNode(withName: "99")
+        temp2 = self.childNode(withName: "12")
+        temp1?.removeFromParent()
+        tempPosition = temp1?.position
+        temp1?.position = (temp2?.position)!
+        temp2?.removeFromParent()
+        addChild(temp1!)
+        temp2?.position = tempPosition!
+        addChild(temp2!)
+        
+    }
+    
+    func LinkLine() {
+        //添加消除连线
+        //连线顺序点一-（转折点1）-（转折点2）-点二
+        //连线精灵的起点为起始点锚点-2 -2，终点为终点锚点+2 +2
+        var line1 : SKSpriteNode? = nil
+        var line2 : SKSpriteNode? = nil
+        var line3 : SKSpriteNode? = nil
+        if turnPoint1 == nil  {  //直线相连
+            let linePoint1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
+            let linePoint2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
+            let width = abs((selected2?.position.x)! - (selected1?.position.x)!) + 4
+            let height = abs((selected1?.position.y)! - (selected2?.position.y)!) + 4
+            line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1) , size: CGSize(width: width, height: height))
+            line1?.zPosition = +1.0
+            line1?.anchorPoint = CGPoint.zero
+            if (selected1?.position.x)! < (selected2?.position.x)! || (selected1?.position.y)! < (selected2?.position.y)! {
+                line1?.position = linePoint1
+            }else{
+                line1?.position = linePoint2
+            }
+            
+            addChild(line1!)
+            
+            
+        }else if turnPoint2 == nil{  //单折角连线
+            let line1Point1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
+            let line1Point2 = CGPoint(x: (turnPoint1?.x)! - 2, y: (turnPoint1?.y)! - 2)
+            let line2Point2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
+            let width1 = abs((turnPoint1?.x)! - (selected1?.position.x)!) + 4
+            let height1 = abs((turnPoint1?.y)! - (selected1?.position.y)!) + 4
+            line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width1, height: height1))
+            line1?.anchorPoint = CGPoint.zero
+            if (selected1?.position.x)! < (turnPoint1?.x)! || (selected1?.position.y)! < (turnPoint1?.y)!  {
+                line1?.position = line1Point1
+            }else{
+                line1?.position = line1Point2
+            }
+            let width2 = abs((turnPoint1?.x)! - (selected2?.position.x)!) + 4
+            let height2 = abs((turnPoint1?.y)! - (selected2?.position.y)!) + 4
+            line2 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width2, height: height2))
+            line2?.anchorPoint = CGPoint.zero
+            if (selected2?.position.x)! < (turnPoint1?.x)! || (selected2?.position.y)! < (turnPoint1?.y)!  {
+                line2?.position = line2Point2
+            }else{
+                line2?.position = line1Point2
+            }
+            addChild(line1!)
+            addChild(line2!)
+            
+            
+        }else{  //双折角连线
+            let line1Point1 = CGPoint(x: (selected1?.position.x)! - 2, y: (selected1?.position.y)! - 2)
+            let line1Point2 = CGPoint(x: (turnPoint1?.x)! - 2, y: (turnPoint1?.y)! - 2)
+            let line2Point1 = CGPoint(x: (turnPoint2?.x)! - 2, y: (turnPoint2?.y)! - 2)
+            let line2Point2 = CGPoint(x: (selected2?.position.x)! - 2, y: (selected2?.position.y)! - 2)
+            let width1 = abs((turnPoint1?.x)! - (selected1?.position.x)!) + 4
+            let height1 = abs((turnPoint1?.y)! - (selected1?.position.y)!) + 4
+            line1 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width1, height: height1))
+            line1?.anchorPoint = CGPoint.zero
+            if (selected1?.position.x)! < (turnPoint1?.x)! || (selected1?.position.y)! < (turnPoint1?.y)!  {
+                line1?.position = line1Point1
+            }else{
+                line1?.position = line1Point2
+            }
+            let width2 = abs((turnPoint1?.x)! - (turnPoint2?.x)!) + 4
+            let height2 = abs((turnPoint1?.y)! - (turnPoint2?.y)!) + 4
+            line2 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width2, height: height2))
+            line2?.anchorPoint = CGPoint.zero
+            if (turnPoint2?.x)! < (turnPoint1?.x)! || (turnPoint2?.y)! < (turnPoint1?.y)!  {
+                line2?.position = line2Point1
+            }else{
+                line2?.position = line1Point2
+            }
+            let width3 = abs((selected2?.position.x)! - (turnPoint2?.x)!) + 4
+            let height3 = abs((selected2?.position.y)! - (turnPoint2?.y)!) + 4
+            line3 = SKSpriteNode(color: SKColor.init(colorLiteralRed: 0, green: 1, blue: 1, alpha: 1), size: CGSize(width: width3, height: height3))
+            line3?.anchorPoint = CGPoint.zero
+            if (turnPoint2?.x)! < (selected2?.position.x)! || (turnPoint2?.y)! < (selected2?.position.y)! {
+                line3?.position = line2Point1
+            }else{
+                line3?.position = line2Point2
+            }
+            addChild(line1!)
+            addChild(line2!)
+            addChild(line3!)
+        }
+        turnPoint1 = nil
+        turnPoint2 = nil
+        //播放音乐,同时等待0.2s
+        let time02 : TimeInterval = 0.15
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time02, execute: {
+            if line1 != nil {
+                line1!.removeFromParent()
+            }
+            if line2 != nil{
+                line2!.removeFromParent()
+            }
+            if line3 != nil{
+                line3?.removeFromParent()
+            }
+            
+            
+            
+            self.selected1!.removeFromParent()
+            self.nodesofGame.remove(self.selected1!)
+            self.selected1?.color = SKColor.clear
+            self.selected1?.colorBlendFactor = 0.0
+            self.selected1 = nil
+            self.selected2!.removeFromParent()
+            self.nodesofGame.remove(self.selected2!)
+            self.selected2?.color = SKColor.clear
+            self.selected2?.colorBlendFactor = 0.0
+            self.selected2 = nil
+            
+            print("剩余节点计数\(self.nodesofGame.count)")
+            if self.nodesofGame.count == 0 {
+                self.level += 1
+                if self.level == 9 {
+                    let label = SKLabelNode(text: "YOU WIN!")
+                    label.position = CGPoint(x: 200, y: 400)
+                    label.fontSize = 55
+                    label.fontColor = SKColor.white
+                    self.addChild(label)
+                }else{
+                    self.newLevel()
+                }
+                
+            }
+            
+            repeat{ //如果位置有更新，继续运行，直到没有更新
+                self.updateLocation()
+            } while self.isLocationUpdated
+            self.canclick = true  //全部收拾完，恢复点击响应
+        })
+    }
+    
+    func updateLocation() {
+        self.isLocationUpdated = false  //进入本方法后，默认没有位置刷新，如果有，设为true继续循环
+        switch level {
+        case 0: //第一关，静态
+            self.isLocationUpdated = false
+            break
+        case 1:  //垂直下落
+            for i in self.nodesofGame {
+                let node = i as! SKSpriteNode
+                let p1 = node.position
+                if p1.y > 115 {
+                    let p2 = CGPoint(x: p1.x, y: p1.y - 31)
+                    if nodes(at: p2).count == 0 {
+                        node.removeFromParent()
+                        node.position = p2
+                        addChild(node)
+                        self.isLocationUpdated = true
+                    }
+                }
+            }
+            
+            break
+        case 2: //上下分离
+            for i in self.nodesofGame {
+                let node = i as! SKSpriteNode
+                let p1 = node.position
+                if p1.y > 115 && p1.y < 394 {
+                    if p1.y <= 239 {
+                        let p2 = CGPoint(x: p1.x, y: p1.y - 31)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }else{
+                        let p2 = CGPoint(x: p1.x, y: p1.y + 31)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }
+                }
+            }
+            break
+        case 3:  //左右分离
+            for i in self.nodesofGame {
+                let node = i as! SKSpriteNode
+                let p1 = node.position
+                if p1.x > 67 && p1.x < 346 {
+                    if p1.x <= 191 {
+                        let p2 = CGPoint(x: p1.x - 31, y: p1.y)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }else{
+                        let p2 = CGPoint(x: p1.x + 31, y: p1.y)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }
+                }
+            }
+            break
+        case 4: //上下集中
+            for i in self.nodesofGame {
+                let node = i as! SKSpriteNode
+                let p1 = node.position
+                if p1.y >= 115 && p1.y <= 394 {
+                    if p1.y > 240 {
+                        let p2 = CGPoint(x: p1.x, y: p1.y - 31)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }else if p1.y < 239 {  //y = 239下数第五行为最终停留点
+                        let p2 = CGPoint(x: p1.x, y: p1.y + 31)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }
+                }
+            }
+            break
+        case 5: //左右集中
+            for i in self.nodesofGame {
+                let node = i as! SKSpriteNode
+                let p1 = node.position
+                if p1.x >= 67 && p1.x <= 346 {
+                    if p1.x > 191 {
+                        let p2 = CGPoint(x: p1.x - 31, y: p1.y)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }else if p1.x <= 160 {
+                        let p2 = CGPoint(x: p1.x + 31, y: p1.y)
+                        if nodes(at: p2).count == 0 {
+                            node.removeFromParent()
+                            node.position = p2
+                            addChild(node)
+                            self.isLocationUpdated = true
+                        }
+                    }
+                }
+            }
+            break
+
+            
+        default:
+            break
+        }
     }
     
 }
