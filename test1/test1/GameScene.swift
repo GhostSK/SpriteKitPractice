@@ -47,10 +47,6 @@ class GameScene: SKScene {
         
         btn.addTarget(self, action: #selector(reloadlocation), for: UIControlEvents.touchUpInside)
         self.view?.addSubview(btn)
-
-        
-        
-        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !canclick {
@@ -1253,10 +1249,10 @@ class GameScene: SKScene {
             self.selected2?.colorBlendFactor = 0.0
             self.selected2 = nil
             
-            print("剩余节点计数\(self.nodesofGame.count)")
+            //print("剩余节点计数\(self.nodesofGame.count)")
             if self.nodesofGame.count == 0 {
                 self.level += 1
-                if self.level == 9 {
+                if self.level == 6 {
                     let label = SKLabelNode(text: "YOU WIN!")
                     label.position = CGPoint(x: 200, y: 400)
                     label.fontSize = 55
@@ -1278,10 +1274,10 @@ class GameScene: SKScene {
     func updateLocation() {
         self.isLocationUpdated = false  //进入本方法后，默认没有位置刷新，如果有，设为true继续循环
         switch level {
-        case 1: //第一关，静态
+        case 0: //第一关，静态
             self.isLocationUpdated = false
             break
-        case 0:  //垂直下落
+        case 1:  //垂直下落
             for i in self.nodesofGame {
                 let node = i as! SKSpriteNode
                 let p1 = node.position
@@ -1398,7 +1394,7 @@ class GameScene: SKScene {
         print(oldpositionArr)
         for _ in 0...oldpositionArr.count-1 {
             let a = oldpositionArr.count
-            let b = arc4random()%(UInt32(a))
+            let b = arc4random()%(UInt32(a))  //在旧队列的count范围内随机取值，然后放入新队列来打乱顺序
             let p = oldpositionArr[Int(b)]
             oldpositionArr.remove(p)
             newpositionArr.add(p) //将位置点打乱顺序后重新排列
