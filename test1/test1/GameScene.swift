@@ -39,6 +39,18 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.newLevel()
+        let btn = UIButton.init(type: UIButtonType.custom)
+        btn.frame = CGRect(x: 200, y: 150, width: 80, height: 30)
+        btn.backgroundColor = SKColor.white
+        btn.setTitleColor(SKColor.black, for: UIControlState.normal)
+        btn.setTitle("重置", for: UIControlState.normal)
+        
+        btn.addTarget(self, action: #selector(reloadlocation), for: UIControlEvents.touchUpInside)
+        self.view?.addSubview(btn)
+
+        
+        
+        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !canclick {
@@ -1215,7 +1227,7 @@ class GameScene: SKScene {
         }
         turnPoint1 = nil
         turnPoint2 = nil
-        //播放音乐,同时等待0.2s
+        //播放音乐,同时等待0.15s
         let time02 : TimeInterval = 0.15
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time02, execute: {
             if line1 != nil {
@@ -1266,19 +1278,17 @@ class GameScene: SKScene {
     func updateLocation() {
         self.isLocationUpdated = false  //进入本方法后，默认没有位置刷新，如果有，设为true继续循环
         switch level {
-        case 0: //第一关，静态
+        case 1: //第一关，静态
             self.isLocationUpdated = false
             break
-        case 1:  //垂直下落
+        case 0:  //垂直下落
             for i in self.nodesofGame {
                 let node = i as! SKSpriteNode
                 let p1 = node.position
                 if p1.y > 115 {
                     let p2 = CGPoint(x: p1.x, y: p1.y - 31)
                     if nodes(at: p2).count == 0 {
-                        node.removeFromParent()
                         node.position = p2
-                        addChild(node)
                         self.isLocationUpdated = true
                     }
                 }
@@ -1293,17 +1303,13 @@ class GameScene: SKScene {
                     if p1.y <= 239 {
                         let p2 = CGPoint(x: p1.x, y: p1.y - 31)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }else{
                         let p2 = CGPoint(x: p1.x, y: p1.y + 31)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }
@@ -1318,17 +1324,13 @@ class GameScene: SKScene {
                     if p1.x <= 191 {
                         let p2 = CGPoint(x: p1.x - 31, y: p1.y)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }else{
                         let p2 = CGPoint(x: p1.x + 31, y: p1.y)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }
@@ -1343,17 +1345,13 @@ class GameScene: SKScene {
                     if p1.y > 240 {
                         let p2 = CGPoint(x: p1.x, y: p1.y - 31)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }else if p1.y < 239 {  //y = 239下数第五行为最终停留点
                         let p2 = CGPoint(x: p1.x, y: p1.y + 31)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }
@@ -1368,17 +1366,13 @@ class GameScene: SKScene {
                     if p1.x > 191 {
                         let p2 = CGPoint(x: p1.x - 31, y: p1.y)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }else if p1.x <= 160 {
                         let p2 = CGPoint(x: p1.x + 31, y: p1.y)
                         if nodes(at: p2).count == 0 {
-                            node.removeFromParent()
                             node.position = p2
-                            addChild(node)
                             self.isLocationUpdated = true
                         }
                     }
@@ -1389,6 +1383,32 @@ class GameScene: SKScene {
             
         default:
             break
+        }
+    }
+    func reloadlocation() {
+        let oldpositionArr: NSMutableArray = []
+        let newpositionArr: NSMutableArray = []
+        for i in 0...nodesofGame.count-1 {
+            let node = nodesofGame[i]
+            let node1 = node as! SKSpriteNode
+            let p1 = node1.position
+            let p: NSValue = NSValue.init(cgPoint: p1)
+            oldpositionArr.add(p)
+        }  //将所有的位置点记录下来，用于置换位置
+        print(oldpositionArr)
+        for _ in 0...oldpositionArr.count-1 {
+            let a = oldpositionArr.count
+            let b = arc4random()%(UInt32(a))
+            let p = oldpositionArr[Int(b)]
+            oldpositionArr.remove(p)
+            newpositionArr.add(p) //将位置点打乱顺序后重新排列
+        }
+        for i in 0...nodesofGame.count-1 { //重新排列位置
+            let p = nodesofGame[i]
+            let p1 = p as! SKSpriteNode
+            let a = newpositionArr[i] as! NSValue
+            let a1 = a.cgPointValue
+            p1.position = a1
         }
     }
     
