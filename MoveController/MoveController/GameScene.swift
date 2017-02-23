@@ -52,47 +52,59 @@ class GameScene: SKScene {
                 self.ismoveTouch = false
                 return
             }
-            let z = xl / yl
-            let temp =  2500 / (1 + z * z)
-            var ys = sqrt(temp)
-            if yl < 0 {
-                ys = ys * -1
+            var ys:CGFloat
+            var xs:CGFloat
+            if xl * xl + yl * yl > 2500 {
+                let z = xl / yl   //计算比例
+                let temp =  2500 / (1 + z * z)  //xl = z * yl  xs = z * ys 又 xs^2 + ys^2 = 2500 temp = ys^2
+                ys = sqrt(temp)
+                xs = abs(ys * z)
+                if yl < 0 {   //判断ys正负
+                    ys = ys * -1
+                }
+                if xl < 0 {  //判断xs正负
+                    xs = -xs
+                }
+                let newPoi = CGPoint(x: 70 + xs , y: 70 + ys)
+                self.movePoint?.position = newPoi
+            }else{
+                let newPoi = CGPoint(x: 70 + xl , y: 70 + yl)
+                self.movePoint?.position = newPoi
             }
-            var xs = abs(ys * z)
-            if xl < 0 {
-                xs = -xs
-            }
-            let newPoi = CGPoint(x: 70 + xs , y: 70 + ys)
-            self.movePoint?.position = newPoi
         }
     }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.movePoint?.position = CGPoint(x: 70, y: 70)
-    }
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.ismoveTouch {
             for t in touches {
                 let position = t.location(in: self)
                 let xl = position.x - 70
                 let yl = position.y - 70
-                if abs(xl) <= 15 && abs(yl) <= 15 {
-                    return
+                var ys:CGFloat
+                var xs:CGFloat
+                if xl * xl + yl * yl > 2500 {
+                    let z = xl / yl
+                    let temp =  2500 / (1 + z * z)
+                    ys = sqrt(temp)
+                    xs = abs(ys * z)
+                    if yl < 0 {
+                        ys = ys * -1
+                    }
+                    if xl < 0 {
+                        xs = -xs
+                    }
+                    let newPoi = CGPoint(x: 70 + xs , y: 70 + ys)
+                    self.movePoint?.position = newPoi
+                }else{
+                    let newPoi = CGPoint(x: 70 + xl , y: 70 + yl)
+                    self.movePoint?.position = newPoi
                 }
-                let z = xl / yl
-                let temp =  2500 / (1 + z * z)
-                var ys = sqrt(temp)
-                if yl < 0 {
-                    ys = ys * -1
-                }
-                var xs = abs(ys * z)
-                if xl < 0 {
-                    xs = -xs
-                }
-                let newPoi = CGPoint(x: 70 + xs , y: 70 + ys)
-                self.movePoint?.position = newPoi
             }
-
+            
         }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.movePoint?.position = CGPoint(x: 70, y: 70)
     }
     
     override func update(_ currentTime: TimeInterval) {
