@@ -29,13 +29,7 @@ class GameScene: SKScene {
     private var FightState:String? = nil
     override func didMove(to view: SKView) {
         self.backgroundColor = SKColor.white
-        let node = UnitNode(CGSize(width: 80, height: 150) , MaxHealth: 151)
-        node.position = CGPoint(x: 500, y: 40)
-        node.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        let texture = SKTexture(imageNamed: "41")
-        node.texture = texture
-        addChild(node)
-        self.friend1 = node
+        self.buildPlayerAndMonsters()
         self.buildMenu()
         self.view?.addSubview(self.Mainmenu!)
 
@@ -44,9 +38,56 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.FightState == "攻击响应" {
-            print("攻击响应成功")
+            for i in touches {
+                let loc = i.location(in: self)
+                let node = nodes(at: loc).first
+                if node == self.enemy1 || node == enemy2 || node == enemy3 {
+                    print("你成功的选择到了敌人")
+                    print("转入物理攻击命中计算及伤害计算")
+                    self.attackcalculate(from: self.friend1!, to: node as! UnitNode)
+                }
+            }
             
         }
+    }
+    
+    func buildPlayerAndMonsters() {
+        let node = UnitNode(CGSize(width: 80, height: 150) , MaxHealth: 151)
+        node.position = CGPoint(x: 500, y: 40)
+        node.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        let texture = SKTexture(imageNamed: "41")
+        node.texture = texture
+        node.physicsAttack = 50
+        node.physicsDefences = 30
+        addChild(node)
+        self.friend1 = node
+        let texture_monster = SKTexture(imageNamed: "monster1")
+        let mon1 = UnitNode.init(CGSize(width: 73, height: 93), MaxHealth: 200)
+        mon1.texture = texture_monster
+        mon1.anchorPoint = CGPoint.zero
+        mon1.position = CGPoint(x: 100, y: 100)
+        mon1.physicsAttack = 35
+        mon1.physicsDefences = 25
+        self.enemy1 = mon1
+        addChild(mon1)
+        let mon2 = UnitNode.init(CGSize(width: 73, height: 93), MaxHealth: 240)
+        mon2.texture = texture_monster
+        mon2.anchorPoint = CGPoint.zero
+        mon2.position = CGPoint(x: 130, y: 200)
+        mon2.physicsAttack = 40
+        mon2.physicsDefences = 30
+        self.enemy2 = mon2
+        addChild(mon2)
+        let mon3 = UnitNode.init(CGSize(width: 73, height: 93), MaxHealth: 200)
+        mon3.texture = texture_monster
+        mon3.anchorPoint = CGPoint.zero
+        mon3.position = CGPoint(x: 160, y: 300)
+        mon3.physicsAttack = 35
+        mon3.physicsDefences = 25
+        self.enemy3 = mon3
+        addChild(mon3)
+        
+
     }
     
     func buildMenu() {
@@ -152,11 +193,23 @@ class GameScene: SKScene {
     }
     func MainmenuEscape() {
                 print("跑路响应")
+        let a = "逃跑成功计算率公式"
+        if  a != "逃跑" {  //根据敏捷等属性来计算逃跑成功率
+            print("逃跑成功")
+        }else{
+            print("逃跑失败")
+            print("转入下一个战斗环节")
+        }
     }
     func cancelMagic() {
         self.MagicMenu?.isHidden = true
         self.Mainmenu?.isHidden = false
         self.coverView?.removeFromSuperview()
+    }
+    
+    func attackcalculate(from:UnitNode, to:UnitNode) {
+        let a = from.physicsAttack - to.physicsDefences
+        to.HealthBar(HealthChanged: a)
     }
     
     
