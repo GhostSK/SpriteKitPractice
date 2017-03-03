@@ -24,6 +24,10 @@ class GameScene: SKScene {
     private var MagicMenu:UIView? = nil
     
     
+    private var coverView:UIView? = nil
+    private var MagicTag:Int = 0
+    
+    
     
     private var FightState:String? = nil
     override func didMove(to view: SKView) {
@@ -36,7 +40,7 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.FightState == "攻击响应" {
+        if self.FightState == "攻击响应" {  //这里有必要连续使用if else，如果state是非玩家响应期间，可以有效的快速ruturn
             for i in touches {
                 let loc = i.location(in: self)
                 let node = nodes(at: loc).first
@@ -49,30 +53,56 @@ class GameScene: SKScene {
                 }
             }
             return
-        }else if self.FightState == "法术选择响应" {
+        }else if self.FightState == "法术选择响应" { //在法术选择状态下，点击法术图标，进入法术目标选择，点击其他区域退回主菜单
+            //该响应状态下，法术图标作为UIButton，其响应级高于tap轻点手势
             for i in touches {
                 let loc = i.location(in: self)
                 let node = nodes(at: loc).first
+                
                 if node == self.enemy1 || node == enemy2 || node == enemy3 {
                     print("你成功的选择到了敌人")
-                    print("转入物理攻击命中计算及伤害计算")
-                    self.attackcalculate(from: self.friend1!, to: node as! UnitNode)
+                    print("转入法术攻击命中计算及伤害计算")
                 }else{
                     self.cancelAction()
                 }
             }
             return
+        }else if self.FightState == "法术目标选择响应_进攻类魔法" {
+            for i in touches {
+                let loc = i.location(in: self)
+                let node = nodes(at: loc).first
+                if node == self.enemy1 || node == self.enemy2 || node == self.enemy3  {
+                    print("进攻类魔法选择目标成功，转入魔法伤害攻击结算")
+                    
+                }else{
+                    self.FightState = "法术选择响应"
+                    self.MagicMenu?.isHidden = false
+                }
+            }
+            return
+        }else if self.FightState == "法术目标选择响应_辅助类魔法" {
+            for i in touches {
+                let loc = i.location(in: self)
+                let node = nodes(at: loc).first
+                if node == self.friend1 || node == self.friend2 || node == self.friend3 {
+                    print("辅助类魔法选择目标成功，转入辅助/治疗魔法效果结算")
+                }else{
+                    self.FightState = "法术选择响应"
+                    self.MagicMenu?.isHidden = false
+                }
+            }
         }
     }
     
     func buildPlayerAndMonsters() {
-        let node = UnitNode(CGSize(width: 80, height: 150) , MaxHealth: 151)
+        let node = UnitNode(CGSize(width: 80, height: 150) , MaxHealth: 400)
         node.position = CGPoint(x: 500, y: 40)
         node.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let texture = SKTexture(imageNamed: "41")
         node.texture = texture
         node.physicsAttack = 50
         node.physicsDefences = 30
+        node.MagicAttack = 150
         addChild(node)
         self.friend1 = node
         let texture_monster = SKTexture(imageNamed: "monster1")
@@ -137,6 +167,10 @@ class GameScene: SKScene {
         self.Mainmenu?.addSubview(btn4)
         //以上为主菜单构建
         
+        self.coverView = UIView(frame: (self.view?.frame)!)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.cancelAction))
+        self.coverView?.addGestureRecognizer(tap)
+        
         self.MagicMenu = UIView(frame: CGRect(x: 220, y: 100, width: 175, height: 260))
         self.MagicMenu?.backgroundColor = SKColor.init(colorLiteralRed: 64.0/255, green: 64.0/255, blue: 64.0/255, alpha: 1.0)
         self.view?.addSubview(self.MagicMenu!)
@@ -189,35 +223,50 @@ class GameScene: SKScene {
     }
     func MainmenuMagic() {
         print("法术菜单响应")
-        self.FightState = "法术选择响应"
+        self.FightState = "法术选择响应"  //在法术选择状态下，点击法术图标，进入法术目标选择，点击其他区域退回主菜单
         self.Mainmenu?.isHidden = true
         self.MagicMenu?.isHidden = false
         
     }
     func MainmenuMagicChange(btn:UIButton) {
         let tag = btn.tag
+        self.MagicTag = tag
         switch tag {
         case 1008601:
             print("法术响应——第一个法术")
+            self.FightState = "法术目标选择响应_进攻类魔法"
+            //单体伤害魔法
             break
         case 1008602:
             print("法术响应——第二个法术")
+            self.FightState = "法术目标选择响应_进攻类魔法"
+            //单体伤害魔法——附加异常状态
             break
         case 1008603:
             print("法术响应——第三个法术")
+            self.FightState = "法术目标选择响应_进攻类魔法"
+            //群体伤害魔法
             break
         case 1008604:
             print("法术响应——第四个法术")
+            self.FightState = "法术目标选择响应_进攻类魔法"
+            //群体伤害魔法——附加降低防御
+            break
         case 1008605:
             print("法术响应——第五个法术")
+            self.FightState = "法术目标选择响应_辅助类魔法"
+            //单体治疗魔法
             break
         case 1008606:
             print("法术响应——第六个法术")
+            self.FightState = "法术目标选择响应_辅助类魔法"
+            //属性提升魔法
             break
         default:
             break
         }
-        self.FightState = "法术目标选择响应"
+
+        self.MagicMenu?.isHidden = true
         
     }
     func MainmenuItem() {
@@ -234,9 +283,14 @@ class GameScene: SKScene {
         }
     }
     func cancelAction() {
-        self.MagicMenu?.isHidden = true
-        self.FightState = ""  //退出攻击状态
+        if self.FightState == "攻击响应" {
+            self.FightState = ""  //退出攻击状态
+        }else if self.FightState == "法术选择响应" {
+            self.FightState = ""
+        }
+        
         //这里需要加入隐藏道具栏的语句
+        self.MagicMenu?.isHidden = true
         self.Mainmenu?.isHidden = false
     }
     
@@ -252,6 +306,9 @@ class GameScene: SKScene {
             let disappear = SKAction.fadeOut(withDuration: 0.5)
             to.run(disappear)
         }
+    }
+    func MagicEffectcalculate(from:UnitNode, to:[UnitNode]) {
+        //这里开始结算伤害/治疗/辅助效果，并在结算完成后重新清零MagicTag
     }
     
     
