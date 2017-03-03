@@ -12,8 +12,15 @@ import SpriteKit
 class UnitNode: SKSpriteNode {
     public var MaxHealth: CGFloat = 100.0
     public var Health: CGFloat = 100.0
-    public var physicsAttack:CGFloat = 30.0
-    public var physicsDefences:CGFloat = 20.0
+    public var physicsAttack:CGFloat = 30.0   //物理攻击 用于结算物理伤害
+    public var physicsDefences:CGFloat = 20.0   //物理防御  用于结算物理伤害
+    public var MagicAttack: CGFloat = 0.0   //魔法攻击力，用于结算法术伤害和治疗量
+    public var MagicDefences_light:CGFloat = 0.0  //光属性魔防，用于结算光系法术伤害
+    public var MagicDefences_dark:CGFloat = 0.0  //暗系魔法防御，用于结算暗属性法术伤害
+    public var MagicDefences_water:CGFloat = 20.0   //水属性魔法防御，用于结算水系法术伤害，自然属性，自带20%抗性
+    public var MagicDefences_fire:CGFloat = 15.0   //火属性魔法防御，用于结算火属性法术伤害，自然属性，自带15%抗性
+    
+     // 另外，治疗魔法不结算抗性，直接满量加 你家魔防抗辅助治疗？
     
     
     private var healthBarnode: SKSpriteNode? = nil
@@ -33,6 +40,7 @@ class UnitNode: SKSpriteNode {
         self.MaxHealth = MaxHealth
         self.size = size
         self.Health = MaxHealth
+        self.isUserInteractionEnabled = false
         
         
     }
