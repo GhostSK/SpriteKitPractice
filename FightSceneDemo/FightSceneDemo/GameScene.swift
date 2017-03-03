@@ -49,6 +49,18 @@ class GameScene: SKScene {
             }
             
         }
+        if self.FightState == "法术响应" {
+            for i in touches {
+                let loc = i.location(in: self)
+                let node = nodes(at: loc).first
+                if node == self.enemy1 || node == enemy2 || node == enemy3 {
+                    print("你成功的选择到了敌人")
+                    print("转入物理攻击命中计算及伤害计算")
+                    self.attackcalculate(from: self.friend1!, to: node as! UnitNode)
+                }
+            }
+            
+        }
     }
     
     func buildPlayerAndMonsters() {
@@ -123,6 +135,13 @@ class GameScene: SKScene {
         self.Mainmenu?.addSubview(btn4)
         //以上为主菜单构建
         
+        //制造遮罩层，使得点击选择区外的触摸可以取消已选择的操作退回上一步
+        let coverView = UIView(frame: (self.view?.frame)!)
+        coverView.backgroundColor = SKColor.clear
+        let cancelGesture = UITapGestureRecognizer(target: self, action: #selector(cancelAction))
+        coverView.addGestureRecognizer(cancelGesture)
+        self.coverView = coverView
+        
         self.MagicMenu = UIView(frame: CGRect(x: 220, y: 100, width: 175, height: 260))
         self.MagicMenu?.backgroundColor = SKColor.init(colorLiteralRed: 64.0/255, green: 64.0/255, blue: 64.0/255, alpha: 1.0)
         self.view?.addSubview(self.MagicMenu!)
@@ -169,23 +188,20 @@ class GameScene: SKScene {
     }
     func MainmenuAttack() {
         self.FightState = "攻击响应"
+        self.Mainmenu?.isHidden = true   //进入攻击选择状态，隐藏主菜单
+        self.view?.addSubview(self.coverView!)
         
     }
     func MainmenuMagic() {
         print("法术菜单响应")
         self.Mainmenu?.isHidden = true
         self.MagicMenu?.isHidden = false
-        //制造遮罩层，使得点击法术选择区外的触摸可以取消法术面板退回上一步
-        let coverView = UIView(frame: (self.view?.frame)!)
-        coverView.backgroundColor = SKColor.clear
-        let cancelGesture = UITapGestureRecognizer(target: self, action: #selector(cancelMagic))
-        coverView.addGestureRecognizer(cancelGesture)
-        self.coverView = coverView
-        self.view?.addSubview(coverView)
+        self.view?.addSubview(self.coverView!)  //加入遮罩层
         
     }
     func MainmenuMagicChange(btn:UIButton) {
-                print("法术响应——第一个技能")
+        print("法术响应——第一个技能")
+        self.FightState = "法术响应"
         
     }
     func MainmenuItem() {
@@ -201,15 +217,26 @@ class GameScene: SKScene {
             print("转入下一个战斗环节")
         }
     }
-    func cancelMagic() {
+    func cancelAction() {
         self.MagicMenu?.isHidden = true
+        self.FightState = ""  //退出攻击状态
+        //这里需要加入隐藏道具栏的语句
         self.Mainmenu?.isHidden = false
         self.coverView?.removeFromSuperview()
     }
     
     func attackcalculate(from:UnitNode, to:UnitNode) {
         let a = from.physicsAttack - to.physicsDefences
-        to.HealthBar(HealthChanged: a)
+        to.HealthBar(HealthChanged: a)  //该方法的调用参数传入为变动值，正数为扣血，负数为加血
+        print("剩余血量为\(to.Health)")
+        let fadein = SKAction.fadeOut(withDuration: 0.05)
+        let fadeout = SKAction.fadeIn(withDuration: 0.05)
+        let fade = SKAction.sequence([fadein,fadeout])
+        to.run(fade)  //被攻击时的闪烁特效
+        if to.Health <= 0 {
+            let disappear = SKAction.fadeOut(withDuration: 0.5)
+            to.run(disappear)
+        }
     }
     
     

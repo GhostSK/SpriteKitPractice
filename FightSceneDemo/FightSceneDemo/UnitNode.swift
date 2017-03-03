@@ -20,7 +20,7 @@ class UnitNode: SKSpriteNode {
     override var anchorPoint: CGPoint {  //重写父类anchorPoint读写方法
         set {
             super.anchorPoint = newValue
-            self.HealthBar(HealthChanged: MaxHealth)
+            self.HealthBar(HealthChanged: 0)  //这里用于把血条添加上，因此变动量为0
         }
         get {
             return super.anchorPoint
