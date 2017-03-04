@@ -19,6 +19,9 @@ class GameScene: SKScene {
     private var friend2:UnitNode?
     private var friend3:UnitNode?
     
+    private var ActionArr:NSMutableArray?
+    private var NowActionUnit:UnitNode?
+    private var nextActionUnit:UnitNode?
     
     private var Mainmenu:UIView? = nil
     private var MagicMenu:UIView? = nil
@@ -34,8 +37,53 @@ class GameScene: SKScene {
         self.backgroundColor = SKColor.white
         self.buildPlayerAndMonsters()
         self.buildMenu()
-        self.view?.addSubview(self.Mainmenu!)
+        self.buildfightcircle()
+        self.fightcirclerun()
 
+        
+    }
+    func buildfightcircle() {
+        //将所有参与战斗的单位添加进一个队列，并给予两个指针用来指向当前行动单位和下一个行动单位
+        self.ActionArr = NSMutableArray()
+        if ((self.friend1) != nil) {
+            self.ActionArr?.add(self.friend1!)
+        }
+        if ((self.friend2) != nil) {
+            self.ActionArr?.add(self.friend2!)
+        }
+        if ((self.friend3) != nil) {
+            self.ActionArr?.add(self.friend3!)
+        }
+        if ((self.enemy1) != nil) {
+            self.ActionArr?.add(self.enemy1!)
+        }
+        if ((self.enemy2) != nil) {
+            self.ActionArr?.add(self.enemy2!)
+        }
+        if ((self.enemy3 != nil)) {
+            self.ActionArr?.add(self.enemy3!)
+        }
+        self.NowActionUnit = self.ActionArr?[0] as? UnitNode
+        self.nextActionUnit = self.ActionArr?[1] as? UnitNode
+    }
+    
+    func fightcirclerun() {
+
+        //战斗刚开始时，轮到主角行动
+        if NowActionUnit == self.friend1 || NowActionUnit == self.friend2 || NowActionUnit == self.friend3 {
+            self.view?.addSubview(self.Mainmenu!)  //如果是己方行动，展示主菜单进入玩家操作时间
+        }else{
+            if (self.view?.subviews.contains(self.Mainmenu!))! { //如果不是我方行动，隐藏主菜单并执行怪物行动逻辑
+                self.Mainmenu?.removeFromSuperview()
+                //怪物行动的AI选择
+            }
+            self.NowActionUnit = self.nextActionUnit
+            let a = self.ActionArr?.lastObject as! UnitNode?
+            if self.nextActionUnit == a && a != nil {
+                self.nextActionUnit = self.ActionArr?.firstObject as! UnitNode?  //下一个到队列尾则转回队头
+            }
+            
+        }
         
     }
     
