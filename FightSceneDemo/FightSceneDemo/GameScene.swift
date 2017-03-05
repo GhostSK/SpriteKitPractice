@@ -30,6 +30,8 @@ class GameScene: SKScene {
     private var coverView:UIView? = nil
     private var MagicTag:Int = 0
     
+    private var isNextActionReady:Bool = false
+    
     
     
     private var FightState:String? = nil
@@ -68,22 +70,34 @@ class GameScene: SKScene {
     }
     
     func fightcirclerun() {
+        self.isNextActionReady = false  //阻止下一次update对本函数调用，直到怪物AI行动完成或者玩家方进行了行动效果结算
+        //这一句必须写在前面，不然在后续的行动中将值置为true后回调到这里又会改写为false导致卡死
 
         //战斗刚开始时，轮到主角行动
         if NowActionUnit == self.friend1 || NowActionUnit == self.friend2 || NowActionUnit == self.friend3 {
             self.view?.addSubview(self.Mainmenu!)  //如果是己方行动，展示主菜单进入玩家操作时间
+            //这里应该调用一个函数来处理玩家选择操作的问题，使得相关动作执行结束后能够通过回调返回到这里
+            
         }else{
             if (self.view?.subviews.contains(self.Mainmenu!))! { //如果不是我方行动，隐藏主菜单并执行怪物行动逻辑
                 self.Mainmenu?.removeFromSuperview()
-                //怪物行动的AI选择
-                self.monsterAction(NowActer: (self.NowActionUnit)!)
             }
-            self.NowActionUnit = self.nextActionUnit
-            let a = self.ActionArr?.lastObject as! UnitNode?
-            if self.nextActionUnit == a && a != nil {
-                self.nextActionUnit = self.ActionArr?.firstObject as! UnitNode?  //下一个到队列尾则转回队头
-            }
+            //怪物行动的AI选择
+            self.monsterAction(NowActer: (self.NowActionUnit)!)
             
+        }
+        self.NowActionUnit = self.nextActionUnit
+        let a = self.ActionArr?.count
+        for u in 0..<a! {
+            let b = self.ActionArr?[u] as! UnitNode
+            if b == self.nextActionUnit {
+                if u == a!-1 {  //队列尾
+                    self.nextActionUnit = self.ActionArr?.firstObject as! UnitNode?
+                }else{
+                    self.nextActionUnit = self.ActionArr?[u+1] as! UnitNode?
+                }
+                break
+            }
         }
         
     }
@@ -118,6 +132,7 @@ class GameScene: SKScene {
                 self.enemy3?.physicsDefences += 10
             }
         }
+        self.isNextActionReady = true
     }
     
     
@@ -388,10 +403,19 @@ class GameScene: SKScene {
             let disappear = SKAction.fadeOut(withDuration: 0.5)
             to.run(disappear)
         }
+        self.FightState = ""
+        self.isNextActionReady = true
     }
     func MagicEffectcalculate(from:UnitNode, to:[UnitNode]) {
         //这里开始结算伤害/治疗/辅助效果，并在结算完成后重新清零MagicTag
+        self.FightState = ""
+        self.isNextActionReady = true
     }
     
-    
+    override func update(_ currentTime: TimeInterval) {
+        if self.isNextActionReady {
+            self.fightcirclerun()   //上一回合执行完毕，再次调用fightcirclerun函数
+            
+        }
+    }
 }
