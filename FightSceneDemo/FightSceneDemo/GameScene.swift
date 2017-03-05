@@ -76,6 +76,7 @@ class GameScene: SKScene {
             if (self.view?.subviews.contains(self.Mainmenu!))! { //如果不是我方行动，隐藏主菜单并执行怪物行动逻辑
                 self.Mainmenu?.removeFromSuperview()
                 //怪物行动的AI选择
+                self.monsterAction(NowActer: (self.NowActionUnit)!)
             }
             self.NowActionUnit = self.nextActionUnit
             let a = self.ActionArr?.lastObject as! UnitNode?
@@ -86,6 +87,39 @@ class GameScene: SKScene {
         }
         
     }
+    func monsterAction(NowActer:UnitNode) {
+        if (NowActionUnit?.Health)! / (NowActionUnit?.MaxHealth)! < 0.4 {  //血量低于40%，施放自我治疗
+            print("怪物施放了治疗术")
+            NowActionUnit?.HealthBar(HealthChanged: -50)
+        }else{
+            let z = arc4random()%100
+            if z <= 70 {  // 血量不危险的前提下，70%概率使用普通物理攻击
+            /*
+                 //这里仅当己方三人参战时打开，目前目标锁定为friend1
+            let a = arc4random()%3
+            let b:UnitNode?
+            if a == 0 {
+                b = self.friend1
+            }else if a == 1 {
+                b = self.friend2
+            }else {
+                b = self.friend3
+            }
+            */
+            let b = self.friend1
+            self.attackcalculate(from: NowActionUnit!, to: b!)
+            }else{
+                //释放了辅助魔法，敌方全体攻防提升
+                self.enemy1?.physicsAttack += 20
+                self.enemy2?.physicsAttack += 20
+                self.enemy3?.physicsAttack += 20
+                self.enemy1?.physicsDefences += 10
+                self.enemy2?.physicsDefences += 10
+                self.enemy3?.physicsDefences += 10
+            }
+        }
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.FightState == "攻击响应" {  //这里有必要连续使用if else，如果state是非玩家响应期间，可以有效的快速ruturn
