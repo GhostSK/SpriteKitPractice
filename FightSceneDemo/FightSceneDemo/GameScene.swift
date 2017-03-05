@@ -76,6 +76,7 @@ class GameScene: SKScene {
         //战斗刚开始时，轮到主角行动
         if NowActionUnit == self.friend1 || NowActionUnit == self.friend2 || NowActionUnit == self.friend3 {
             self.view?.addSubview(self.Mainmenu!)  //如果是己方行动，展示主菜单进入玩家操作时间
+            self.Mainmenu?.isHidden = false
             //这里应该调用一个函数来处理玩家选择操作的问题，使得相关动作执行结束后能够通过回调返回到这里
             
         }else{
@@ -123,13 +124,15 @@ class GameScene: SKScene {
             let b = self.friend1
             self.attackcalculate(from: NowActionUnit!, to: b!)
             }else{
-                //释放了辅助魔法，敌方全体攻防提升
+                if ((self.enemy1?.physicsAttack)! <= 60) {
+                //释放了辅助魔法，敌方全体攻击提升
                 self.enemy1?.physicsAttack += 20
                 self.enemy2?.physicsAttack += 20
                 self.enemy3?.physicsAttack += 20
                 self.enemy1?.physicsDefences += 10
                 self.enemy2?.physicsDefences += 10
                 self.enemy3?.physicsDefences += 10
+                }
             }
         }
         self.isNextActionReady = true
