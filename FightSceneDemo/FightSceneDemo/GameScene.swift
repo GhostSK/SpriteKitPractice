@@ -105,7 +105,8 @@ class GameScene: SKScene {
     func monsterAction(NowActer:UnitNode) {
         if (NowActionUnit?.Health)! / (NowActionUnit?.MaxHealth)! < 0.4 {  //血量低于40%，施放自我治疗
             print("怪物施放了治疗术")
-            NowActionUnit?.HealthBar(HealthChanged: -50)
+            self.MagicEffectcalculate(from: self.NowActionUnit!, to: [NowActionUnit!], skill: "治疗术")
+        
         }else{
             let z = arc4random()%100
             if z <= 70 {  // 血量不危险的前提下，70%概率使用普通物理攻击
@@ -132,10 +133,12 @@ class GameScene: SKScene {
                 self.enemy1?.physicsDefences += 10
                 self.enemy2?.physicsDefences += 10
                 self.enemy3?.physicsDefences += 10
+                self.isNextActionReady = true
+                }else{
+                    self.isNextActionReady = true
                 }
             }
         }
-        self.isNextActionReady = true
     }
     
     
@@ -200,7 +203,7 @@ class GameScene: SKScene {
         node.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let texture = SKTexture(imageNamed: "41")
         node.texture = texture
-        node.physicsAttack = 50
+        node.physicsAttack = 120
         node.physicsDefences = 30
         node.MagicAttack = 150
         addChild(node)
@@ -398,19 +401,40 @@ class GameScene: SKScene {
         let a = from.physicsAttack - to.physicsDefences
         to.HealthBar(HealthChanged: a)  //该方法的调用参数传入为变动值，正数为扣血，负数为加血
         print("剩余血量为\(to.Health)")
+        let movebackPoint = from.position;
+        var movetoPoint:CGPoint = CGPoint.zero;
+        if to.position.x > (self.view?.frame.size.width)! / 2 {  //被攻击单位处于屏幕右侧
+            movetoPoint = CGPoint(x: to.position.x - 80, y: to.position.y)
+        }else{
+            movetoPoint = CGPoint(x: to.position.x + 80, y: to.position.y)
+        }
+        let moveout = SKAction.move(to: movetoPoint, duration: 0.1)
+        let moveback = SKAction.move(to: movebackPoint, duration: 0.1)
+        let wait = SKAction.wait(forDuration: 0.1)
+        let MoveAction = SKAction.sequence([moveout,wait,moveback])
+        from.run(MoveAction) {
+            self.isNextActionReady = true
+        }
+        
         let fadein = SKAction.fadeOut(withDuration: 0.05)
         let fadeout = SKAction.fadeIn(withDuration: 0.05)
-        let fade = SKAction.sequence([fadein,fadeout])
+        let fade = SKAction.sequence([wait,fadein,fadeout,wait])
         to.run(fade)  //被攻击时的闪烁特效
         if to.Health <= 0 {
             let disappear = SKAction.fadeOut(withDuration: 0.5)
             to.run(disappear)
+            self.ActionArr?.remove(to)
+            
         }
         self.FightState = ""
-        self.isNextActionReady = true
     }
-    func MagicEffectcalculate(from:UnitNode, to:[UnitNode]) {
+    func MagicEffectcalculate(from:UnitNode, to:[UnitNode], skill:String) {  //以后skill应该单独提取成一个类
         //这里开始结算伤害/治疗/辅助效果，并在结算完成后重新清零MagicTag
+        if skill == "治疗术" {
+            let a = to.first as UnitNode!
+            a?.HealthBar(HealthChanged: -50)
+        }
+        
         self.FightState = ""
         self.isNextActionReady = true
     }
