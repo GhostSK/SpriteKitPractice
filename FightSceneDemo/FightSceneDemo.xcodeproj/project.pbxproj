@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B639F0021E6EBB9800B61C06 /* MagicBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B639F0011E6EBB9800B61C06 /* MagicBaseModel.swift */; };
 		B69A7DF11E63C34D0049871A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69A7DF01E63C34D0049871A /* AppDelegate.swift */; };
 		B69A7DF31E63C34D0049871A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B69A7DF21E63C34D0049871A /* GameScene.sks */; };
 		B69A7DF51E63C34D0049871A /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B69A7DF41E63C34D0049871A /* Actions.sks */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B639F0011E6EBB9800B61C06 /* MagicBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicBaseModel.swift; sourceTree = "<group>"; };
 		B69A7DED1E63C34D0049871A /* FightSceneDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightSceneDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69A7DF01E63C34D0049871A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B69A7DF21E63C34D0049871A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				B69A7DF41E63C34D0049871A /* Actions.sks */,
 				B69A7DF61E63C34D0049871A /* GameScene.swift */,
 				B69A7E0A1E63C4170049871A /* UnitNode.swift */,
+				B639F0011E6EBB9800B61C06 /* MagicBaseModel.swift */,
 				B69A7DF81E63C34D0049871A /* GameViewController.swift */,
 				B69A7DFA1E63C34D0049871A /* Main.storyboard */,
 				B69A7DFD1E63C34D0049871A /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B639F0021E6EBB9800B61C06 /* MagicBaseModel.swift in Sources */,
 				B69A7DF71E63C34D0049871A /* GameScene.swift in Sources */,
 				B69A7DF91E63C34D0049871A /* GameViewController.swift in Sources */,
 				B69A7DF11E63C34D0049871A /* AppDelegate.swift in Sources */,
@@ -318,6 +322,7 @@
 				B69A7E071E63C34D0049871A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
