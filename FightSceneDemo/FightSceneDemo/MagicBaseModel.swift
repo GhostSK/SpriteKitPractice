@@ -18,5 +18,16 @@ class MagicBaseModel: NSObject {
     public var buff2KeepTime:NSInteger = 0
     public var buff3:String? = nil
     public var buff3KeepTime:NSInteger = 0
+    public var directEffectValue:NSInteger = 0   //翔舞首跳/直接效果
+    public var indirectEffectValue:NSInteger = 0  //翔舞每一跳
+    public var endEffectValue:NSInteger = 0 //上元结束跳
+    
+    init(_ MagicName:String) {
+        super.init()
+        self.MagicName = MagicName
+        
+    }
+    
+    
     
 }
