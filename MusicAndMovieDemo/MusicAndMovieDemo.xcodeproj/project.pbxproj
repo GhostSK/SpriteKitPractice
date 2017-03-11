@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B603A9091E7458C00088AD97 /* SecondScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B603A9081E7458C00088AD97 /* SecondScene.swift */; };
 		B63CA6AC1E7155BA00C3D93A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63CA6AB1E7155BA00C3D93A /* AppDelegate.swift */; };
 		B63CA6AE1E7155BA00C3D93A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B63CA6AD1E7155BA00C3D93A /* GameScene.sks */; };
 		B63CA6B01E7155BA00C3D93A /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B63CA6AF1E7155BA00C3D93A /* Actions.sks */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B603A9081E7458C00088AD97 /* SecondScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondScene.swift; sourceTree = "<group>"; };
 		B63CA6A81E7155BA00C3D93A /* MusicAndMovieDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicAndMovieDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B63CA6AB1E7155BA00C3D93A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B63CA6AD1E7155BA00C3D93A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				B63CA6AD1E7155BA00C3D93A /* GameScene.sks */,
 				B63CA6AF1E7155BA00C3D93A /* Actions.sks */,
 				B63CA6B11E7155BA00C3D93A /* GameScene.swift */,
+				B603A9081E7458C00088AD97 /* SecondScene.swift */,
 				B63CA6B31E7155BA00C3D93A /* GameViewController.swift */,
 				B63CA6B51E7155BA00C3D93A /* Main.storyboard */,
 				B63CA6C61E71581D00C3D93A /* 03.mp3 */,
@@ -168,6 +171,7 @@
 			files = (
 				B63CA6B21E7155BA00C3D93A /* GameScene.swift in Sources */,
 				B63CA6B41E7155BA00C3D93A /* GameViewController.swift in Sources */,
+				B603A9091E7458C00088AD97 /* SecondScene.swift in Sources */,
 				B63CA6AC1E7155BA00C3D93A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +336,7 @@
 				B63CA6C21E7155BA00C3D93A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
