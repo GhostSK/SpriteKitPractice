@@ -18,6 +18,9 @@
 		B63CA6BC1E7155BA00C3D93A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63CA6BA1E7155BA00C3D93A /* LaunchScreen.storyboard */; };
 		B63CA6C51E7155D300C3D93A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63CA6C41E7155D300C3D93A /* AVFoundation.framework */; };
 		B63CA6C71E71581D00C3D93A /* 03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B63CA6C61E71581D00C3D93A /* 03.mp3 */; };
+		B63F25681E7634560016DA51 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B63F25651E7634560016DA51 /* background.jpg */; };
+		B63F25691E7634570016DA51 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = B63F25661E7634560016DA51 /* bullet.png */; };
+		B63F256A1E7634570016DA51 /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = B63F25671E7634560016DA51 /* ship.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,10 @@
 		B63CA6C41E7155D300C3D93A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B63CA6C61E71581D00C3D93A /* 03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 03.mp3; path = ../../../../Downloads/03.mp3; sourceTree = "<group>"; };
 		B63CA6C81E71589D00C3D93A /* 狗.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "狗.mp4"; path = "../../../../Downloads/狗.mp4"; sourceTree = "<group>"; };
+		B63F25651E7634560016DA51 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		B63F25661E7634560016DA51 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		B63F25671E7634560016DA51 /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
+		B63F256B1E76AA8B0016DA51 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +85,10 @@
 				B63CA6B51E7155BA00C3D93A /* Main.storyboard */,
 				B63CA6C61E71581D00C3D93A /* 03.mp3 */,
 				B63CA6C81E71589D00C3D93A /* 狗.mp4 */,
+				B63F256B1E76AA8B0016DA51 /* sound.caf */,
+				B63F25651E7634560016DA51 /* background.jpg */,
+				B63F25661E7634560016DA51 /* bullet.png */,
+				B63F25671E7634560016DA51 /* ship.png */,
 				B63CA6B81E7155BA00C3D93A /* Assets.xcassets */,
 				B63CA6BA1E7155BA00C3D93A /* LaunchScreen.storyboard */,
 				B63CA6BD1E7155BA00C3D93A /* Info.plist */,
@@ -155,8 +166,11 @@
 			files = (
 				B63CA6B71E7155BA00C3D93A /* Main.storyboard in Resources */,
 				B63CA6C71E71581D00C3D93A /* 03.mp3 in Resources */,
+				B63F256A1E7634570016DA51 /* ship.png in Resources */,
+				B63F25681E7634560016DA51 /* background.jpg in Resources */,
 				B63CA6AE1E7155BA00C3D93A /* GameScene.sks in Resources */,
 				B63CA6B91E7155BA00C3D93A /* Assets.xcassets in Resources */,
+				B63F25691E7634570016DA51 /* bullet.png in Resources */,
 				B63CA6BC1E7155BA00C3D93A /* LaunchScreen.storyboard in Resources */,
 				B63CA6B01E7155BA00C3D93A /* Actions.sks in Resources */,
 			);

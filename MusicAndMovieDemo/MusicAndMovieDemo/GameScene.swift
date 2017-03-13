@@ -37,7 +37,7 @@ class GameScene: SKScene {
         
     }
     func nextScene() {
-        let scene = SecondScene()
+        let scene = SecondScene(size: (self.view?.frame.size)!)
         self.view?.presentScene(scene)
     }
     
