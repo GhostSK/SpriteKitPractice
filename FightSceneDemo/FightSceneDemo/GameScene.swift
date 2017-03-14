@@ -25,6 +25,7 @@ class GameScene: SKScene {
     
     private var Mainmenu:UIView? = nil
     private var MagicMenu:UIView? = nil
+    private var NowMagicName:String = ""
     
     
     private var coverView:UIView? = nil
@@ -176,7 +177,8 @@ class GameScene: SKScene {
                 let node = nodes(at: loc).first
                 if node == self.enemy1 || node == self.enemy2 || node == self.enemy3  {
                     print("进攻类魔法选择目标成功，转入魔法伤害攻击结算")
-                    
+                    let a = node as! UnitNode
+                    self.MagicEffectcalculate(from: self.friend1!, to: [a], skill: self.NowMagicName)
                 }else{
                     self.FightState = "法术选择响应"
                     self.MagicMenu?.isHidden = false
@@ -338,31 +340,37 @@ class GameScene: SKScene {
         case 1008601:
             print("法术响应——第一个法术")
             self.FightState = "法术目标选择响应_进攻类魔法"
+            self.NowMagicName = "风刃术"
             //单体伤害魔法
             break
         case 1008602:
             print("法术响应——第二个法术")
             self.FightState = "法术目标选择响应_进攻类魔法"
+            self.NowMagicName = "雷击术"
             //单体伤害魔法——附加异常状态
             break
         case 1008603:
             print("法术响应——第三个法术")
             self.FightState = "法术目标选择响应_进攻类魔法"
+            self.NowMagicName = "燎原烈火"
             //群体伤害魔法
             break
         case 1008604:
             print("法术响应——第四个法术")
             self.FightState = "法术目标选择响应_进攻类魔法"
+            self.NowMagicName = "雷霆万钧"
             //群体伤害魔法——附加降低防御
             break
         case 1008605:
             print("法术响应——第五个法术")
             self.FightState = "法术目标选择响应_辅助类魔法"
+            self.NowMagicName = "圣光术"
             //单体治疗魔法
             break
         case 1008606:
             print("法术响应——第六个法术")
             self.FightState = "法术目标选择响应_辅助类魔法"
+            self.NowMagicName = "赐福"
             //属性提升魔法
             break
         default:
@@ -433,6 +441,35 @@ class GameScene: SKScene {
         if skill == "治疗术" {
             let a = to.first as UnitNode!
             a?.HealthBar(HealthChanged: -50)
+        }else if skill == "风刃术" {
+            for i in to {
+                i.HealthBar(HealthChanged: 50)
+            }
+        }else if skill == "燎原烈火" {
+            for i in to {
+                i.HealthBar(HealthChanged: 50)
+                if self.enemy1 == i {
+                    if (self.enemy2?.Health)! > CGFloat(0.0) {
+                        self.enemy2?.HealthBar(HealthChanged: 50)
+                    }else if (self.enemy3?.Health)! > CGFloat(0.0) {
+                        self.enemy3?.HealthBar(HealthChanged: 50)
+                    }
+                }
+                if self.enemy2 == i {
+                    if (self.enemy1?.Health)! > CGFloat(0.0) {
+                        self.enemy1?.HealthBar(HealthChanged: 50)
+                    }else if (self.enemy3?.Health)! > CGFloat(0.0) {
+                        self.enemy3?.HealthBar(HealthChanged: 50)
+                    }
+                }
+                if self.enemy3 == i {
+                    if (self.enemy2?.Health)! > CGFloat(0.0) {
+                        self.enemy2?.HealthBar(HealthChanged: 50)
+                    }else if (self.enemy1?.Health)! > CGFloat(0.0) {
+                        self.enemy1?.HealthBar(HealthChanged: 50)
+                    }
+                }
+            }
         }
         
         self.FightState = ""
