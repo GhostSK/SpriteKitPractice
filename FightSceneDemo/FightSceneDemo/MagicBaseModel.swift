@@ -22,9 +22,11 @@ class MagicBaseModel: NSObject {
     public var indirectEffectValue:NSInteger = 0  //翔舞每一跳
     public var endEffectValue:NSInteger = 0 //上元结束跳
     
-    init(Name:String) {
+    init(Name:String, MagicCategory:String, directEffect:NSInteger) {
         super.init()
         self.MagicName = Name
+        self.MagicCategory = MagicCategory
+        self.directEffectValue = directEffect
     }
     
     
