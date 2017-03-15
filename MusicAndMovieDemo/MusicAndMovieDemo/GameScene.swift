@@ -32,12 +32,13 @@ class GameScene: SKScene {
         audioEffect?.numberOfLoops = 1000  //循环次数
         let btn = UIButton.init(frame: CGRect(x: 550, y: 250, width: 80, height: 30))
         btn.setTitle("进入场景", for: .normal)
-        btn.addTarget(self, action: #selector(nextScene), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(nextScene(btn:)), for: .touchUpInside)
         self.view?.addSubview(btn)
         
     }
-    func nextScene() {
+    func nextScene(btn:UIButton) {
         let scene = SecondScene(size: (self.view?.frame.size)!)
+        btn.removeFromSuperview()
         self.view?.presentScene(scene)
     }
     

@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "442"
             endingLineNumber = "442"
-            landmarkName = "update(_:)"
+            landmarkName = "MagicEffectcalculate(from:to:skill:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
