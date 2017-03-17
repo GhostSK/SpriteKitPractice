@@ -21,6 +21,8 @@
 		B63C908B1E7941A3001A0673 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B63C90891E7941A3001A0673 /* background.jpg */; };
 		B63C908C1E7941A3001A0673 /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = B63C908A1E7941A3001A0673 /* snow.png */; };
 		B64591921E7A8FF9000D09F9 /* rainDrop.png in Resources */ = {isa = PBXBuildFile; fileRef = B64591911E7A8FF9000D09F9 /* rainDrop.png */; };
+		B64591941E7A9E06000D09F9 /* particleActionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64591931E7A9E06000D09F9 /* particleActionScene.swift */; };
+		B64591961E7A9E60000D09F9 /* MyParticle2.sks in Resources */ = {isa = PBXBuildFile; fileRef = B64591951E7A9E60000D09F9 /* MyParticle2.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		B63C90891E7941A3001A0673 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		B63C908A1E7941A3001A0673 /* snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow.png; sourceTree = "<group>"; };
 		B64591911E7A8FF9000D09F9 /* rainDrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rainDrop.png; sourceTree = "<group>"; };
+		B64591931E7A9E06000D09F9 /* particleActionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = particleActionScene.swift; sourceTree = "<group>"; };
+		B64591951E7A9E60000D09F9 /* MyParticle2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle2.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +82,12 @@
 				B63C90571E78DC9C001A0673 /* GameScene.sks */,
 				B63C90591E78DC9C001A0673 /* Actions.sks */,
 				B63C905B1E78DC9C001A0673 /* GameScene.swift */,
+				B64591931E7A9E06000D09F9 /* particleActionScene.swift */,
 				B63C90891E7941A3001A0673 /* background.jpg */,
 				B63C908A1E7941A3001A0673 /* snow.png */,
 				B63C905D1E78DC9C001A0673 /* GameViewController.swift */,
 				B63C906D1E78DD36001A0673 /* MyParticle.sks */,
+				B64591951E7A9E60000D09F9 /* MyParticle2.sks */,
 				B64591911E7A8FF9000D09F9 /* rainDrop.png */,
 				B63C905F1E78DC9C001A0673 /* Main.storyboard */,
 				B63C90621E78DC9C001A0673 /* Assets.xcassets */,
@@ -161,6 +167,7 @@
 				B64591921E7A8FF9000D09F9 /* rainDrop.png in Resources */,
 				B63C90821E78EB7D001A0673 /* Assets.xcassets in Resources */,
 				B63C90701E78DF35001A0673 /* 1.png in Resources */,
+				B64591961E7A9E60000D09F9 /* MyParticle2.sks in Resources */,
 				B63C908B1E7941A3001A0673 /* background.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64591941E7A9E06000D09F9 /* particleActionScene.swift in Sources */,
 				B63C905C1E78DC9C001A0673 /* GameScene.swift in Sources */,
 				B63C905E1E78DC9C001A0673 /* GameViewController.swift in Sources */,
 				B63C90561E78DC9C001A0673 /* AppDelegate.swift in Sources */,

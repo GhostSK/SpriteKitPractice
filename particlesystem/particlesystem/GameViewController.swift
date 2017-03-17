@@ -17,8 +17,8 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            
-            let scene = GameScene(size: (self.view?.frame.size)!)
+                let scene = particleActionScene(size: (self.view?.frame.size)!)
+//            let scene = GameScene(size: (self.view?.frame.size)!)
 //            let scene = SKScene(fileNamed: "GameScene.sks")
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
