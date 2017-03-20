@@ -71,7 +71,10 @@ class GameScene: SKScene {
         filter?.setValue(value, forKey: "inputRadius")
         return filter!
     }
-    
+    /*
+     mass  
+     
+     */
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         effectNode.filter = self.blurFilrer()
