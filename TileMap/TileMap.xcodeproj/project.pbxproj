@@ -18,6 +18,8 @@
 		B63D77CF1E7FD6EC00A19546 /* scenery.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B63D77CE1E7FD6EC00A19546 /* scenery.atlas */; };
 		B63D77D31E7FD95700A19546 /* scenery.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B63D77D21E7FD95700A19546 /* scenery.atlas */; };
 		B63D77D51E7FD96F00A19546 /* TileMapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */; };
+		B6C8F2071E826F6600FBB15B /* background.txt in Resources */ = {isa = PBXBuildFile; fileRef = B6C8F2061E826F6600FBB15B /* background.txt */; };
+		B6C8F2091E82704A00FBB15B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C8F2081E82704A00FBB15B /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		B63D77CE1E7FD6EC00A19546 /* scenery.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = scenery.atlas; sourceTree = "<group>"; };
 		B63D77D21E7FD95700A19546 /* scenery.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = scenery.atlas; sourceTree = "<group>"; };
 		B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileMapLayer.swift; sourceTree = "<group>"; };
+		B6C8F2061E826F6600FBB15B /* background.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = background.txt; sourceTree = "<group>"; };
+		B6C8F2081E82704A00FBB15B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 				B63D77B61E7FD66A00A19546 /* GameScene.sks */,
 				B63D77B81E7FD66A00A19546 /* Actions.sks */,
 				B63D77BA1E7FD66A00A19546 /* GameScene.swift */,
+				B6C8F2081E82704A00FBB15B /* File.swift */,
 				B63D77BC1E7FD66A00A19546 /* GameViewController.swift */,
 				B63D77BE1E7FD66A00A19546 /* Main.storyboard */,
 				B63D77CE1E7FD6EC00A19546 /* scenery.atlas */,
@@ -79,6 +84,7 @@
 				B63D77C31E7FD66B00A19546 /* LaunchScreen.storyboard */,
 				B63D77C61E7FD66B00A19546 /* Info.plist */,
 				B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */,
+				B6C8F2061E826F6600FBB15B /* background.txt */,
 			);
 			path = TileMap;
 			sourceTree = "<group>";
@@ -154,6 +160,7 @@
 				B63D77CF1E7FD6EC00A19546 /* scenery.atlas in Resources */,
 				B63D77B71E7FD66A00A19546 /* GameScene.sks in Resources */,
 				B63D77D31E7FD95700A19546 /* scenery.atlas in Resources */,
+				B6C8F2071E826F6600FBB15B /* background.txt in Resources */,
 				B63D77C21E7FD66A00A19546 /* Assets.xcassets in Resources */,
 				B63D77C51E7FD66B00A19546 /* LaunchScreen.storyboard in Resources */,
 				B63D77B91E7FD66A00A19546 /* Actions.sks in Resources */,
@@ -167,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C8F2091E82704A00FBB15B /* File.swift in Sources */,
 				B63D77BB1E7FD66A00A19546 /* GameScene.swift in Sources */,
 				B63D77BD1E7FD66A00A19546 /* GameViewController.swift in Sources */,
 				B63D77D51E7FD96F00A19546 /* TileMapLayer.swift in Sources */,
@@ -334,6 +342,7 @@
 				B63D77CB1E7FD66B00A19546 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

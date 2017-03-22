@@ -31,10 +31,12 @@ class TileMapLayer : SKNode {
             var line = tileCodes[row] as String
             var i = 0
             for char in line.characters{
-                print("\(i) --- \(char)")
+//                print("\(i) --- \(char)")
                 let tile = nodeForCode(tileCode: char)
                 tile?.position = self.position(ForRow: row, col: i)
-                addChild(tile!)
+                if tile != nil {
+                    addChild(tile!)
+                }
                 i += 1
                 
             }
@@ -57,12 +59,19 @@ class TileMapLayer : SKNode {
         case "o":
             tile = SKSpriteNode(texture: atlas!.textureNamed("grass"))
             break
+        case "w":
+            tile = SKSpriteNode(texture: atlas!.textureNamed("water"))
+            break
+        case "=":
+            tile = SKSpriteNode(texture: atlas!.textureNamed("stone"))
+            break
         default:
             print("未知图片")
             break
         }
         if let sprite = tile as? SKSpriteNode {
             sprite.blendMode = .replace
+            sprite.texture?.filteringMode = .nearest
         }
         return tile
     }
