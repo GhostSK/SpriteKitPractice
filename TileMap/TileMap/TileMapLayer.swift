@@ -24,13 +24,20 @@ class TileMapLayer : SKNode {
     
     convenience init(atlasName: String, tileSize: CGSize, tileCodes: [String]) {
         self.init(tilesize: tileSize)
+        self.position = CGPoint(x: 0, y: 0)
         atlas = SKTextureAtlas(named: atlasName)
         //遍历
         for row in 0..<tileCodes.count {
-            let line = tileCodes[row] as String
-//            for char in line {
-//                
-//            }
+            var line = tileCodes[row] as String
+            var i = 0
+            for char in line.characters{
+                print("\(i) --- \(char)")
+                let tile = nodeForCode(tileCode: char)
+                tile?.position = self.position(ForRow: row, col: i)
+                addChild(tile!)
+                i += 1
+                
+            }
         }
     }
     
@@ -62,7 +69,7 @@ class TileMapLayer : SKNode {
     
     func position(ForRow:Int, col: Int) ->CGPoint {
         let x = CGFloat(col) * tileSize.width + tileSize.width / 2
-        let y = CGFloat(ForRow) * tileSize.height + tileSize.height / 2
+        let y = 300 - CGFloat(ForRow) * tileSize.height + tileSize.height / 2
         return CGPoint(x: x, y: y)
     }
     
