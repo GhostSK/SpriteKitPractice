@@ -18,6 +18,10 @@
 		B63D77CF1E7FD6EC00A19546 /* scenery.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B63D77CE1E7FD6EC00A19546 /* scenery.atlas */; };
 		B63D77D31E7FD95700A19546 /* scenery.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B63D77D21E7FD95700A19546 /* scenery.atlas */; };
 		B63D77D51E7FD96F00A19546 /* TileMapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */; };
+		B6BDFBB51E83D62D00EBD731 /* level3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B6BDFBB41E83D62D00EBD731 /* level3.tmx */; };
+		B6BDFBB91E83D63200EBD731 /* tmx-bg-tiles.1.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BDFBB71E83D63200EBD731 /* tmx-bg-tiles.1.png */; };
+		B6BDFBBA1E83D63200EBD731 /* tmx-bg-tiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = B6BDFBB81E83D63200EBD731 /* tmx-bg-tiles.plist */; };
+		B6BDFBBD1E83D71800EBD731 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BDFBBC1E83D71800EBD731 /* libz.tbd */; };
 		B6C8F2071E826F6600FBB15B /* background.txt in Resources */ = {isa = PBXBuildFile; fileRef = B6C8F2061E826F6600FBB15B /* background.txt */; };
 		B6C8F2091E82704A00FBB15B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C8F2081E82704A00FBB15B /* File.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +40,10 @@
 		B63D77CE1E7FD6EC00A19546 /* scenery.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = scenery.atlas; sourceTree = "<group>"; };
 		B63D77D21E7FD95700A19546 /* scenery.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = scenery.atlas; sourceTree = "<group>"; };
 		B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileMapLayer.swift; sourceTree = "<group>"; };
+		B6BDFBB41E83D62D00EBD731 /* level3.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level3.tmx; sourceTree = "<group>"; };
+		B6BDFBB71E83D63200EBD731 /* tmx-bg-tiles.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tmx-bg-tiles.1.png"; sourceTree = "<group>"; };
+		B6BDFBB81E83D63200EBD731 /* tmx-bg-tiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "tmx-bg-tiles.plist"; sourceTree = "<group>"; };
+		B6BDFBBC1E83D71800EBD731 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B6C8F2061E826F6600FBB15B /* background.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = background.txt; sourceTree = "<group>"; };
 		B6C8F2081E82704A00FBB15B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6BDFBBD1E83D71800EBD731 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +65,7 @@
 			children = (
 				B63D77B31E7FD66A00A19546 /* TileMap */,
 				B63D77B21E7FD66A00A19546 /* Products */,
+				B6BDFBBB1E83D71800EBD731 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,11 +86,13 @@
 				B63D77B61E7FD66A00A19546 /* GameScene.sks */,
 				B63D77B81E7FD66A00A19546 /* Actions.sks */,
 				B63D77BA1E7FD66A00A19546 /* GameScene.swift */,
+				B6BDFBB61E83D63200EBD731 /* tmx-bg-tiles.atlasc */,
 				B6C8F2081E82704A00FBB15B /* File.swift */,
 				B63D77BC1E7FD66A00A19546 /* GameViewController.swift */,
 				B63D77BE1E7FD66A00A19546 /* Main.storyboard */,
 				B63D77CE1E7FD6EC00A19546 /* scenery.atlas */,
 				B63D77C11E7FD66A00A19546 /* Assets.xcassets */,
+				B6BDFBB41E83D62D00EBD731 /* level3.tmx */,
 				B63D77C31E7FD66B00A19546 /* LaunchScreen.storyboard */,
 				B63D77C61E7FD66B00A19546 /* Info.plist */,
 				B63D77D41E7FD96F00A19546 /* TileMapLayer.swift */,
@@ -94,6 +106,23 @@
 			children = (
 			);
 			name = SKTUtils;
+			sourceTree = "<group>";
+		};
+		B6BDFBB61E83D63200EBD731 /* tmx-bg-tiles.atlasc */ = {
+			isa = PBXGroup;
+			children = (
+				B6BDFBB71E83D63200EBD731 /* tmx-bg-tiles.1.png */,
+				B6BDFBB81E83D63200EBD731 /* tmx-bg-tiles.plist */,
+			);
+			path = "tmx-bg-tiles.atlasc";
+			sourceTree = "<group>";
+		};
+		B6BDFBBB1E83D71800EBD731 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6BDFBBC1E83D71800EBD731 /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,11 +186,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B63D77C01E7FD66A00A19546 /* Main.storyboard in Resources */,
+				B6BDFBB51E83D62D00EBD731 /* level3.tmx in Resources */,
+				B6BDFBBA1E83D63200EBD731 /* tmx-bg-tiles.plist in Resources */,
 				B63D77CF1E7FD6EC00A19546 /* scenery.atlas in Resources */,
 				B63D77B71E7FD66A00A19546 /* GameScene.sks in Resources */,
 				B63D77D31E7FD95700A19546 /* scenery.atlas in Resources */,
 				B6C8F2071E826F6600FBB15B /* background.txt in Resources */,
 				B63D77C21E7FD66A00A19546 /* Assets.xcassets in Resources */,
+				B6BDFBB91E83D63200EBD731 /* tmx-bg-tiles.1.png in Resources */,
 				B63D77C51E7FD66B00A19546 /* LaunchScreen.storyboard in Resources */,
 				B63D77B91E7FD66A00A19546 /* Actions.sks in Resources */,
 			);

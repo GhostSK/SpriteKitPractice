@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tmx-bg-tiles.1" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="4" columns="4">
+  <image source="tmx-bg-tiles.atlasc/tmx-bg-tiles.1.png" width="136" height="34"/>
+ </tileset>
+ <tileset firstgid="5" name="water" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="SpriteKitPractice/TileMap/TileMap/scenery.atlas/water.png" width="32" height="32"/>
+ </tileset>
+ <layer name="块层 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1TEOwCAMQ1GQ2vtfuWLL4KSMtvSflKF0sYGqayHRLqOe3ezLcfSX1z3/cbv/SefUZXuGd075j+4eqS4p0r8XlfstM52Zi27/VQ/XDlXXQU1Kj6lTwnmotYS7VN1kTOmU8s+bpOQEAAAAAAAAAABAhg9X2wDr
+  </data>
+ </layer>
+</map>
