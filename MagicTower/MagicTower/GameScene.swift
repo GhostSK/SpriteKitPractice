@@ -67,20 +67,16 @@ class GameScene: SKScene {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
         if self.List == nil {
-//            let list = MonsterListView.init(frame: CGRect(x: 20, y: 20, width: 300, height: 300))
-//            self.List = list
-//            self.List?.backgroundColor = SKColor.white
-//            self.view?.bringSubview(toFront: self.List!)
-//            self.view?.addSubview(self.List!)
-            
+            let list = MonsterListView.init(frame: CGRect(x: 15, y: 20, width: 384, height: 300))
+            self.List = list
+            self.view?.addSubview(self.List!)
+            let ges = UITapGestureRecognizer.init(target: self, action: #selector(hiddenList))
+            self.List?.addGestureRecognizer(ges)
             //这里验证了这样可以正常添加view并且无需bringyoFront也可以正常显示
 //            let view = UIView.init(frame: CGRect(x: 200, y: 200, width: 40, height: 40))
 //            view.backgroundColor = SKColor.blue
 //            self.view?.addSubview(view)
 //            self.view?.bringSubview(toFront: view)
-        }else{
-            self.List?.removeFromSuperview()
-            self.List = nil
         }
         for t in touches {
             self.touchDown(atPoint: t.location(in: self))
@@ -99,6 +95,10 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
+    func hiddenList(){
+        self.List?.removeFromSuperview()
+        self.List = nil
+    }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered

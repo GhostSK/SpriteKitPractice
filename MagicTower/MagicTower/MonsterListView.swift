@@ -76,9 +76,7 @@ class MonsterListCell: UITableViewCell {
     @IBOutlet weak var Experience: UILabel!
     @IBOutlet weak var Damage: UILabel!
 
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func loadData(){
         self.HeadImage.image = self.model?.headImage
         self.Attack.text = self.model?.attack
         self.Defence.text = self.model?.defence
@@ -100,6 +98,7 @@ class MonsterListView: UIView,UITableViewDelegate, UITableViewDataSource {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = SKColor.black
         //测试数据
         self.DataArr = NSMutableArray.init()
         let head = UIImage.init(named:"placeholder.jpg")
@@ -108,14 +107,12 @@ class MonsterListView: UIView,UITableViewDelegate, UITableViewDataSource {
         let model2 = MonsterModel.init(HeadImage: head!, Name: "BBB", Attack: 12, Defence: 10, Health: 100, Money: 5, Exper: 5)
         self.DataArr?.add(model2)
         
-        
-        self.maintable = UITableView.init()
+        self.maintable = UITableView.init(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.maintable?.delegate = self
         self.maintable?.dataSource = self
-        self.maintable?.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         self.maintable?.backgroundColor = SKColor.blue
+        self.maintable?.register(UINib.init(nibName: "MonsterListCell", bundle: nil), forCellReuseIdentifier: "MonsterListCell")
         addSubview(self.maintable!)
-        self.backgroundColor = SKColor.red
         
     }
     
@@ -132,9 +129,12 @@ class MonsterListView: UIView,UITableViewDelegate, UITableViewDataSource {
         return 80
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.maintable?.dequeueReusableCell(withIdentifier: "MonsterListCell")
-//        cell.model = self.DataArr?.object(at: indexPath.row) as? MonsterModel
-        return cell!
+        let cell2 = self.maintable?.dequeueReusableCell(withIdentifier: "MonsterListCell")
+        let cell = cell2 as! MonsterListCell
+        let MO:MonsterModel = self.DataArr?.object(at: indexPath.row) as! MonsterModel
+        cell.model = MO
+        cell.loadData()
+        return cell
         //swift 随机背景颜色
 //        let cell = UITableViewCell()
 //        let red = arc4random()%255
