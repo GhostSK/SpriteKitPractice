@@ -22,9 +22,16 @@ class PlayerData: NSObject {
     var blueKey:Int = 0
     var redKey:Int = 0
     
-    override init() {
+    private override init() {
        super.init()
     }
     
+    class func shareInstance()->PlayerData{
+        return self.instance
+    }
+    
+    func changeHealth(Change:Int){  //如果是加血，传入负数
+        self.health += Change
+    }
     
 }

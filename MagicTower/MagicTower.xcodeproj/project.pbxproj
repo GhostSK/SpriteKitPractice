@@ -10,6 +10,7 @@
 		B61079E21EBB1ED2000CB3CC /* MonsterListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61079E11EBB1ED2000CB3CC /* MonsterListCell.xib */; };
 		B6109CBB1EB3608D0026A11A /* MonsterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6109CBA1EB3608D0026A11A /* MonsterListView.swift */; };
 		B61161971EBC7171003AD21C /* PlayerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61161961EBC7171003AD21C /* PlayerFile.swift */; };
+		B65B41111EC01C08003B356A /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B65B41101EC01C08003B356A /* placeholder.jpg */; };
 		B6F9B9DC1EB3384900AD5BC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9B9DB1EB3384900AD5BC5 /* AppDelegate.swift */; };
 		B6F9B9DE1EB3384900AD5BC5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6F9B9DD1EB3384900AD5BC5 /* GameScene.sks */; };
 		B6F9B9E01EB3384900AD5BC5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6F9B9DF1EB3384900AD5BC5 /* Actions.sks */; };
@@ -24,6 +25,7 @@
 		B61079E11EBB1ED2000CB3CC /* MonsterListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonsterListCell.xib; sourceTree = "<group>"; };
 		B6109CBA1EB3608D0026A11A /* MonsterListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonsterListView.swift; sourceTree = "<group>"; };
 		B61161961EBC7171003AD21C /* PlayerFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFile.swift; sourceTree = "<group>"; };
+		B65B41101EC01C08003B356A /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		B6F9B9D81EB3384900AD5BC5 /* MagicTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F9B9DB1EB3384900AD5BC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6F9B9DD1EB3384900AD5BC5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				B6F9B9E31EB3384900AD5BC5 /* GameViewController.swift */,
 				B6109CBA1EB3608D0026A11A /* MonsterListView.swift */,
 				B61161961EBC7171003AD21C /* PlayerFile.swift */,
+				B65B41101EC01C08003B356A /* placeholder.jpg */,
 				B61079E11EBB1ED2000CB3CC /* MonsterListCell.xib */,
 				B6F9B9E51EB3384900AD5BC5 /* Main.storyboard */,
 				B6F9B9E81EB3384900AD5BC5 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 				B6F9B9DE1EB3384900AD5BC5 /* GameScene.sks in Resources */,
 				B6F9B9E91EB3384900AD5BC5 /* Assets.xcassets in Resources */,
 				B6F9B9EC1EB3384900AD5BC5 /* LaunchScreen.storyboard in Resources */,
+				B65B41111EC01C08003B356A /* placeholder.jpg in Resources */,
 				B61079E21EBB1ED2000CB3CC /* MonsterListCell.xib in Resources */,
 				B6F9B9E01EB3384900AD5BC5 /* Actions.sks in Resources */,
 			);

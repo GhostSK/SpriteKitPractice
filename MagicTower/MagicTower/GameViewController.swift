@@ -35,6 +35,11 @@ class GameViewController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let view = self.view as! SKView
+        let scene = view.scene
+        scene?.touchesBegan(touches, with: event)
+    }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {

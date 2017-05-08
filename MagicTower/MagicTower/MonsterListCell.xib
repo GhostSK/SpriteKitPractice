@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MonsterListCell" customModule="MagicTower" customModuleProvider="target">
+        <view contentMode="scaleToFill" restorationIdentifier="MonsterListCell" id="iN0-l3-epB" customClass="MonsterListCell" customModule="MagicTower" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -201,12 +201,8 @@
                 <outlet property="Experience" destination="hFX-KS-eZo" id="k5G-cp-Pfg"/>
                 <outlet property="HeadImage" destination="3aw-d6-qO9" id="V2w-Vn-nOC"/>
                 <outlet property="Health" destination="jax-9G-LKS" id="Puq-uk-juS"/>
-                <outlet property="Image" destination="3aw-d6-qO9" id="2tw-ZA-joW"/>
                 <outlet property="Money" destination="tT2-R2-waf" id="acM-4t-8r2"/>
                 <outlet property="Name" destination="WDG-33-G5X" id="pBz-o7-IEb"/>
-                <outlet property="damage" destination="gjc-ii-EHm" id="J1W-sR-NTe"/>
-                <outlet property="defence" destination="7h6-S9-iLD" id="GyY-Zy-vj9"/>
-                <outlet property="name" destination="WDG-33-G5X" id="ahq-PP-kKz"/>
             </connections>
             <point key="canvasLocation" x="41" y="80"/>
         </view>
