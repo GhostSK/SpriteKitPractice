@@ -14,6 +14,8 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var List:UIView? = nil
+    var btn:UIButton? = nil
+    
     override func didMove(to view: SKView) {
         self.backgroundColor = SKColor.yellow
         // Get label node from scene and store it for use later
@@ -35,8 +37,17 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        let jump = UIButton.init(frame: CGRect(x: 50, y: 600, width: 80, height: 30))
+        jump.setTitle("跳转", for: .normal)
+        jump.addTarget(self, action: #selector(totestScene), for: .touchUpInside)
+        self.btn = jump
+        self.view?.addSubview(jump)
     }
-    
+    func totestScene() {
+        let next = testScene(size: (self.view?.frame.size)!)
+        self.view?.presentScene(next)
+        self.btn?.removeFromSuperview()
+    }
 
     func touchDown(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
