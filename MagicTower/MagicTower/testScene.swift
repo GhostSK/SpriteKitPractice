@@ -11,6 +11,29 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+class logicMap: NSObject {
+    override init() {
+        super.init()
+        //试试从txt文件来载入逻辑地图
+        //直接手写数组未免太烦人
+        let LogicMap0Str = "00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00001110000\n00000100000\n00000100000\n00000100000"
+        let LogicMaptemp = LogicMap0Str.components(separatedBy: "\n")
+        print("\(LogicMaptemp)")
+        let LogicMap:NSMutableArray = NSMutableArray.init()
+        for line in LogicMaptemp {
+            let temp:NSMutableArray = NSMutableArray.init()
+            for ch in line.characters {
+                let s:String = "\(ch)"
+                temp.add(s)
+            }
+            LogicMap.add(temp)
+            print("本行分割结果为\(temp)")
+        }
+        print("最终结果为\n\(LogicMap)")
+        //到这里LogicMap中存在一个正确的二维数组，可用
+        //该方法可正确切割汉语字符串为单字
+    }
+}
 
 class Player: SKSpriteNode {
     static var player = Player.init()
@@ -25,6 +48,7 @@ class Player: SKSpriteNode {
     
     init() {
         super.init(texture: upA, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,7 +72,10 @@ class Player: SKSpriteNode {
                 P.run(Action)
             }
             let move = SKAction.move(by: CGVector(dx: 0, dy: 32), duration: 0.0)
-            P.run(move)
+            P.run(move, completion: { 
+                let p2 = P.position
+                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+            })
             break
         case "下":
             print("向下走一步")
@@ -60,7 +87,10 @@ class Player: SKSpriteNode {
                 P.run(Action)
             }
             let move = SKAction.move(by: CGVector(dx: 0, dy: -32), duration: 0.0)
-            P.run(move)
+            P.run(move, completion: {
+                let p2 = P.position
+                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+            })
             break
         case "左":
             print("向左走一步")
@@ -72,7 +102,10 @@ class Player: SKSpriteNode {
                 P.run(Action)
             }
             let move = SKAction.move(by: CGVector(dx: -32, dy: 0), duration: 0.0)
-            P.run(move)
+            P.run(move, completion: {
+                let p2 = P.position
+                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+            })
             break
         case "右":
             print("向右走一步")
@@ -84,7 +117,10 @@ class Player: SKSpriteNode {
                 P.run(Action)
             }
             let move = SKAction.move(by: CGVector(dx: 32, dy: 0), duration: 0.0)
-            P.run(move)
+            P.run(move, completion: {
+                let p2 = P.position
+                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+            })
             break
             
         default:
@@ -104,6 +140,51 @@ class testScene: SKScene {
     var map :SKSpriteNode? = nil
     override func didMove(to view: SKView) {
         self.buildtestScene()
+        self.buildBtn()
+//        let d = logicMap.init()
+
+    }
+    
+    func buildBtn() {
+        //试试画一个扇形的view来制作自定义按钮
+        let view = UIView.init(frame: CGRect(x: 20, y: 500, width: 200, height: 200))
+        view.backgroundColor = SKColor.white
+        self.view?.addSubview(view)
+//        let size =  view.frame.size
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: 40))
+        path.addLine(to: CGPoint(x: 0, y: 80))
+        path.addLine(to: CGPoint(x: 200, y: 80))
+        path.addLine(to: CGPoint(x: 200, y: 40))  //右上的点
+        path.addQuadCurve(to: CGPoint(x: 0, y: 40), controlPoint: CGPoint(x: 100, y: 0))  //回到左上的点，带上中上的控制点
+        let layer = CAShapeLayer.init()
+        layer.strokeColor = SKColor.purple.cgColor
+        layer.fillColor = SKColor.black.cgColor
+        layer.path = path.cgPath
+        view.layer.addSublayer(layer)
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapAction))
+        let view2 = UIView.init(frame: view.frame)
+        view2.backgroundColor = SKColor.red
+        //蒙版
+        let maskLayer = CAShapeLayer.init()
+        maskLayer.fillColor = UIColor.red.cgColor
+        maskLayer.frame = view2.frame
+        view2.layer.mask = maskLayer
+        
+        //边框蒙版
+        let borderLayer = CAShapeLayer.init()
+        //    maskBorderLayer.path = [bezierPath CGPath];
+        borderLayer.path = path.cgPath
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.strokeColor = UIColor.blue.cgColor //边框颜色
+        borderLayer.lineWidth = 2  //边框宽度
+        view2.layer.addSublayer(borderLayer)  
+        view.addSubview(view2)
+        view2.addGestureRecognizer(tap)
+        
+    }
+    func tapAction(){
+        print("view2被点击了")
     }
     
     func buildtestScene(){
@@ -132,26 +213,44 @@ class testScene: SKScene {
         addChild(mapcover)
         
         let a1 = Player.shareInstance()
-        a1.position = CGPoint(x: 160, y: 0)
-        a1.anchorPoint = CGPoint.zero
+        a1.position = CGPoint(x: 176, y: 16)
+//        a1.anchorPoint = CGPoint.zero
         mapcover.addChild(a1)
         self.map = mapcover
         a1.moveAction(WithDirection: "上")
         self.player = a1
+        let luggage = SKSpriteNode(color: SKColor.red, size: CGSize(width: 32, height: 32))
+        luggage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        luggage.position = CGPoint(x: 176, y: 176)
+        mapcover.addChild(luggage)
+        mapcover.name = "mapcover"
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            let a2 = touches.count
-            print("触摸总数为\(a2)次")
+            let p2 = self.player!.position
+            print("移动前位置坐标为x = \(p2.x) y = \(p2.y)")
             let location = touch.location(in: self.map!)
             //获取点击位置
-            print("点击位置为x = \(location.x), y = \(location.y)")
+//            print("点击位置为x = \(location.x), y = \(location.y)")
             if location.x < 0 || location.x > 352 || location.y < 0 || location.y > 352 {
                 print("触摸点不在区域内")
             }else{
                 if location.x <= location.y {
                     if location.x + location.y >= 352.0 {  //四分上区域
+                        //这里可以顺利检测到player的父节点上的其他子节点并触发事件，且节点hidden后不会继续触发，重置游戏后遍历所有子节点更改为ishidden = false 即可
+                        let a = CGPoint(x: p2.x, y: p2.y + 32)
+                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let t = cover.nodes(at: a)
+                        if t.count > 0 {
+                            print("检测到事件触发点")
+                            for w in t {
+                                let w2 = w as! SKSpriteNode
+                                w2.isHidden = true
+                            }
+                        }
+                        
+                        
                         self.player?.moveAction(WithDirection: "上")
                     }else{  //四分区域左侧
                         self.player?.moveAction(WithDirection: "左")

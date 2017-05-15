@@ -36,7 +36,7 @@ class GameScene: SKScene {
         
     }
     func centerViewOn(centerOn:CGPoint) {
-        let x = centerOn.x.
+        let x = centerOn.x
     }
     
     
