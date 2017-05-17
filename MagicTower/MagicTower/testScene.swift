@@ -12,12 +12,42 @@ import SpriteKit
 import GameplayKit
 
 class logicMap: NSObject {
+    
+    static var logic = logicMap.init()
+    var Map0:NSMutableArray? = nil
+    var Map1:NSMutableArray? = nil
+    var Map2:NSMutableArray? = nil
+    var Map3:NSMutableArray? = nil
+    
+    class func shareInstance() -> logicMap{
+        return self.logic
+    }
+    
+    func getLogicMap(Floor:Int)->NSMutableArray{
+        if Floor == 0 {
+            return self.Map0!
+        }else if Floor == 1 {
+            return self.Map1!
+        }else if Floor == 2 {
+            return self.Map2!
+        }else {
+            return self.Map3!
+        }
+    }
+    
+    
     override init() {
         super.init()
-        //试试从txt文件来载入逻辑地图
-        //直接手写数组未免太烦人
-        let LogicMap0Str = "00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00001110000\n00000100000\n00000100000\n00000100000"
-        let LogicMaptemp = LogicMap0Str.components(separatedBy: "\n")
+        self.Map0 = buildLogicMap(MapStr: "00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00001110000\n00000100000\n00000100000\n00000100000")
+        self.Map1 = buildLogicMap(MapStr: "11111111111\n00000000001\n11111011101\n11101011101\n01001000101\n11101111101\n11101000001\n01001111111\n11100100010\n11101110111\n11101110111")
+        self.Map2 = buildLogicMap(MapStr: "10111011110\n10101011110\n10101011110\n10101000010\n10101111110\n10100100100\n11111101110\n10100101010\n10101101010\n10101101010\n10101101010")
+        self.Map3 = buildLogicMap(MapStr: "11100100000\n11101110111\n11100100101\n01001110101\n11100010101\n10111110101\n10000011101\n11111001001\n00001011101\n01111011101\n11000011101")
+    }
+    
+    func buildLogicMap(MapStr:String)->NSMutableArray{
+
+        let LogicMapStr = MapStr
+        let LogicMaptemp = LogicMapStr.components(separatedBy: "\n")
         print("\(LogicMaptemp)")
         let LogicMap:NSMutableArray = NSMutableArray.init()
         for line in LogicMaptemp {
@@ -27,16 +57,39 @@ class logicMap: NSObject {
                 temp.add(s)
             }
             LogicMap.add(temp)
-            print("本行分割结果为\(temp)")
+            //            print("本行分割结果为\(temp)")
         }
-        print("最终结果为\n\(LogicMap)")
+        //        print("最终结果为\n\(LogicMap)")
         //到这里LogicMap中存在一个正确的二维数组，可用
         //该方法可正确切割汉语字符串为单字
+        
+        //另外，这里第0行储存的实际是最上面一行的逻辑地图信息，因此需要对LogicMap进行翻转来契合Spritekit坐标系，方便开发
+        for i in 0...4 {  //定长11长度的队列
+            let temp = LogicMap[i]
+            LogicMap[i] = LogicMap[10-i]
+            LogicMap[10-i] = temp
+        }
+        return LogicMap
     }
+    
 }
 
 class Player: SKSpriteNode {
     static var player = Player.init()
+    //六维属性
+    var health:Int = 1000
+    var attack:Int = 10
+    var defence:Int = 10
+    var level:Int = 1
+    var experience:Int = 0
+    var money:Int = 0
+    //钥匙持有量
+    var yellowKey:Int = 0
+    var blueKey:Int = 0
+    var redKey:Int = 0
+    //所在地图层数 
+    var AtFloor:Int = 0
+    
     let upA = SKTexture(imageNamed: "f-864.jpg")
     let upB = SKTexture(imageNamed: "f-894.jpg")
     let leftA = SKTexture(imageNamed: "f-862.jpg")
@@ -59,11 +112,20 @@ class Player: SKSpriteNode {
         return self.player
     }
     
-    func moveAction(WithDirection:String) {
+    func moveAction(WithDirection:String, EventNodes:[SKNode]) {
         let P = Player.shareInstance()
+        let L = logicMap.shareInstance()
+        let LogicMap = L.getLogicMap(Floor: P.AtFloor)  //获取本层逻辑地图
+        let playerPosition = P.position
+        let line = Int((playerPosition.y - 16) / 32)
+        let row = Int((playerPosition.x - 16) / 32)
+        
         switch WithDirection {
         case "上":
             print("向上走一步")
+            //之所以先变动画后移动是因为你即使是对着墙走了一步，至少也要在屏幕上给予玩家一个操作的反馈
+            //因此立绘一定要有所改变，面向或者动画的变化来体现这个操作已经被输入了
+            //然后才是判断能否前进是否触发事件等等
             if P.texture == upA {
                 let Action = SKAction.setTexture(upB)
                 P.run(Action)
@@ -71,11 +133,39 @@ class Player: SKSpriteNode {
                 let Action = SKAction.setTexture(upA)
                 P.run(Action)
             }
-            let move = SKAction.move(by: CGVector(dx: 0, dy: 32), duration: 0.0)
-            P.run(move, completion: { 
-                let p2 = P.position
-                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
-            })
+            //判断逻辑地图是否允许通过，以及是否存在事件
+            if line + 1 > 10 {
+                return //到达地图上界
+            }
+            let a:NSArray = LogicMap[line+1] as! NSArray
+            let a1:String = a[row] as! String
+            print("取到的逻辑地图值为\(a1)")
+            if  a1 == "1"{
+                //允许移动
+                print("允许移动")
+                if  EventNodes.count > 0 {
+                    //处理事件
+                        print("检测到事件触发点")
+                        for w in EventNodes {
+                        let w2 = w as! SKSpriteNode
+                        w2.isHidden = true
+                                                }
+                }else{
+                    //进行移动
+                    let move = SKAction.move(by: CGVector(dx: 0, dy: 32), duration: 0.0)
+                    P.run(move, completion: {
+                        let p2 = P.position
+                        print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+                    })
+                }
+            }else{
+                //不可移动
+                print("禁止移动")
+            }
+            
+            
+            
+
             break
         case "下":
             print("向下走一步")
@@ -86,11 +176,34 @@ class Player: SKSpriteNode {
                 let Action = SKAction.setTexture(downA)
                 P.run(Action)
             }
-            let move = SKAction.move(by: CGVector(dx: 0, dy: -32), duration: 0.0)
-            P.run(move, completion: {
-                let p2 = P.position
-                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
-            })
+            if line - 1 < 0 {
+                return //到达地图下界
+            }
+            let a:NSArray = LogicMap[line-1] as! NSArray
+            let a1:String = a[row] as! String
+            print("取到的逻辑地图值为\(a1)")
+            if  a1 == "1"{
+                //允许移动
+                print("允许移动")
+                if  EventNodes.count > 0 {
+                    //处理事件
+                    print("检测到事件触发点")
+                    for w in EventNodes {
+                        let w2 = w as! SKSpriteNode
+                        w2.isHidden = true
+                    }
+                }else{
+                    //进行移动
+                    let move = SKAction.move(by: CGVector(dx: 0, dy: -32), duration: 0.0)
+                    P.run(move, completion: {
+                        let p2 = P.position
+                        print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+                    })
+                }
+            }else{
+                //不可移动
+                print("禁止移动")
+            }
             break
         case "左":
             print("向左走一步")
@@ -101,11 +214,37 @@ class Player: SKSpriteNode {
                 let Action = SKAction.setTexture(leftA)
                 P.run(Action)
             }
-            let move = SKAction.move(by: CGVector(dx: -32, dy: 0), duration: 0.0)
-            P.run(move, completion: {
-                let p2 = P.position
-                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
-            })
+            //边缘检测
+            if row == 0 {
+                return //到达地图左边缘
+            }
+            
+            let a:NSArray = LogicMap[line] as! NSArray
+            let a1:String = a[row-1] as! String
+            
+            print("取到的逻辑地图值为\(a1)")
+            if  a1 == "1"{
+                //允许移动
+                print("允许移动")
+                if  EventNodes.count > 0 {
+                    //处理事件
+                    print("检测到事件触发点")
+                    for w in EventNodes {
+                        let w2 = w as! SKSpriteNode
+                        w2.isHidden = true
+                    }
+                }else{
+                    //进行移动
+                    let move = SKAction.move(by: CGVector(dx: -32, dy: 0), duration: 0.0)
+                    P.run(move, completion: {
+                        let p2 = P.position
+                        print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+                    })
+                }
+            }else{
+                //不可移动
+                print("禁止移动")
+            }
             break
         case "右":
             print("向右走一步")
@@ -116,11 +255,38 @@ class Player: SKSpriteNode {
                 let Action = SKAction.setTexture(rightA)
                 P.run(Action)
             }
-            let move = SKAction.move(by: CGVector(dx: 32, dy: 0), duration: 0.0)
-            P.run(move, completion: {
-                let p2 = P.position
-                print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
-            })
+            
+            //边缘检测
+            if row == 10 {
+                return //到达地图左边缘
+            }
+            
+            let a:NSArray = LogicMap[line] as! NSArray
+            let a1:String = a[row+1] as! String
+            
+            print("取到的逻辑地图值为\(a1)")
+            if  a1 == "1"{
+                //允许移动
+                print("允许移动")
+                if  EventNodes.count > 0 {
+                    //处理事件
+                    print("检测到事件触发点")
+                    for w in EventNodes {
+                        let w2 = w as! SKSpriteNode
+                        w2.isHidden = true
+                    }
+                }else{
+                    //进行移动
+                    let move = SKAction.move(by: CGVector(dx: 32, dy: 0), duration: 0.0)
+                    P.run(move, completion: {
+                        let p2 = P.position
+                        print("现在位置坐标为x = \(p2.x) y = \(p2.y)")
+                    })
+                }
+            }else{
+                //不可移动
+                print("禁止移动")
+            }
             break
             
         default:
@@ -141,7 +307,7 @@ class testScene: SKScene {
     override func didMove(to view: SKView) {
         self.buildtestScene()
         self.buildBtn()
-//        let d = logicMap.init()
+        _ = logicMap.init()
 
     }
     
@@ -217,7 +383,6 @@ class testScene: SKScene {
 //        a1.anchorPoint = CGPoint.zero
         mapcover.addChild(a1)
         self.map = mapcover
-        a1.moveAction(WithDirection: "上")
         self.player = a1
         let luggage = SKSpriteNode(color: SKColor.red, size: CGSize(width: 32, height: 32))
         luggage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -238,28 +403,43 @@ class testScene: SKScene {
             }else{
                 if location.x <= location.y {
                     if location.x + location.y >= 352.0 {  //四分上区域
-                        //这里可以顺利检测到player的父节点上的其他子节点并触发事件，且节点hidden后不会继续触发，重置游戏后遍历所有子节点更改为ishidden = false 即可
+                        
                         let a = CGPoint(x: p2.x, y: p2.y + 32)
                         let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
                         let t = cover.nodes(at: a)
-                        if t.count > 0 {
-                            print("检测到事件触发点")
-                            for w in t {
-                                let w2 = w as! SKSpriteNode
-                                w2.isHidden = true
-                            }
-                        }
+                        self.player?.moveAction(WithDirection: "上", EventNodes: t)
                         
-                        
-                        self.player?.moveAction(WithDirection: "上")
+                        //下面代码已经废弃，事件处理和逻辑判断均转交player类进行处理，将对应方向的节点传递进去
+                            //这里可以顺利检测到player的父节点上的其他子节点并触发事件，且节点hidden后不会继续触发，重置游戏后遍历所有子节点更改为ishidden = false 即可
+//                        let a = CGPoint(x: p2.x, y: p2.y + 32)
+//                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+//                        let t = cover.nodes(at: a)
+//                        if t.count > 0 {
+//                            print("检测到事件触发点")
+//                            for w in t {
+//                                let w2 = w as! SKSpriteNode
+//                                w2.isHidden = true
+//                            }
+//                        }else{  //如果没有触发事件，则进行移动
+//                            self.player?.moveAction(WithDirection: "上")  //逻辑地图的判断内置在
+//                        }
                     }else{  //四分区域左侧
-                        self.player?.moveAction(WithDirection: "左")
+                        let a = CGPoint(x: p2.x - 32, y: p2.y)
+                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let t = cover.nodes(at: a)
+                        self.player?.moveAction(WithDirection: "左", EventNodes: t)
                     }
                 }else{
                     if location.x + location.y >= 352.0 { //四分区域右侧
-                        self.player?.moveAction(WithDirection: "右")
+                        let a = CGPoint(x: p2.x + 32, y: p2.y)
+                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let t = cover.nodes(at: a)
+                        self.player?.moveAction(WithDirection: "右", EventNodes: t)
                     }else{ //四分区域下侧
-                        self.player?.moveAction(WithDirection: "下")
+                        let a = CGPoint(x: p2.x, y: p2.y - 32)
+                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let t = cover.nodes(at: a)
+                        self.player?.moveAction(WithDirection: "下", EventNodes: t)
                     }
                 }
             }

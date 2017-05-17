@@ -55,7 +55,7 @@ class MonsterModel: NSObject {
         self.health = "\(Health)"
         self.money = "\(Money)"
         self.exper = "\(Exper)"
-        let player = PlayerData.shareInstance()
+        let player = Player.shareInstance()
         self.calculateDamage(PlayerAttack: player.attack, PlayerDefence: player.defence)
         
     }
@@ -83,7 +83,7 @@ class MonsterListCell: UITableViewCell {
         self.Health.text = self.model?.health
         self.Money.text = self.model?.money
         self.Experience.text = self.model?.exper
-        let player = PlayerData.shareInstance()
+        let player = Player.shareInstance()
         let a = player.attack
         let d = player.defence
         self.model?.calculateDamage(PlayerAttack: a, PlayerDefence: d)
