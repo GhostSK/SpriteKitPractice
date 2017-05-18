@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60D29241ECDA82200EB147D /* f-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B60D29231ECDA82200EB147D /* f-23.jpg */; };
 		B6104C791EC1C554009763FC /* text.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B6104C781EC1C554009763FC /* text.atlas */; };
 		B6109CBB1EB3608D0026A11A /* MonsterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6109CBA1EB3608D0026A11A /* MonsterListView.swift */; };
 		B65B41111EC01C08003B356A /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B65B41101EC01C08003B356A /* placeholder.jpg */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B60D29231ECDA82200EB147D /* f-23.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-23.jpg"; path = "text.atlas/f-23.jpg"; sourceTree = "<group>"; };
 		B6104C781EC1C554009763FC /* text.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = text.atlas; sourceTree = "<group>"; };
 		B6109CBA1EB3608D0026A11A /* MonsterListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonsterListView.swift; sourceTree = "<group>"; };
 		B65B41101EC01C08003B356A /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				B65B41101EC01C08003B356A /* placeholder.jpg */,
 				B6F9B9E51EB3384900AD5BC5 /* Main.storyboard */,
 				B6F9B9E81EB3384900AD5BC5 /* Assets.xcassets */,
+				B60D29231ECDA82200EB147D /* f-23.jpg */,
 				B6104C781EC1C554009763FC /* text.atlas */,
 				B6F9B9EA1EB3384900AD5BC5 /* LaunchScreen.storyboard */,
 				B6F9B9ED1EB3384900AD5BC5 /* Info.plist */,
@@ -155,6 +158,7 @@
 				B6F9B9E71EB3384900AD5BC5 /* Main.storyboard in Resources */,
 				B6104C791EC1C554009763FC /* text.atlas in Resources */,
 				B6F9B9DE1EB3384900AD5BC5 /* GameScene.sks in Resources */,
+				B60D29241ECDA82200EB147D /* f-23.jpg in Resources */,
 				B6F9B9E91EB3384900AD5BC5 /* Assets.xcassets in Resources */,
 				B6F9B9EC1EB3384900AD5BC5 /* LaunchScreen.storyboard in Resources */,
 				B65B41111EC01C08003B356A /* placeholder.jpg in Resources */,

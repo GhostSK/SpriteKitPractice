@@ -399,7 +399,9 @@ class testScene: SKScene {
         let ItemA = GameItem.buildsmallHealth()
         ItemA.position = CGPoint(x: 176, y: 208)
         mapcover.addChild(ItemA)
-        
+        let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        monA.position = CGPoint(x: 176, y: 176)
+        mapcover.addChild(monA)
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -411,6 +413,20 @@ class testScene: SKScene {
 //            print("点击位置为x = \(location.x), y = \(location.y)")
             if location.x < 0 || location.x > 352 || location.y < 0 || location.y > 352 {
                 print("触摸点不在区域内")
+                //展示怪物信息列表
+                let list = MonsterListView.init(frame: CGRect(x: 15, y: 20, width: 384, height: 300))
+                let map = self.childNode(withName: "mapcover")
+                let mapnode = map!.children
+                for node in mapnode {
+                    if node is MonsterNode {
+                        //纹理集中的图片可以使用SKTexture正确读出但是不能用UIImage读出，很奇怪
+                        let head = UIImage.init(named:"f-23.jpg")
+                        let model = MonsterModel.init(HeadImage:head!, Name: "绿头怪", Attack: 20, Defence: 1, Health: 50, Money: 1, Exper: 1)
+                        list.DataArr?.add(model)
+                    }
+                }
+                
+                self.view?.addSubview(list)
             }else{
                 if location.x <= location.y {
                     if location.x + location.y >= 352.0 {  //四分上区域

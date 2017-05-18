@@ -78,6 +78,7 @@ class MonsterListCell: UITableViewCell {
 
     func loadData(){
         self.HeadImage.image = self.model?.headImage
+        self.Name.text = self.model?.name
         self.Attack.text = self.model?.attack
         self.Defence.text = self.model?.defence
         self.Health.text = self.model?.health
@@ -94,13 +95,12 @@ class MonsterListCell: UITableViewCell {
 
 class MonsterListView: UIView,UITableViewDelegate, UITableViewDataSource {
     var maintable: UITableView? = nil
-    var DataArr:NSMutableArray? = nil
+    var DataArr:NSMutableArray? = NSMutableArray.init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = SKColor.black
         //测试数据
-        self.DataArr = NSMutableArray.init()
         let head = UIImage.init(named:"placeholder.jpg")
         let model1 = MonsterModel.init(HeadImage: head!, Name: "AAA", Attack:10, Defence: 10, Health: 100, Money: 5, Exper: 3)
         self.DataArr?.add(model1)
@@ -134,6 +134,7 @@ class MonsterListView: UIView,UITableViewDelegate, UITableViewDataSource {
         let MO:MonsterModel = self.DataArr?.object(at: indexPath.row) as! MonsterModel
         cell.model = MO
         cell.loadData()
+        cell.selectionStyle = .none
         return cell
         //swift 随机背景颜色
 //        let cell = UITableViewCell()

@@ -124,7 +124,14 @@ class GameItem: SKSpriteNode {
             player.defence += 3
             self.isHidden = true
             break
-        
+        case "upstairsNode":
+            let a = player.AtFloor + 1  //计算要去的楼层
+            print("现在要移动到第\(a)层")
+            break
+        case "downstairsNode":
+            let a = player.AtFloor - 1  //计算要去的楼层
+            print("现在要移动到第\(a)层")
+            break
         default:
             print("未命中任意一条")
             break
@@ -146,6 +153,7 @@ class MonsterNode: SKSpriteNode {
         let texture2 = SKTexture(imageNamed: Texture2Name)
         
         let a = MonsterNode(texture: texture1, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        a.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         //制作怪物纹理替换
         let act1 = SKAction.wait(forDuration: 1)
         let act2 = SKAction.setTexture(texture2)
