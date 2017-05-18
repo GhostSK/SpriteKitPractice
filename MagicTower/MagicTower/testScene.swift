@@ -147,9 +147,11 @@ class Player: SKSpriteNode {
                     //处理事件
                         print("检测到事件触发点")
                         for w in EventNodes {
-                        let w2 = w as! SKSpriteNode
-                        w2.isHidden = true
-                                                }
+//                        let w2 = w as! SKSpriteNode
+//                        w2.isHidden = true
+                            let w2 = w as! GameItem
+                            w2.ItemEvent()
+                    }
                 }else{
                     //进行移动
                     let move = SKAction.move(by: CGVector(dx: 0, dy: 32), duration: 0.0)
@@ -294,6 +296,10 @@ class Player: SKSpriteNode {
         }
     }
     
+    func updateData(){
+        print("刷新数据")  //在player数值改变以后，对界面数据进行刷新
+        
+    }
     
     
 
@@ -381,14 +387,19 @@ class testScene: SKScene {
         let a1 = Player.shareInstance()
         a1.position = CGPoint(x: 176, y: 16)
 //        a1.anchorPoint = CGPoint.zero
+        mapcover.name = "mapcover"
         mapcover.addChild(a1)
         self.map = mapcover
         self.player = a1
-        let luggage = SKSpriteNode(color: SKColor.red, size: CGSize(width: 32, height: 32))
-        luggage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        luggage.position = CGPoint(x: 176, y: 176)
-        mapcover.addChild(luggage)
-        mapcover.name = "mapcover"
+//        let luggage = SKSpriteNode(color: SKColor.red, size: CGSize(width: 32, height: 32))
+//        luggage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//        luggage.position = CGPoint(x: 176, y: 176)
+//        mapcover.addChild(luggage)
+        
+        let ItemA = GameItem.buildsmallHealth()
+        ItemA.position = CGPoint(x: 176, y: 208)
+        mapcover.addChild(ItemA)
+        
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
