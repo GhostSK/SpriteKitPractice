@@ -10,6 +10,8 @@
 		B60D29241ECDA82200EB147D /* f-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B60D29231ECDA82200EB147D /* f-23.jpg */; };
 		B6104C791EC1C554009763FC /* text.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B6104C781EC1C554009763FC /* text.atlas */; };
 		B6109CBB1EB3608D0026A11A /* MonsterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6109CBA1EB3608D0026A11A /* MonsterListView.swift */; };
+		B647E56C1EE5532600288820 /* FightCalculateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B647E56B1EE5532600288820 /* FightCalculateView.xib */; };
+		B647E56E1EE559FD00288820 /* vs.png in Resources */ = {isa = PBXBuildFile; fileRef = B647E56D1EE559FD00288820 /* vs.png */; };
 		B65B41111EC01C08003B356A /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B65B41101EC01C08003B356A /* placeholder.jpg */; };
 		B65B41581EC06061003B356A /* MonsterListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65B41571EC06061003B356A /* MonsterListCell.xib */; };
 		B65B415A1EC06AB8003B356A /* testScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41591EC06AB8003B356A /* testScene.swift */; };
@@ -28,6 +30,8 @@
 		B60D29231ECDA82200EB147D /* f-23.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-23.jpg"; path = "text.atlas/f-23.jpg"; sourceTree = "<group>"; };
 		B6104C781EC1C554009763FC /* text.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = text.atlas; sourceTree = "<group>"; };
 		B6109CBA1EB3608D0026A11A /* MonsterListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonsterListView.swift; sourceTree = "<group>"; };
+		B647E56B1EE5532600288820 /* FightCalculateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FightCalculateView.xib; sourceTree = "<group>"; };
+		B647E56D1EE559FD00288820 /* vs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vs.png; sourceTree = "<group>"; };
 		B65B41101EC01C08003B356A /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		B65B41571EC06061003B356A /* MonsterListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonsterListCell.xib; sourceTree = "<group>"; };
 		B65B41591EC06AB8003B356A /* testScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testScene.swift; sourceTree = "<group>"; };
@@ -81,12 +85,14 @@
 				B65B41591EC06AB8003B356A /* testScene.swift */,
 				B6F9B9E31EB3384900AD5BC5 /* GameViewController.swift */,
 				B6CE37451ECC4EAC00962FE0 /* EventAndMonster.swift */,
+				B647E56B1EE5532600288820 /* FightCalculateView.xib */,
 				B6109CBA1EB3608D0026A11A /* MonsterListView.swift */,
 				B65B41571EC06061003B356A /* MonsterListCell.xib */,
 				B65B41101EC01C08003B356A /* placeholder.jpg */,
 				B6F9B9E51EB3384900AD5BC5 /* Main.storyboard */,
 				B6F9B9E81EB3384900AD5BC5 /* Assets.xcassets */,
 				B60D29231ECDA82200EB147D /* f-23.jpg */,
+				B647E56D1EE559FD00288820 /* vs.png */,
 				B6104C781EC1C554009763FC /* text.atlas */,
 				B6F9B9EA1EB3384900AD5BC5 /* LaunchScreen.storyboard */,
 				B6F9B9ED1EB3384900AD5BC5 /* Info.plist */,
@@ -154,6 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B647E56C1EE5532600288820 /* FightCalculateView.xib in Resources */,
 				B65B41581EC06061003B356A /* MonsterListCell.xib in Resources */,
 				B6F9B9E71EB3384900AD5BC5 /* Main.storyboard in Resources */,
 				B6104C791EC1C554009763FC /* text.atlas in Resources */,
@@ -161,6 +168,7 @@
 				B60D29241ECDA82200EB147D /* f-23.jpg in Resources */,
 				B6F9B9E91EB3384900AD5BC5 /* Assets.xcassets in Resources */,
 				B6F9B9EC1EB3384900AD5BC5 /* LaunchScreen.storyboard in Resources */,
+				B647E56E1EE559FD00288820 /* vs.png in Resources */,
 				B65B41111EC01C08003B356A /* placeholder.jpg in Resources */,
 				B6F9B9E01EB3384900AD5BC5 /* Actions.sks in Resources */,
 			);

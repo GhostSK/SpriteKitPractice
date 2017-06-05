@@ -169,6 +169,9 @@ class MonsterNode: SKSpriteNode {
         a.monsterExperience = Exper
         return a
     }
+    func presentFightView(){
+        
+    }
     
 }
 

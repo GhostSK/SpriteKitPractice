@@ -146,12 +146,7 @@ class Player: SKSpriteNode {
                 if  EventNodes.count > 0 {
                     //处理事件
                         print("检测到事件触发点")
-                        for w in EventNodes {
-//                        let w2 = w as! SKSpriteNode
-//                        w2.isHidden = true
-                            let w2 = w as! GameItem
-                            w2.ItemEvent()
-                    }
+                    self.dealEvents(eventNodes: EventNodes)
                 }else{
                     //进行移动
                     let move = SKAction.move(by: CGVector(dx: 0, dy: 32), duration: 0.0)
@@ -296,6 +291,26 @@ class Player: SKSpriteNode {
         }
     }
     
+    func dealEvents(eventNodes:[SKNode]) {
+        for w in eventNodes {
+            if w is GameItem {
+                // 类型判断三个写法
+//                w.isMember(of: GameItem.self)
+//                w.isKind(of: GameItem.self)
+//                w is GameItem
+                let w2 = w as! GameItem
+                w2.ItemEvent()
+            }else if w is MonsterNode{
+                print("怪物节点")
+            }
+            //                        let w2 = w as! SKSpriteNode
+            //                        w2.isHidden = true
+//            let w2 = w as! GameItem
+//            w2.ItemEvent()
+        }
+    }
+    
+    
     func updateData(){
         print("刷新数据")  //在player数值改变以后，对界面数据进行刷新
         
@@ -411,10 +426,11 @@ class testScene: SKScene {
             let location = touch.location(in: self.map!)
             //获取点击位置
 //            print("点击位置为x = \(location.x), y = \(location.y)")
-            if location.x < 0 || location.x > 352 || location.y < 0 || location.y > 352 {
+            if location.x < 0 || location.x > 352 || location.y < 0 || location.y > 352 {// 这个括号的内容以后会转移到按钮
                 print("触摸点不在区域内")
                 //展示怪物信息列表
                 let list = MonsterListView.init(frame: CGRect(x: 15, y: 20, width: 384, height: 300))
+                list.tag = 400
                 let map = self.childNode(withName: "mapcover")
                 let mapnode = map!.children
                 for node in mapnode {
@@ -423,9 +439,11 @@ class testScene: SKScene {
                         let head = UIImage.init(named:"f-23.jpg")
                         let model = MonsterModel.init(HeadImage:head!, Name: "绿头怪", Attack: 20, Defence: 1, Health: 50, Money: 1, Exper: 1)
                         list.DataArr?.add(model)
+                        
                     }
                 }
-                
+                let tap = UITapGestureRecognizer.init(target: self, action: #selector(hiddenInfoList))
+                list.addGestureRecognizer(tap)
                 self.view?.addSubview(list)
             }else{
                 if location.x <= location.y {
@@ -471,6 +489,11 @@ class testScene: SKScene {
                 }
             }
         }
+    }
+    
+    func hiddenInfoList(){
+        let view = self.view?.viewWithTag(400)
+        view?.removeFromSuperview()
     }
     
 }
