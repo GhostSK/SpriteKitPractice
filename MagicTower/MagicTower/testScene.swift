@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import SpriteKit
-import GameplayKit
+//import GameplayKit
 
 class logicMap: NSObject {
     
@@ -302,9 +302,38 @@ class Player: SKSpriteNode {
                 w2.ItemEvent()
             }else if w is MonsterNode{
                 print("怪物节点")
+                let a = w as! MonsterNode
+                let playerInfo = Player.shareInstance()
+                
+                if a.monsterDefence >= playerInfo.attack {
+                    let view = refuseView.init(text: "你太弱了，练练再来吧！")
+                    let vc = UIApplication.shared.keyWindow?.rootViewController
+                    vc?.view.addSubview(view)
+                    return
+                }else{
+                    let model = MonsterModel.init(HeadImage: UIImage.init(named: a.monsterPictureName)!, Name: a.monsterName, Attack: a.monsterAttack, Defence: a.monsterDefence, Health: a.monsterHealth, Money: a.monsterMoney, Exper: a.monsterExperience)
+                    let view = FightCalculateView.showView(Enemy: model)
+                    view.frame = CGRect(x: 31, y: 50, width: 352, height: 245)
+                    let vc = UIApplication.shared.keyWindow?.rootViewController
+                    vc?.view.addSubview(view)
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true, block: { (timer) in
+                        let a = Int(view.monsterHealth.text!)
+                        view.calculate()
+                        
+                        if a! <= 0 {
+                            timer.invalidate()
+                            view.removeFromSuperview()
+                            let health = Int(view.playerHealth.text!)
+                            playerInfo.health = health!
+                            w.isHidden = true
+                        }
+                    })
+                    timer.fire()
+                    
+                }
             }
-            //                        let w2 = w as! SKSpriteNode
-            //                        w2.isHidden = true
+//                        let w2 = w as! SKSpriteNode
+//                        w2.isHidden = true
 //            let w2 = w as! GameItem
 //            w2.ItemEvent()
         }
@@ -319,7 +348,65 @@ class Player: SKSpriteNode {
     
 
 }
-
+class FightCalculateView: UIView {
+    
+    @IBOutlet weak var playerImage: UIImageView!
+    @IBOutlet weak var playerHealth: UILabel!
+    @IBOutlet weak var playerAttack: UILabel!
+    @IBOutlet weak var playerDefence: UILabel!
+    
+    @IBOutlet weak var monsterImage: UIImageView!
+    
+    @IBOutlet weak var monsterDefence: UILabel!
+    @IBOutlet weak var monsterAttack: UILabel!
+    @IBOutlet weak var monsterHealth: UILabel!
+    var timer:Timer? = nil
+    
+    class func showView(Enemy:MonsterModel)->FightCalculateView{
+        let view = Bundle.main.loadNibNamed("FightCalculateView", owner: nil, options: nil)?.first as! FightCalculateView
+        let player = Player.shareInstance()
+        view.playerImage.image = UIImage.init(named: "f-865.jpg")
+        view.playerHealth.text = "\(player.health)"
+        view.playerAttack.text = "\(player.attack)"
+        view.playerDefence.text = "\(player.defence)"
+        view.monsterImage.image = Enemy.headImage
+        view.monsterHealth.text = Enemy.health
+        view.monsterAttack.text = Enemy.attack
+        view.monsterDefence.text = Enemy.defence
+        return view
+    }
+    func calculate(){
+        
+        var ph = Int(self.playerHealth.text!)
+        let pa = Int(self.playerAttack.text!)
+        let pd = Int(self.playerDefence.text!)
+        var mh = Int(self.monsterHealth.text!)
+        let ma = Int(self.monsterAttack.text!)
+        let md = Int(self.monsterDefence.text!)
+        
+        var playerdamage:Int = 0
+        let monsterdamage:Int = pa! - md!
+        if ma! > pd! {
+            playerdamage = ma! - pd!
+        }
+        ph = ph! - playerdamage
+        mh = mh! - monsterdamage
+        if mh! < 0 {
+            mh = 0
+        }
+        self.playerHealth.text = "\(ph!)"
+        self.monsterHealth.text = "\(mh!)"
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+}
 
 class testScene: SKScene {
     

@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="YGe-Dj-aK1">
+        <view contentMode="scaleToFill" id="YGe-Dj-aK1" customClass="FightCalculateView" customModule="MagicTower" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="352" height="245"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -190,6 +190,16 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="monsterAttack" destination="Mtd-gN-7aS" id="HZH-2w-iU8"/>
+                <outlet property="monsterDefence" destination="FRx-Rl-5FX" id="bs4-aF-SLj"/>
+                <outlet property="monsterHealth" destination="6Hf-js-qkn" id="CrT-7O-A2o"/>
+                <outlet property="monsterImage" destination="M4W-H5-fmA" id="QJz-Bc-Etb"/>
+                <outlet property="playerAttack" destination="lci-Vq-1pa" id="hif-GQ-6rT"/>
+                <outlet property="playerDefence" destination="pD9-yf-u3Y" id="VoI-Mn-igo"/>
+                <outlet property="playerHealth" destination="J0G-Ac-nKy" id="Wea-d3-8ta"/>
+                <outlet property="playerImage" destination="2oH-Ii-uqF" id="i9Y-hx-Mm8"/>
+            </connections>
             <point key="canvasLocation" x="-18" y="152.5"/>
         </view>
     </objects>

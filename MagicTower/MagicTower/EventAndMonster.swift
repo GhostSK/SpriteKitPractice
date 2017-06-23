@@ -147,6 +147,9 @@ class MonsterNode: SKSpriteNode {
     var monsterDefence:Int = 0
     var monsterMoney:Int = 0
     var monsterExperience:Int = 0
+    var monsterName:String = ""
+    var monsterAnimation:SKAction? = nil
+    var monsterPictureName:String = ""
     
     class func buildMonster(Name:String, Texture1Name:String, Texture2Name:String, Health:Int, Attack:Int, Defence:Int, Money:Int, Exper:Int) -> MonsterNode{
         let texture1 = SKTexture(imageNamed: Texture1Name)
@@ -160,13 +163,16 @@ class MonsterNode: SKSpriteNode {
         let act3 = SKAction.setTexture(texture1)
         let Actionsequence = SKAction.sequence([act1, act2, act1, act3])
         let loop = SKAction.repeatForever(Actionsequence)
+        a.monsterAnimation = loop
         a.run(loop)
         //设定A的数值
+        a.monsterName = Name
         a.monsterHealth = Health
         a.monsterAttack = Attack
         a.monsterDefence = Defence
         a.monsterMoney = Money
         a.monsterExperience = Exper
+        a.monsterPictureName = Texture1Name
         return a
     }
     func presentFightView(){
@@ -174,5 +180,38 @@ class MonsterNode: SKSpriteNode {
     }
     
 }
+
+class staircaseNode: SKSpriteNode {
+    
+}
+
+
+
+
+
+
+
+
+class refuseView: UIView {
+    init(text:String) {
+        super.init(frame: CGRect(x: 57, y: 200, width: 300, height: 30))
+        self.backgroundColor = SKColor.white
+        let label = UILabel.init(frame: CGRect(x: 30, y: 2, width: 260, height: 26))
+        label.text = text
+        label.textAlignment = .center
+        self.addSubview(label)
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(disappear))
+        self.addGestureRecognizer(tap)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func disappear(){
+        self.removeFromSuperview()
+    }
+    
+}
+
 
 
