@@ -48,7 +48,7 @@ class logicMap: NSObject {
 
         let LogicMapStr = MapStr
         let LogicMaptemp = LogicMapStr.components(separatedBy: "\n")
-        print("\(LogicMaptemp)")
+//        print("\(LogicMaptemp)")
         let LogicMap:NSMutableArray = NSMutableArray.init()
         for line in LogicMaptemp {
             let temp:NSMutableArray = NSMutableArray.init()
@@ -325,7 +325,7 @@ class Player: SKSpriteNode {
                             view.removeFromSuperview()
                             let health = Int(view.playerHealth.text!)
                             playerInfo.health = health!
-                            w.isHidden = true
+                            w.removeFromParent()
                         }
                     })
                     timer.fire()
@@ -411,7 +411,8 @@ class FightCalculateView: UIView {
 class testScene: SKScene {
     
     var player:Player? = nil
-    var map :SKSpriteNode? = nil
+    var map:SKSpriteNode? = nil
+    var mapmask:SKNode? = nil
     override func didMove(to view: SKView) {
         self.buildtestScene()
         self.buildBtn()
@@ -467,6 +468,14 @@ class testScene: SKScene {
         //这里的地图指的是所有可交互物品全部被清空的地图，包括但不限于 怪物 门 钥匙 道具（血瓶，宝石，剑盾）
         //这些可互动的道具后期作为单独节点进行添加，方便进行移除
         //如果墙壁和道路使用背景图来进行描绘的话，如何进行墙壁的检测？是否加入逻辑地图用来记录地图信息？
+        let mapmask = SKCropNode.init()
+        let mapmaskwindow = SKSpriteNode.init(color: SKColor.black, size: CGSize(width: 352, height: 352))
+        mapmaskwindow.anchorPoint = CGPoint.zero
+        mapmaskwindow.position = CGPoint(x: (414 - 352) / 2, y: ((self.view?.frame.size.height)! - 352 - 20))
+        mapmask.maskNode = mapmaskwindow
+        addChild(mapmask)
+        
+        
         let map = SKSpriteNode(color: SKColor.purple, size: CGSize(width: 352, height: 352))
         map.anchorPoint = CGPoint.zero
         map.position = CGPoint(x: (414 - 352) / 2, y: ((self.view?.frame.size.height)! - 352 - 20))
@@ -478,13 +487,14 @@ class testScene: SKScene {
         let flash = SKAction.sequence([t1, t3, t2, t3])
         let loop = SKAction.repeatForever(flash)
         map.run(loop)
-        addChild(map)
+        mapmask.addChild(map)
         let mapcover = SKSpriteNode(color: SKColor.clear, size: map.size)
         //仅地图第0层需要用到地图覆盖层，因为背景的纹理置换会导致后添加的子节点被遮盖，其他地图无替换动作不需要这一步
         mapcover.anchorPoint = CGPoint.zero
         mapcover.position = map.position
         mapcover.zPosition = 1.0
-        addChild(mapcover)
+        mapmask.addChild(mapcover)
+        self.mapmask = mapmask
         
         let a1 = Player.shareInstance()
         a1.position = CGPoint(x: 176, y: 16)
@@ -537,7 +547,7 @@ class testScene: SKScene {
                     if location.x + location.y >= 352.0 {  //四分上区域
                         
                         let a = CGPoint(x: p2.x, y: p2.y + 32)
-                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let cover = self.mapmask?.childNode(withName: "mapcover") as! SKSpriteNode
                         let t = cover.nodes(at: a)
                         self.player?.moveAction(WithDirection: "上", EventNodes: t)
                         
@@ -557,19 +567,19 @@ class testScene: SKScene {
 //                        }
                     }else{  //四分区域左侧
                         let a = CGPoint(x: p2.x - 32, y: p2.y)
-                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let cover = self.mapmask?.childNode(withName: "mapcover") as! SKSpriteNode
                         let t = cover.nodes(at: a)
                         self.player?.moveAction(WithDirection: "左", EventNodes: t)
                     }
                 }else{
                     if location.x + location.y >= 352.0 { //四分区域右侧
                         let a = CGPoint(x: p2.x + 32, y: p2.y)
-                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let cover = self.mapmask?.childNode(withName: "mapcover") as! SKSpriteNode
                         let t = cover.nodes(at: a)
                         self.player?.moveAction(WithDirection: "右", EventNodes: t)
                     }else{ //四分区域下侧
                         let a = CGPoint(x: p2.x, y: p2.y - 32)
-                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        let cover = self.mapmask?.childNode(withName: "mapcover") as! SKSpriteNode
                         let t = cover.nodes(at: a)
                         self.player?.moveAction(WithDirection: "下", EventNodes: t)
                     }

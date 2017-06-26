@@ -182,7 +182,8 @@ class MonsterNode: SKSpriteNode {
 }
 
 class staircaseNode: SKSpriteNode {
-    
+    var presentFloor:Int = 0
+//    var 
 }
 
 
