@@ -508,7 +508,7 @@ class testScene: SKScene {
         mapcover.position = map.position
         mapcover.zPosition = 1.0  //确保cover在地图上方
         mapcover.name = "mapcover0"
-        mapmask.addChild(mapcover)
+        mapBackgroundNode.addChild(mapcover)
         
         //测试用节点
         let a1 = Player.shareInstance()
@@ -517,10 +517,6 @@ class testScene: SKScene {
         mapcover.addChild(a1)
         self.map = mapcover
         self.player = a1
-//        let luggage = SKSpriteNode(color: SKColor.red, size: CGSize(width: 32, height: 32))
-//        luggage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//        luggage.position = CGPoint(x: 176, y: 176)
-//        mapcover.addChild(luggage)
         
         let ItemA = GameItem.buildsmallHealth()
         ItemA.position = CGPoint(x: 176, y: 208)
