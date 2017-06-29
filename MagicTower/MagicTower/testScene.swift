@@ -515,6 +515,11 @@ class testScene: SKScene {
         monA.position = CGPoint(x: 176, y: 176)
         mapcover.addChild(monA)
         
+        let test = SKSpriteNode(color: SKColor.green, size: CGSize(width: 352, height: 352))
+        test.anchorPoint = CGPoint.zero
+        
+        
+        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -528,7 +533,7 @@ class testScene: SKScene {
                 //展示怪物信息列表
                 let list = MonsterListView.init(frame: CGRect(x: 15, y: 20, width: 384, height: 300))
                 list.tag = 400
-                let map = self.childNode(withName: "mapcover")
+                let map = self.mapmask?.childNode(withName: "mapcover")
                 let mapnode = map!.children
                 for node in mapnode {
                     if node is MonsterNode {
