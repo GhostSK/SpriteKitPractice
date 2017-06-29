@@ -18,7 +18,7 @@ class GameScene: SKScene {
         self.backgroundColor = SKColor.purple
         let back = SKSpriteNode.init(color: SKColor.clear, size: CGSize(width: 1200, height: 400))
         back.anchorPoint = CGPoint.zero
-        back.position = CGPoint(x: 0, y: 100)
+        back.position = CGPoint(x: -200, y: 0)
         
         let node = SKSpriteNode.init(color: SKColor.blue, size: CGSize(width: 400, height: 400))
         node.anchorPoint = CGPoint.zero
@@ -37,16 +37,20 @@ class GameScene: SKScene {
         
         let node2 = SKCropNode.init()
         node2.position = CGPoint(x: 0, y: 0)
-        //        let mask = SKSpriteNode.init(imageNamed: "443png.png")
         let mask = SKSpriteNode.init(color: SKColor.white, size: CGSize(width: 100, height: 400))
-        //警告，mask节点如果为透明色会导致全屏无渲染
-        //被遮罩的子节点的位置是相对于maskNode来进行设置的，而不是相对于主屏幕或者主scene
         mask.anchorPoint = CGPoint.zero
-        mask.position = CGPoint(x: 0, y: 0)
+        mask.position = CGPoint(x: 200, y: 0)
         node2.maskNode = mask
-        node2.addChild(back)
         addChild(node2)
+        node2.addChild(back)
+        back.position = CGPoint(x: -200, y: 200)
         
+        //警告，mask节点如果为透明色会导致全屏无渲染
+        /*
+         在初始化以及直接设定坐标的过程中，即使用node.position = CGPoint(x: 0, y: 0)的方式来操作节点位置的时候，其相对坐标为self.scene
+         但是在使用           let move = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.0) self.node?.run(move)
+         这样的movetoAction的方法中，point点设定是相对于maskNode而言，即原点CGPoint(x: 0, y: 0)不是屏幕的左下角，而是maskNode即遮罩窗口的左下角，务必注意这一点
+         */
         
         let t = SKSpriteNode.init(color: SKColor.red, size: CGSize(width: 100, height: 100))
         t.position = CGPoint(x: 150, y: 550)
@@ -57,8 +61,9 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = self.node?.position
         if point!.x <= CGFloat(-800) {
-            let move = SKAction.move(to: CGPoint(x: 0, y: 100), duration: 1.0)
-            self.node?.run(move)
+//            let move = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.0)
+//            self.node?.run(move)
+            self.node?.position = CGPoint(x: -200, y: 200)
         }else{
             let move = SKAction.move(by: CGVector(dx: -400, dy: 0), duration: 1.0)
             self.node?.run(move)
