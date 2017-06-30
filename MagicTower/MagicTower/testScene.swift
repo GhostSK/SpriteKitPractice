@@ -76,6 +76,7 @@ class logicMap: NSObject {
 
 class Player: SKSpriteNode {
     static var player = Player.init()
+    var Mainscene:testScene? = nil
     //六维属性
     var health:Int = 1000
     var attack:Int = 10
@@ -102,6 +103,7 @@ class Player: SKSpriteNode {
     init() {
         super.init(texture: upA, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.zPosition = 2.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -185,10 +187,7 @@ class Player: SKSpriteNode {
                 if  EventNodes.count > 0 {
                     //处理事件
                     print("检测到事件触发点")
-                    for w in EventNodes {
-                        let w2 = w as! SKSpriteNode
-                        w2.isHidden = true
-                    }
+                    self.dealEvents(eventNodes: EventNodes)
                 }else{
                     //进行移动
                     let move = SKAction.move(by: CGVector(dx: 0, dy: -32), duration: 0.0)
@@ -226,10 +225,7 @@ class Player: SKSpriteNode {
                 if  EventNodes.count > 0 {
                     //处理事件
                     print("检测到事件触发点")
-                    for w in EventNodes {
-                        let w2 = w as! SKSpriteNode
-                        w2.isHidden = true
-                    }
+                    self.dealEvents(eventNodes: EventNodes)
                 }else{
                     //进行移动
                     let move = SKAction.move(by: CGVector(dx: -32, dy: 0), duration: 0.0)
@@ -268,10 +264,7 @@ class Player: SKSpriteNode {
                 if  EventNodes.count > 0 {
                     //处理事件
                     print("检测到事件触发点")
-                    for w in EventNodes {
-                        let w2 = w as! SKSpriteNode
-                        w2.isHidden = true
-                    }
+                    self.dealEvents(eventNodes: EventNodes)
                 }else{
                     //进行移动
                     let move = SKAction.move(by: CGVector(dx: 32, dy: 0), duration: 0.0)
@@ -311,25 +304,64 @@ class Player: SKSpriteNode {
                     vc?.view.addSubview(view)
                     return
                 }else{
-                    let model = MonsterModel.init(HeadImage: UIImage.init(named: a.monsterPictureName)!, Name: a.monsterName, Attack: a.monsterAttack, Defence: a.monsterDefence, Health: a.monsterHealth, Money: a.monsterMoney, Exper: a.monsterExperience)
+                    let model = MonsterModel.init(HeadImage: a.monsterPicture!, Name: a.monsterName, Attack: a.monsterAttack, Defence: a.monsterDefence, Health: a.monsterHealth, Money: a.monsterMoney, Exper: a.monsterExperience)
                     let view = FightCalculateView.showView(Enemy: model)
                     view.frame = CGRect(x: 31, y: 50, width: 352, height: 245)
                     let vc = UIApplication.shared.keyWindow?.rootViewController
                     vc?.view.addSubview(view)
                     let timer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true, block: { (timer) in
-                        let a = Int(view.monsterHealth.text!)
+                        let a1 = Int(view.monsterHealth.text!)
                         view.calculate()
                         
-                        if a! <= 0 {
+                        if a1! <= 0 {
                             timer.invalidate()
                             view.removeFromSuperview()
                             let health = Int(view.playerHealth.text!)
                             playerInfo.health = health!
+                            playerInfo.money = playerInfo.money + a.monsterMoney
+                            playerInfo.experience = playerInfo.experience + a.monsterExperience
                             w.removeFromParent()
                         }
                     })
                     timer.fire()
                     
+                }
+            }else if w is staircaseNode{  //上下楼节点
+                print("楼梯节点")
+                let a = w as! staircaseNode
+                var floor = 0
+                if a.isupstairs == true{  //上楼
+                    floor = a.presentFloor + 1
+                }else{
+                    floor = a.presentFloor - 1
+                }
+                let floorStr = "mapcover\(floor)"
+                self.Mainscene?.map = self.Mainscene?.mapmask?.childNode(withName: floorStr) as? SKSpriteNode  //更换cover层
+                let p1 = CGPoint(x: 31 - 352 * floor, y: 364)
+                self.Mainscene?.mapmask?.position = p1
+                let nodes = self.Mainscene?.map?.children
+                for k in nodes! {
+                    if k is staircaseNode {  //查询新楼层的楼梯节点，将主角位置移动过去
+                        let k2 = k as! staircaseNode
+                        if a.isupstairs == true {  //是上楼，查询本层下楼节点
+                            if !k2.isupstairs {
+                                self.Mainscene?.player?.position = k2.position
+                                self.Mainscene?.player?.removeFromParent()
+                                self.Mainscene?.map?.addChild((self.Mainscene?.player)!)
+                                self.Mainscene?.player?.AtFloor = floor  //更新player模组中所在楼层数据，逻辑地图根据此数据刷新
+                                return
+                            }
+                        }else{  //是下楼，查询新楼层上楼节点
+                            if k2.isupstairs {
+                                self.Mainscene?.player?.position = k2.position
+                                self.Mainscene?.player?.removeFromParent()
+                                self.Mainscene?.map?.addChild((self.Mainscene?.player)!)
+                                self.Mainscene?.player?.AtFloor = floor  //更新player模组中所在楼层数据，逻辑地图根据此数据刷新
+                                return
+                            }
+                            
+                        }
+                    }
                 }
             }
 //                        let w2 = w as! SKSpriteNode
@@ -411,8 +443,8 @@ class FightCalculateView: UIView {
 class testScene: SKScene {
     
     var player:Player? = nil
-    var map:SKSpriteNode? = nil
-    var mapmask:SKNode? = nil
+    var map:SKSpriteNode? = nil   //地图层或者地图cover层
+    var mapmask:SKNode? = nil    //地图背景层
     
     override func didMove(to view: SKView) {
         self.buildtestScene()
@@ -484,10 +516,11 @@ class testScene: SKScene {
          地图遮盖  -----   -----    -----   -----   -----
          地图本身  -----   -----    -----   -----   -----
          地图背景  --------------------------------------
+         层数跳转的时候移动地图背景，使用向量或者直接设定position，不要使用movetoPoint，会导致以maskwindow参考来移动
          */
         
-        //建立第一层地图
-        let map = SKSpriteNode(color: SKColor.purple, size: CGSize(width: 352, height: 352))
+        //建立第0层地图
+        let map = SKSpriteNode(color: SKColor.clear, size: CGSize(width: 352, height: 352))
         map.anchorPoint = CGPoint.zero
         map.position = CGPoint(x: 0, y: 0)
         let F0A:SKTexture = SKTexture(imageNamed: "Floor0_A")
@@ -499,6 +532,21 @@ class testScene: SKScene {
         let loop = SKAction.repeatForever(flash)
         map.run(loop)
         self.mapmask?.addChild(map)
+        //建立第1层地图
+        let map1 = SKSpriteNode.init(color: SKColor.clear, size: CGSize(width: 352, height: 352))
+        map1.anchorPoint = CGPoint.zero
+        map1.position = CGPoint(x: 352, y: 0)
+        map1.texture = SKTexture(imageNamed: "Floor1")
+        self.mapmask?.addChild(map1)
+        let downStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 176, y: 16), isUp: false)
+        map1.addChild(downStairs1)
+        let upStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 16, y: 336), isUp: true)
+        map1.name = "mapcover1"
+        map1.zPosition = 1.0
+        map1.addChild(upStairs1)
+        
+        
+        
         
         
         let mapcover = SKSpriteNode(color: SKColor.clear, size: map.size)
@@ -515,8 +563,9 @@ class testScene: SKScene {
         a1.position = CGPoint(x: 176, y: 16)
 //        a1.anchorPoint = CGPoint.zero
         mapcover.addChild(a1)
-        self.map = mapcover
+        self.map = mapcover   //默认初始化游戏之后地图是第零层
         self.player = a1
+        a1.Mainscene = self.scene as? testScene
         
         let ItemA = GameItem.buildsmallHealth()
         ItemA.position = CGPoint(x: 176, y: 208)
@@ -525,8 +574,9 @@ class testScene: SKScene {
         monA.position = CGPoint(x: 176, y: 176)
         mapcover.addChild(monA)
         
-        let test = SKSpriteNode(color: SKColor.green, size: CGSize(width: 352, height: 352))
-        test.anchorPoint = CGPoint.zero
+        let stairA = staircaseNode.init(presentFloor: 0, position: CGPoint(x: 176, y: 336), isUp: true)
+        mapcover.addChild(stairA)
+        
         
         
         
@@ -548,9 +598,9 @@ class testScene: SKScene {
                 let mapnode = map!.children
                 for node in mapnode {
                     if node is MonsterNode {
+                        let node2 = node as! MonsterNode
                         //纹理集中的图片可以使用SKTexture正确读出但是不能用UIImage读出，很奇怪
-                        let head = UIImage.init(named:"f-23.jpg")
-                        let model = MonsterModel.init(HeadImage:head!, Name: "绿头怪", Attack: 20, Defence: 1, Health: 50, Money: 1, Exper: 1)
+                        let model = MonsterModel.init(HeadImage:node2.monsterPicture!, Name: node2.monsterName, Attack: node2.monsterAttack, Defence: node2.monsterDefence, Health: node2.monsterHealth, Money: node2.monsterMoney, Exper: node2.monsterExperience)
                         list.DataArr?.add(model)
                         
                     }

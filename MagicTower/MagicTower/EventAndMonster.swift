@@ -76,18 +76,16 @@ class GameItem: SKSpriteNode {
         node.ItemName = "defenceDiamond"
         return node
     }
-    class func buildUpstairs() ->GameItem{
+    class func buildUpstairs() ->SKSpriteNode{  //上下楼的操作使用独立的逻辑节点进行跳转，这里仅仅制作地图模型
         let upstairs = SKTexture(imageNamed: "f-618.jpg")
-        let node = GameItem.init(texture: upstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        let node = SKSpriteNode.init(texture: upstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        node.ItemName = "upstairsNode"
         return node
     }
-    class func buildDownstairs() ->GameItem{
+    class func buildDownstairs() ->SKSpriteNode{  //上下楼的操作使用独立的逻辑节点进行跳转，这里仅仅制作地图模型
         let downstairs = SKTexture(imageNamed: "f-588.jpg")
-        let node = GameItem.init(texture: downstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        let node = SKSpriteNode.init(texture: downstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        node.ItemName = "downstairsNode"
         return node
     }
     
@@ -98,6 +96,7 @@ class GameItem: SKSpriteNode {
         switch self.ItemName {
         case "smallHealth":
             player.health += 200
+            print("血量+200")
             self.isHidden = true
             break
         case "mediumHealth":
@@ -124,14 +123,6 @@ class GameItem: SKSpriteNode {
             player.defence += 3
             self.isHidden = true
             break
-        case "upstairsNode":
-            let a = player.AtFloor + 1  //计算要去的楼层
-            print("现在要移动到第\(a)层")
-            break
-        case "downstairsNode":
-            let a = player.AtFloor - 1  //计算要去的楼层
-            print("现在要移动到第\(a)层")
-            break
         default:
             print("未命中任意一条")
             break
@@ -149,7 +140,7 @@ class MonsterNode: SKSpriteNode {
     var monsterExperience:Int = 0
     var monsterName:String = ""
     var monsterAnimation:SKAction? = nil
-    var monsterPictureName:String = ""
+    var monsterPicture:UIImage? = nil
     
     class func buildMonster(Name:String, Texture1Name:String, Texture2Name:String, Health:Int, Attack:Int, Defence:Int, Money:Int, Exper:Int) -> MonsterNode{
         let texture1 = SKTexture(imageNamed: Texture1Name)
@@ -172,18 +163,29 @@ class MonsterNode: SKSpriteNode {
         a.monsterDefence = Defence
         a.monsterMoney = Money
         a.monsterExperience = Exper
-        a.monsterPictureName = Texture1Name
+        a.monsterPicture = UIImage.init(named: Texture1Name)
         return a
     }
-    func presentFightView(){
-        
-    }
+
     
 }
 
-class staircaseNode: SKSpriteNode {
+class staircaseNode :SKSpriteNode {
     var presentFloor:Int = 0
-//    var 
+    var isupstairs:Bool = true
+    
+    init(presentFloor:Int, position:CGPoint, isUp:Bool) {
+        super.init(texture: nil, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.position = position
+        self.presentFloor = presentFloor
+        self.isupstairs = isUp
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 
