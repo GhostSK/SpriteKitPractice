@@ -295,6 +295,7 @@ class Player: SKSpriteNode {
                 w2.ItemEvent()
             }else if w is MonsterNode{
                 print("怪物节点")
+                self.Mainscene?.isFighting = true
                 let a = w as! MonsterNode
                 let playerInfo = Player.shareInstance()
                 
@@ -321,6 +322,7 @@ class Player: SKSpriteNode {
                             playerInfo.money = playerInfo.money + a.monsterMoney
                             playerInfo.experience = playerInfo.experience + a.monsterExperience
                             w.removeFromParent()
+                            self.Mainscene?.isFighting = false
                         }
                     })
                     timer.fire()
@@ -363,11 +365,12 @@ class Player: SKSpriteNode {
                         }
                     }
                 }
+            }else{
+                //未完待续，商店节点预定
             }
-//                        let w2 = w as! SKSpriteNode
-//                        w2.isHidden = true
-//            let w2 = w as! GameItem
-//            w2.ItemEvent()
+            
+            
+            
         }
     }
     
@@ -445,6 +448,7 @@ class testScene: SKScene {
     var player:Player? = nil
     var map:SKSpriteNode? = nil   //地图层或者地图cover层
     var mapmask:SKNode? = nil    //地图背景层
+    var isFighting:Bool = false  //是否战斗中
     
     override func didMove(to view: SKView) {
         self.buildtestScene()
@@ -537,13 +541,16 @@ class testScene: SKScene {
         map1.anchorPoint = CGPoint.zero
         map1.position = CGPoint(x: 352, y: 0)
         map1.texture = SKTexture(imageNamed: "Floor1")
-        self.mapmask?.addChild(map1)
         let downStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 176, y: 16), isUp: false)
         map1.addChild(downStairs1)
         let upStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 16, y: 336), isUp: true)
         map1.name = "mapcover1"
         map1.zPosition = 1.0
         map1.addChild(upStairs1)
+        self.mapmask?.addChild(map1)
+        let key1 = GameItem.buildyellowKey()
+        key1.setPosition(hang: 11, lie: 3)
+        map1.addChild(key1)
         
         
         
@@ -558,21 +565,26 @@ class testScene: SKScene {
         mapcover.name = "mapcover0"
         mapBackgroundNode.addChild(mapcover)
         
-        //测试用节点
+        //放置玩家节点
         let a1 = Player.shareInstance()
         a1.position = CGPoint(x: 176, y: 16)
-//        a1.anchorPoint = CGPoint.zero
         mapcover.addChild(a1)
         self.map = mapcover   //默认初始化游戏之后地图是第零层
         self.player = a1
         a1.Mainscene = self.scene as? testScene
         
+        //测试用节点
         let ItemA = GameItem.buildsmallHealth()
         ItemA.position = CGPoint(x: 176, y: 208)
         mapcover.addChild(ItemA)
         let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
         monA.position = CGPoint(x: 176, y: 176)
         mapcover.addChild(monA)
+        
+        let monB = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-24.jpg", Texture2Name: "f-54.jpg", Health: 50, Attack: 11, Defence: 8, Money: 1, Exper: 1)
+        monB.position = CGPoint(x: 176, y: 240)
+        mapcover.addChild(monB)
+        
         
         let stairA = staircaseNode.init(presentFloor: 0, position: CGPoint(x: 176, y: 336), isUp: true)
         mapcover.addChild(stairA)
@@ -582,6 +594,9 @@ class testScene: SKScene {
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isFighting {
+            return
+        }
         for touch in touches {
             let p2 = self.player!.position
             let player = Player.shareInstance()

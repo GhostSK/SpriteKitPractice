@@ -10,6 +10,7 @@
 		B60D29241ECDA82200EB147D /* f-23.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B60D29231ECDA82200EB147D /* f-23.jpg */; };
 		B6104C791EC1C554009763FC /* text.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B6104C781EC1C554009763FC /* text.atlas */; };
 		B6109CBB1EB3608D0026A11A /* MonsterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6109CBA1EB3608D0026A11A /* MonsterListView.swift */; };
+		B61244DF1F0BA6980052B5DE /* f-24.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B61244DE1F0BA6980052B5DE /* f-24.jpg */; };
 		B61427AF1EFD030100B69764 /* f-865.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B61427AD1EFD030100B69764 /* f-865.jpg */; };
 		B61427B01EFD030100B69764 /* f-895.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B61427AE1EFD030100B69764 /* f-895.jpg */; };
 		B647E56C1EE5532600288820 /* FightCalculateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B647E56B1EE5532600288820 /* FightCalculateView.xib */; };
@@ -32,6 +33,7 @@
 		B60D29231ECDA82200EB147D /* f-23.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-23.jpg"; path = "text.atlas/f-23.jpg"; sourceTree = "<group>"; };
 		B6104C781EC1C554009763FC /* text.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = text.atlas; sourceTree = "<group>"; };
 		B6109CBA1EB3608D0026A11A /* MonsterListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonsterListView.swift; sourceTree = "<group>"; };
+		B61244DE1F0BA6980052B5DE /* f-24.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-24.jpg"; path = "text.atlas/f-24.jpg"; sourceTree = "<group>"; };
 		B61427AD1EFD030100B69764 /* f-865.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-865.jpg"; path = "text.atlas/f-865.jpg"; sourceTree = "<group>"; };
 		B61427AE1EFD030100B69764 /* f-895.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "f-895.jpg"; path = "text.atlas/f-895.jpg"; sourceTree = "<group>"; };
 		B647E56B1EE5532600288820 /* FightCalculateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FightCalculateView.xib; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				B6F9B9E51EB3384900AD5BC5 /* Main.storyboard */,
 				B6F9B9E81EB3384900AD5BC5 /* Assets.xcassets */,
 				B60D29231ECDA82200EB147D /* f-23.jpg */,
+				B61244DE1F0BA6980052B5DE /* f-24.jpg */,
 				B61427AD1EFD030100B69764 /* f-865.jpg */,
 				B61427AE1EFD030100B69764 /* f-895.jpg */,
 				B647E56D1EE559FD00288820 /* vs.png */,
@@ -166,6 +169,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B61244DF1F0BA6980052B5DE /* f-24.jpg in Resources */,
 				B647E56C1EE5532600288820 /* FightCalculateView.xib in Resources */,
 				B65B41581EC06061003B356A /* MonsterListCell.xib in Resources */,
 				B61427AF1EFD030100B69764 /* f-865.jpg in Resources */,

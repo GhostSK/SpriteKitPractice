@@ -76,17 +76,19 @@ class GameItem: SKSpriteNode {
         node.ItemName = "defenceDiamond"
         return node
     }
-    class func buildUpstairs() ->SKSpriteNode{  //上下楼的操作使用独立的逻辑节点进行跳转，这里仅仅制作地图模型
-        let upstairs = SKTexture(imageNamed: "f-618.jpg")
-        let node = SKSpriteNode.init(texture: upstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+    class func buildbalanceDiamond()->GameItem{
+        let texture = SKTexture(imageNamed: "f-678.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.ItemName = "balanceDiamond"
         return node
     }
-    class func buildDownstairs() ->SKSpriteNode{  //上下楼的操作使用独立的逻辑节点进行跳转，这里仅仅制作地图模型
-        let downstairs = SKTexture(imageNamed: "f-588.jpg")
-        let node = SKSpriteNode.init(texture: downstairs, color: SKColor.clear, size: CGSize(width: 32, height: 32))
-        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        return node
+    
+    func setPosition(hang:Int, lie:Int) {
+        let a = (lie - 1) * 32 + 16
+        let b = (hang - 1) * 32 + 16
+        let p = CGPoint(x: a, y: b)
+        self.position = p
     }
     
     func ItemEvent(){
@@ -123,6 +125,9 @@ class GameItem: SKSpriteNode {
             player.defence += 3
             self.isHidden = true
             break
+        case "balanceDiamond":
+            player.defence += 3
+            player.attack += 3
         default:
             print("未命中任意一条")
             break
@@ -141,6 +146,13 @@ class MonsterNode: SKSpriteNode {
     var monsterName:String = ""
     var monsterAnimation:SKAction? = nil
     var monsterPicture:UIImage? = nil
+    
+    func setPosition(hang:Int, lie:Int) {
+        let a = (lie - 1) * 32 + 16
+        let b = (hang - 1) * 32 + 16
+        let p = CGPoint(x: a, y: b)
+        self.position = p
+    }
     
     class func buildMonster(Name:String, Texture1Name:String, Texture2Name:String, Health:Int, Attack:Int, Defence:Int, Money:Int, Exper:Int) -> MonsterNode{
         let texture1 = SKTexture(imageNamed: Texture1Name)
@@ -175,7 +187,11 @@ class staircaseNode :SKSpriteNode {
     var isupstairs:Bool = true
     
     init(presentFloor:Int, position:CGPoint, isUp:Bool) {
-        super.init(texture: nil, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        if isUp {
+            super.init(texture: SKTexture(imageNamed: "f-618.jpg"), color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        }else{
+            super.init(texture: SKTexture(imageNamed: "f-588.jpg"), color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        }
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.position = position
         self.presentFloor = presentFloor
@@ -189,7 +205,10 @@ class staircaseNode :SKSpriteNode {
 }
 
 
-
+class ShopNode: SKSpriteNode {
+    var isMoneyShop:Bool = true  //true 金钱商店 false 经验值商店
+    
+}
 
 
 
