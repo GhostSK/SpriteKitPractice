@@ -551,6 +551,21 @@ class testScene: SKScene {
         let key1 = GameItem.buildyellowKey()
         key1.setPosition(hang: 11, lie: 3)
         map1.addChild(key1)
+        let mon1 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        mon1.setPosition(hang: 11, lie: 4)
+        map1.addChild(mon1)
+        let mon2 = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-20.jpg", Texture2Name: "f-50.jpg", Health: 70, Attack: 15, Defence: 2, Money: 2, Exper: 2)
+        mon2.setPosition(hang: 11, lie: 5)
+        map1.addChild(mon2)
+        let mon3 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        mon3.setPosition(hang: 11, lie: 6)
+        let Item1 = GameItem.buildmediumHealth()
+        Item1.setPosition(hang: 9, lie: 1)
+        map1.addChild(Item1)
+        let mon4 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-107.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
+        mon4.setPosition(hang: 9, lie: 3)
+        map1.addChild(mon4)
+        
         
         
         
