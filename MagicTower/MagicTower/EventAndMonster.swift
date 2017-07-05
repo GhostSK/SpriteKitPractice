@@ -31,6 +31,7 @@ class GameItem: SKSpriteNode {
         let smallHealth:SKTexture = SKTexture(imageNamed: "f-670.jpg")  //+200HP
         let node = GameItem.init(texture: smallHealth, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "smallHealth"
         return node
     }
@@ -38,6 +39,7 @@ class GameItem: SKSpriteNode {
         let mediumHealth:SKTexture = SKTexture(imageNamed: "f-671.jpg") // +500HP
         let node = GameItem.init(texture: mediumHealth, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "mediumHealth"
         return node
     }
@@ -45,6 +47,7 @@ class GameItem: SKSpriteNode {
         let blueKey:SKTexture = SKTexture(imageNamed: "f-606.jpg")  //蓝钥匙
         let node = GameItem.init(texture: blueKey, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "blueKey"
         return node
     }
@@ -52,6 +55,7 @@ class GameItem: SKSpriteNode {
         let yellowKey:SKTexture = SKTexture(imageNamed: "f-607.jpg") //黄钥匙
         let node = GameItem.init(texture: yellowKey, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "yellowKey"
         return node
     }
@@ -59,6 +63,7 @@ class GameItem: SKSpriteNode {
         let redKey:SKTexture = SKTexture(imageNamed: "f-605.jpg")  //红钥匙
         let node = GameItem.init(texture: redKey, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "redKey"
         return node
     }
@@ -74,6 +79,7 @@ class GameItem: SKSpriteNode {
         let defenceDiamond:SKTexture = SKTexture(imageNamed: "f-676.jpg") //防御宝石
         let node = GameItem.init(texture: defenceDiamond, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "defenceDiamond"
         return node
     }
@@ -81,6 +87,7 @@ class GameItem: SKSpriteNode {
         let texture = SKTexture(imageNamed: "f-678.jpg")
         let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "balanceDiamond"
         return node
     }
@@ -88,6 +95,7 @@ class GameItem: SKSpriteNode {
         let texture = SKTexture(imageNamed: "f-603.jpg")
         let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "yellowDoor"
         return node
     }
@@ -95,6 +103,7 @@ class GameItem: SKSpriteNode {
         let texture = SKTexture(imageNamed: "f-602.jpg")
         let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "blueDoor"
         return node
     }
@@ -102,6 +111,7 @@ class GameItem: SKSpriteNode {
         let texture = SKTexture(imageNamed: "f-601.jpg")
         let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "redDoor"
         return node
     }
@@ -172,6 +182,9 @@ class GameItem: SKSpriteNode {
             }else{
                 let view = refuseView.init(text: "缺少蓝钥匙")
                 let vc = UIApplication.shared.keyWindow?.rootViewController
+                let view2 = vc?.view as! SKView
+                let scene = view2.scene as! testScene
+                scene.isShowingAlertView = true
                 vc?.view.addSubview(view)
             }
             break
@@ -182,6 +195,9 @@ class GameItem: SKSpriteNode {
             }else{
                 let view = refuseView.init(text: "缺少红钥匙")
                 let vc = UIApplication.shared.keyWindow?.rootViewController
+                let view2 = vc?.view as! SKView
+                let scene = view2.scene as! testScene
+                scene.isShowingAlertView = true
                 vc?.view.addSubview(view)
             }
             break

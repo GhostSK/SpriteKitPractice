@@ -321,7 +321,7 @@ class Player: SKSpriteNode {
                             playerInfo.health = health!
                             playerInfo.money = playerInfo.money + a.monsterMoney
                             playerInfo.experience = playerInfo.experience + a.monsterExperience
-                            w.removeFromParent()
+                            w.isHidden = true
                             self.Mainscene?.isFighting = false
                         }
                     })
@@ -502,6 +502,9 @@ class testScene: SKScene {
     
     func buildtestScene(){
         
+        //被吃掉的道具和被击败的怪物已经全面改为isHidden = true  重置地图时遍历子节点全部改false即可
+        
+        
         //建立地图第0层   除这一层外其他层地图无波动效果不需要这么麻烦
         //这里的地图指的是所有可交互物品全部被清空的地图，包括但不限于 怪物 门 钥匙 道具（血瓶，宝石，剑盾）
         //这些可互动的道具后期作为单独节点进行添加，方便进行移除
@@ -514,6 +517,7 @@ class testScene: SKScene {
         addChild(mapmask)
         let mapBackgroundNode = SKSpriteNode(color: SKColor.clear, size: CGSize(width: 352.0 * 17, height: 352.0))
         mapBackgroundNode.anchorPoint = CGPoint.zero
+        mapBackgroundNode.zPosition = -2.0
         mapBackgroundNode.position = CGPoint(x: (414 - 352) / 2, y: ((self.view?.frame.size.height)! - 352 - 20))
         mapmask.addChild(mapBackgroundNode)
         self.mapmask = mapBackgroundNode
@@ -543,61 +547,30 @@ class testScene: SKScene {
         map1.anchorPoint = CGPoint.zero
         map1.position = CGPoint(x: 352, y: 0)
         map1.texture = SKTexture(imageNamed: "Floor1")
-        let downStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 176, y: 16), isUp: false)
-        map1.addChild(downStairs1)
-        let upStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 16, y: 336), isUp: true)
-        map1.name = "mapcover1"
+        map1.name = "mapcover1"  //必须设定为"mapcover+数字"形式，否则无法正确寻找
         map1.zPosition = -1.0
-        map1.addChild(upStairs1)
         self.mapmask?.addChild(map1)
-        let key1 = GameItem.buildyellowKey()
-        key1.setPosition(hang: 11, lie: 3)
-        map1.addChild(key1)
-        let mon1 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
-        mon1.setPosition(hang: 11, lie: 4)
-        map1.addChild(mon1)
-        let mon2 = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-20.jpg", Texture2Name: "f-50.jpg", Health: 70, Attack: 15, Defence: 2, Money: 2, Exper: 2)
-        mon2.setPosition(hang: 11, lie: 5)
-        map1.addChild(mon2)
-        let mon3 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
-        mon3.setPosition(hang: 11, lie: 6)
-        map1.addChild(mon3)
-        let Item1 = GameItem.buildsmallHealth()
-        Item1.setPosition(hang: 9, lie: 1)
-        map1.addChild(Item1)
-        let mon4 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
-        mon4.setPosition(hang: 9, lie: 3)
-        map1.addChild(mon4)
-        let Item2 = GameItem.buildsmallHealth()
-        Item2.setPosition(hang: 9, lie: 7)
-        map1.addChild(Item2)
-        let Item3 = GameItem.buildsmallHealth()
-        Item3.setPosition(hang: 9, lie: 9)
-        map1.addChild(Item3)
-        let Item4 = GameItem.buildsmallHealth()
-        Item4.setPosition(hang: 8, lie: 7)
-        map1.addChild(Item4)
-        let Item5 = GameItem.buildsmallHealth()
-        Item5.setPosition(hang: 8, lie: 9)
-        map1.addChild(Item5)
-        let Item6 = GameItem.buildyellowKey()
-        Item6.setPosition(hang: 8, lie: 1)
-        map1.addChild(Item6)
-        let Item7 = GameItem.buildattackDiamond()
-        Item7.setPosition(hang: 8, lie: 3)
-        map1.addChild(Item7)
-        let mon5 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
-        mon5.setPosition(hang: 8, lie: 2)
-        map1.addChild(mon5)
-        let Item8 = GameItem.buildsmallHealth()
-        Item8.setPosition(hang: 9, lie: 9)
-        map1.addChild(Item8)
-        let Item9 = GameItem.buildyellowKey()
-        Item9.setPosition(hang: 9, lie: 8)
-        map1.addChild(Item9)
-        let Item10 = GameItem.buildyellowKey()
-        Item10.setPosition(hang: 8, lie: 8)
-        map1.addChild(Item10)
+        self.buildmap1(map1: map1)
+        //建立第2层地图
+        let map2 = SKSpriteNode.init(color: SKColor.clear, size: CGSize(width: 352, height: 352))
+        map2.anchorPoint = CGPoint.zero
+        map2.position = CGPoint(x: 352.0 * 2, y: 0)
+        map2.texture = SKTexture(imageNamed: "floor2")
+        map2.name = "mapcover2"
+        map2.zPosition = -1.0
+        self.mapmask?.addChild(map2)
+        self.buildmap2(map: map2)
+        //建立第三层地图
+        let map3 = SKSpriteNode.init(color: SKColor.clear, size: CGSize(width: 352, height: 352))
+        map3.anchorPoint = CGPoint.zero
+        map3.position = CGPoint(x: 352 * 3, y: 0)
+        map3.zPosition = -1.0
+        map3.name = "mapcover3"
+        map3.texture = SKTexture(imageNamed: "floor3")
+        self.mapmask?.addChild(map3)
+        self.buildmap3(map: map3)
+        
+        
         
         
         
@@ -610,7 +583,7 @@ class testScene: SKScene {
         //map和mapcover都是直接添加到self.mapMask的子节点上，如果不需要双层结构的话可以直接将cover层添加而去掉地图本身
         mapcover.anchorPoint = CGPoint.zero
         mapcover.position = map.position
-        mapcover.zPosition = 1.0  //确保cover在地图上方
+        mapcover.zPosition = 0.0  //确保cover在地图上方
         mapcover.name = "mapcover0"
         mapBackgroundNode.addChild(mapcover)
         
@@ -623,23 +596,23 @@ class testScene: SKScene {
         a1.Mainscene = self.scene as? testScene
         
         //测试用节点
-        let ItemA = GameItem.buildyellowDoor()
-        ItemA.setPosition(hang: 5, lie: 6)
-        mapcover.addChild(ItemA)
-        let ItemB = GameItem.buildyellowDoor()
-        ItemB.setPosition(hang: 6, lie: 6)
-        mapcover.addChild(ItemB)
+//        let ItemA = GameItem.buildyellowDoor()
+//        ItemA.setPosition(hang: 5, lie: 6)
+//        mapcover.addChild(ItemA)
+//        let ItemB = GameItem.buildyellowDoor()
+//        ItemB.setPosition(hang: 6, lie: 6)
+//        mapcover.addChild(ItemB)
         
-        //        let ItemA = GameItem.buildsmallHealth()
-        //        ItemA.position = CGPoint(x: 176, y: 208)
-        //        mapcover.addChild(ItemA)
-        //        let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
-        //        monA.position = CGPoint(x: 176, y: 176)
-        //        mapcover.addChild(monA)
-        //
-        //        let monB = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-24.jpg", Texture2Name: "f-54.jpg", Health: 50, Attack: 11, Defence: 1, Money: 1, Exper: 1)
-        //        monB.position = CGPoint(x: 176, y: 240)
-        //        mapcover.addChild(monB)
+//                let ItemA = GameItem.buildsmallHealth()
+//                ItemA.position = CGPoint(x: 176, y: 208)
+//                mapcover.addChild(ItemA)
+//                let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+//                monA.position = CGPoint(x: 176, y: 176)
+//                mapcover.addChild(monA)
+//        
+//                let monB = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-24.jpg", Texture2Name: "f-54.jpg", Health: 50, Attack: 11, Defence: 1, Money: 1, Exper: 1)
+//                monB.position = CGPoint(x: 176, y: 240)
+//                mapcover.addChild(monB)
         
         
         let stairA = staircaseNode.init(presentFloor: 0, position: CGPoint(x: 176, y: 336), isUp: true)
@@ -667,7 +640,7 @@ class testScene: SKScene {
                 let map = self.mapmask?.childNode(withName: "mapcover\(player.AtFloor)")
                 let mapnode = map!.children
                 for node in mapnode {
-                    if node is MonsterNode {
+                    if node is MonsterNode && node.isHidden == false {
                         let node2 = node as! MonsterNode
                         //纹理集中的图片可以使用SKTexture正确读出但是不能用UIImage读出，很奇怪
                         let model = MonsterModel.init(HeadImage:node2.monsterPicture!, Name: node2.monsterName, Attack: node2.monsterAttack, Defence: node2.monsterDefence, Health: node2.monsterHealth, Money: node2.monsterMoney, Exper: node2.monsterExperience)
@@ -736,6 +709,160 @@ class testScene: SKScene {
     func hiddenInfoList(){
         let view = self.view?.viewWithTag(400)
         view?.removeFromSuperview()
+    }
+    
+    func buildmap1(map1:SKSpriteNode){
+        let downStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 176, y: 16), isUp: false)
+        map1.addChild(downStairs1)
+        let upStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 16, y: 336), isUp: true)
+        map1.addChild(upStairs1)
+        let key1 = GameItem.buildyellowKey()
+        key1.setPosition(hang: 11, lie: 3)
+        map1.addChild(key1)
+        let mon1 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        mon1.setPosition(hang: 11, lie: 4)
+        map1.addChild(mon1)
+        let mon2 = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-20.jpg", Texture2Name: "f-50.jpg", Health: 70, Attack: 15, Defence: 2, Money: 2, Exper: 2)
+        mon2.setPosition(hang: 11, lie: 5)
+        map1.addChild(mon2)
+        let mon3 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        mon3.setPosition(hang: 11, lie: 6)
+        map1.addChild(mon3)
+        let Item1 = GameItem.buildsmallHealth()
+        Item1.setPosition(hang: 9, lie: 1)
+        map1.addChild(Item1)
+        let mon4 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
+        mon4.setPosition(hang: 9, lie: 3)
+        map1.addChild(mon4)
+        let Item2 = GameItem.buildsmallHealth()
+        Item2.setPosition(hang: 9, lie: 7)
+        map1.addChild(Item2)
+        let Item3 = GameItem.buildsmallHealth()
+        Item3.setPosition(hang: 9, lie: 9)
+        map1.addChild(Item3)
+        let Item4 = GameItem.buildsmallHealth()
+        Item4.setPosition(hang: 8, lie: 7)
+        map1.addChild(Item4)
+        let Item5 = GameItem.buildsmallHealth()
+        Item5.setPosition(hang: 8, lie: 9)
+        map1.addChild(Item5)
+        let Item6 = GameItem.buildyellowKey()
+        Item6.setPosition(hang: 8, lie: 1)
+        map1.addChild(Item6)
+        let Item7 = GameItem.buildattackDiamond()
+        Item7.setPosition(hang: 8, lie: 3)
+        map1.addChild(Item7)
+        let mon5 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
+        mon5.setPosition(hang: 8, lie: 2)
+        map1.addChild(mon5)
+        let Item8 = GameItem.buildsmallHealth()
+        Item8.setPosition(hang: 9, lie: 9)
+        map1.addChild(Item8)
+        let Item9 = GameItem.buildyellowKey()
+        Item9.setPosition(hang: 9, lie: 8)
+        map1.addChild(Item9)
+        let Item10 = GameItem.buildyellowKey()
+        Item10.setPosition(hang: 8, lie: 8)
+        map1.addChild(Item10)
+        let mon6 = MonsterNode.buildMonster(Name: "骷髅兵", Texture1Name: "f-141.jpg", Texture2Name: "f-171.jpg", Health: 150, Attack: 40, Defence: 20, Money: 8, Exper: 6)
+        mon6.setPosition(hang: 6, lie: 2)
+        map1.addChild(mon6)
+        let Item11 = GameItem.buildyellowKey()
+        Item11.setPosition(hang: 6, lie: 1)
+        map1.addChild(Item11)
+        let Item12 = GameItem.buildDefenceDiamond()
+        Item12.setPosition(hang: 5, lie: 1)
+        map1.addChild(Item12)
+        let Item13 = GameItem.buildblueKey()
+        Item13.setPosition(hang: 5, lie: 3)
+        map1.addChild(Item13)
+        let mon7 = MonsterNode.buildMonster(Name: "骷髅兵", Texture1Name: "f-141.jpg", Texture2Name: "f-171.jpg", Health: 150, Attack: 40, Defence: 20, Money: 8, Exper: 6)
+        mon7.setPosition(hang: 3, lie: 2)
+        map1.addChild(mon7)
+        let Item14 = GameItem.buildsmallHealth()
+        Item14.setPosition(hang: 2, lie: 1)
+        map1.addChild(Item14)
+        let Item15 = GameItem.buildmediumHealth()
+        Item15.setPosition(hang: 2, lie: 2)
+        map1.addChild(Item15)
+        let Item16 = GameItem.buildyellowKey()
+        Item16.setPosition(hang: 2, lie: 3)
+        map1.addChild(Item16)
+        let Item17 = GameItem.buildsmallHealth()
+        Item17.setPosition(hang: 1, lie: 1)
+        map1.addChild(Item17)
+        let Item18 = GameItem.buildbalanceDiamond()
+        Item18.setPosition(hang: 1, lie: 2)
+        map1.addChild(Item18)
+        let Item19 = GameItem.buildyellowKey()
+        Item19.setPosition(hang: 1, lie: 3)
+        map1.addChild(Item19)
+        let Item20 = GameItem.buildredKey()
+        Item20.setPosition(hang: 2, lie: 5)
+        map1.addChild(Item20)
+        let Item21 = GameItem.buildyellowKey()
+        Item21.setPosition(hang: 2, lie: 9)
+        map1.addChild(Item21)
+        let Item22 = GameItem.buildyellowKey()
+        Item22.setPosition(hang: 1, lie: 9)
+        map1.addChild(Item22)
+        let Item23 = GameItem.buildyellowKey()
+        Item23.setPosition(hang: 1, lie: 10)
+        map1.addChild(Item23)
+        let Item24 = GameItem.buildyellowKey()
+        Item24.setPosition(hang: 1, lie: 11)
+        map1.addChild(Item24)
+        let Item25 = GameItem.buildblueKey()
+        Item25.setPosition(hang: 2, lie: 11)
+        map1.addChild(Item25)
+        let Item26 = GameItem.buildyellowDoor()
+        Item26.setPosition(hang: 9, lie: 4)
+        map1.addChild(Item26)
+        let Item27 = GameItem.buildyellowDoor()
+        Item27.setPosition(hang: 7, lie: 2)
+        map1.addChild(Item27)
+        let Item28 = GameItem.buildyellowDoor()
+        Item28.setPosition(hang: 4, lie: 2)
+        map1.addChild(Item28)
+        let Item29 = GameItem.buildredDoor()
+        Item29.setPosition(hang: 3, lie: 6)
+        map1.addChild(Item29)
+        let mon8 = MonsterNode.buildMonster(Name: "小法师", Texture1Name: "f-207.jpg", Texture2Name: "f-237.jpg", Health: 125, Attack: 50, Defence: 25, Money: 10, Exper: 7)
+        mon8.setPosition(hang: 6, lie: 7)
+        map1.addChild(mon8)
+        let mon9 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        mon9.setPosition(hang: 6, lie: 8)
+        map1.addChild(mon9)
+        let mon10 = MonsterNode.buildMonster(Name: "小蝙蝠", Texture1Name: "f-28.jpg", Texture2Name: "f-58.jpg", Health: 100, Attack: 20, Defence: 5, Money: 3, Exper: 3)
+        mon10.setPosition(hang: 6, lie: 9)
+        map1.addChild(mon10)
+        let mon11 = MonsterNode.buildMonster(Name: "青头怪", Texture1Name: "f-26.jpg", Texture2Name: "f-56.jpg", Health: 200, Attack: 35, Defence: 10, Money: 5, Exper: 5)
+        mon11.setPosition(hang: 7, lie: 9)
+        map1.addChild(mon11)
+        let Item30 = GameItem.buildyellowDoor()
+        Item30.setPosition(hang: 6, lie: 6)
+        map1.addChild(Item30)
+        let Item31 = GameItem.buildyellowDoor()
+        Item31.setPosition(hang: 3, lie: 10)
+        map1.addChild(Item31)
+        let mon12 = MonsterNode.buildMonster(Name: "兽面人", Texture1Name: "f-146.jpg", Texture2Name: "f-176.jpg", Health: 300, Attack: 75, Defence: 45, Money: 13, Exper: 10)
+        mon12.setPosition(hang: 2, lie: 10)
+        map1.addChild(mon12)
+        
+
+    }
+    
+    func buildmap2(map:SKSpriteNode){
+        let downStairs1 = staircaseNode.init(presentFloor: 2, position: CGPoint(x: 16, y: 336), isUp: false)
+        map.addChild(downStairs1)
+        let upStairs1 = staircaseNode.init(presentFloor: 2, position: CGPoint(x: 16, y: 16), isUp: true)
+        map.addChild(upStairs1)
+    }
+    func buildmap3(map:SKSpriteNode){
+        let downStairs1 = staircaseNode.init(presentFloor: 3, position: CGPoint(x: 16, y: 16), isUp: false)
+        map.addChild(downStairs1)
+        let upStairs1 = staircaseNode.init(presentFloor: 3, position: CGPoint(x: 336, y: 16), isUp: true)
+        map.addChild(upStairs1)
     }
     
 }
