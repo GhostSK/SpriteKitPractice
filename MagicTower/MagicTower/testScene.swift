@@ -45,10 +45,10 @@ class logicMap: NSObject {
     }
     
     func buildLogicMap(MapStr:String)->NSMutableArray{
-
+        
         let LogicMapStr = MapStr
         let LogicMaptemp = LogicMapStr.components(separatedBy: "\n")
-//        print("\(LogicMaptemp)")
+        //        print("\(LogicMaptemp)")
         let LogicMap:NSMutableArray = NSMutableArray.init()
         for line in LogicMaptemp {
             let temp:NSMutableArray = NSMutableArray.init()
@@ -85,10 +85,10 @@ class Player: SKSpriteNode {
     var experience:Int = 0
     var money:Int = 0
     //钥匙持有量
-    var yellowKey:Int = 0
+    var yellowKey:Int = 1
     var blueKey:Int = 0
     var redKey:Int = 0
-    //所在地图层数 
+    //所在地图层数
     var AtFloor:Int = 0
     
     let upA = SKTexture(imageNamed: "f-864.jpg")
@@ -147,7 +147,7 @@ class Player: SKSpriteNode {
                 print("允许移动")
                 if  EventNodes.count > 0 {
                     //处理事件
-                        print("检测到事件触发点")
+                    print("检测到事件触发点")
                     self.dealEvents(eventNodes: EventNodes)
                 }else{
                     //进行移动
@@ -164,7 +164,7 @@ class Player: SKSpriteNode {
             
             
             
-
+            
             break
         case "下":
             print("向下走一步")
@@ -288,9 +288,9 @@ class Player: SKSpriteNode {
         for w in eventNodes {
             if w is GameItem {
                 // 类型判断三个写法
-//                w.isMember(of: GameItem.self)
-//                w.isKind(of: GameItem.self)
-//                w is GameItem
+                //                w.isMember(of: GameItem.self)
+                //                w.isKind(of: GameItem.self)
+                //                w is GameItem
                 let w2 = w as! GameItem
                 w2.ItemEvent()
             }else if w is MonsterNode{
@@ -381,7 +381,7 @@ class Player: SKSpriteNode {
     }
     
     
-
+    
 }
 class FightCalculateView: UIView {
     
@@ -449,12 +449,13 @@ class testScene: SKScene {
     var map:SKSpriteNode? = nil   //地图层或者地图cover层
     var mapmask:SKNode? = nil    //地图背景层
     var isFighting:Bool = false  //是否战斗中
+    var isShowingAlertView:Bool = false //是否在显示警告窗口
     
     override func didMove(to view: SKView) {
         self.buildtestScene()
         self.buildBtn()
         _ = logicMap.init()
-
+        
     }
     
     func buildBtn() {
@@ -462,7 +463,7 @@ class testScene: SKScene {
         let view = UIView.init(frame: CGRect(x: 20, y: 500, width: 200, height: 200))
         view.backgroundColor = SKColor.white
         self.view?.addSubview(view)
-//        let size =  view.frame.size
+        //        let size =  view.frame.size
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: 40))
         path.addLine(to: CGPoint(x: 0, y: 80))
@@ -490,7 +491,7 @@ class testScene: SKScene {
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.strokeColor = UIColor.blue.cgColor //边框颜色
         borderLayer.lineWidth = 2  //边框宽度
-        view2.layer.addSublayer(borderLayer)  
+        view2.layer.addSublayer(borderLayer)
         view.addSubview(view2)
         view2.addGestureRecognizer(tap)
         
@@ -526,6 +527,7 @@ class testScene: SKScene {
         //建立第0层地图
         let map = SKSpriteNode(color: SKColor.clear, size: CGSize(width: 352, height: 352))
         map.anchorPoint = CGPoint.zero
+        map.zPosition = -1.0
         map.position = CGPoint(x: 0, y: 0)
         let F0A:SKTexture = SKTexture(imageNamed: "Floor0_A")
         let F0B:SKTexture = SKTexture(imageNamed: "Floor0_B")
@@ -545,7 +547,7 @@ class testScene: SKScene {
         map1.addChild(downStairs1)
         let upStairs1 = staircaseNode.init(presentFloor: 1, position: CGPoint(x: 16, y: 336), isUp: true)
         map1.name = "mapcover1"
-        map1.zPosition = 1.0
+        map1.zPosition = -1.0
         map1.addChild(upStairs1)
         self.mapmask?.addChild(map1)
         let key1 = GameItem.buildyellowKey()
@@ -559,12 +561,44 @@ class testScene: SKScene {
         map1.addChild(mon2)
         let mon3 = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
         mon3.setPosition(hang: 11, lie: 6)
-        let Item1 = GameItem.buildmediumHealth()
+        map1.addChild(mon3)
+        let Item1 = GameItem.buildsmallHealth()
         Item1.setPosition(hang: 9, lie: 1)
         map1.addChild(Item1)
-        let mon4 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-107.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
+        let mon4 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
         mon4.setPosition(hang: 9, lie: 3)
         map1.addChild(mon4)
+        let Item2 = GameItem.buildsmallHealth()
+        Item2.setPosition(hang: 9, lie: 7)
+        map1.addChild(Item2)
+        let Item3 = GameItem.buildsmallHealth()
+        Item3.setPosition(hang: 9, lie: 9)
+        map1.addChild(Item3)
+        let Item4 = GameItem.buildsmallHealth()
+        Item4.setPosition(hang: 8, lie: 7)
+        map1.addChild(Item4)
+        let Item5 = GameItem.buildsmallHealth()
+        Item5.setPosition(hang: 8, lie: 9)
+        map1.addChild(Item5)
+        let Item6 = GameItem.buildyellowKey()
+        Item6.setPosition(hang: 8, lie: 1)
+        map1.addChild(Item6)
+        let Item7 = GameItem.buildattackDiamond()
+        Item7.setPosition(hang: 8, lie: 3)
+        map1.addChild(Item7)
+        let mon5 = MonsterNode.buildMonster(Name: "骷髅人", Texture1Name: "f-87.jpg", Texture2Name: "f-117.jpg", Health: 110, Attack: 25, Defence: 5, Money: 5, Exper: 4)
+        mon5.setPosition(hang: 8, lie: 2)
+        map1.addChild(mon5)
+        let Item8 = GameItem.buildsmallHealth()
+        Item8.setPosition(hang: 9, lie: 9)
+        map1.addChild(Item8)
+        let Item9 = GameItem.buildyellowKey()
+        Item9.setPosition(hang: 9, lie: 8)
+        map1.addChild(Item9)
+        let Item10 = GameItem.buildyellowKey()
+        Item10.setPosition(hang: 8, lie: 8)
+        map1.addChild(Item10)
+        
         
         
         
@@ -589,16 +623,23 @@ class testScene: SKScene {
         a1.Mainscene = self.scene as? testScene
         
         //测试用节点
-        let ItemA = GameItem.buildsmallHealth()
-        ItemA.position = CGPoint(x: 176, y: 208)
+        let ItemA = GameItem.buildyellowDoor()
+        ItemA.setPosition(hang: 5, lie: 6)
         mapcover.addChild(ItemA)
-        let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
-        monA.position = CGPoint(x: 176, y: 176)
-        mapcover.addChild(monA)
+        let ItemB = GameItem.buildyellowDoor()
+        ItemB.setPosition(hang: 6, lie: 6)
+        mapcover.addChild(ItemB)
         
-        let monB = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-24.jpg", Texture2Name: "f-54.jpg", Health: 50, Attack: 11, Defence: 8, Money: 1, Exper: 1)
-        monB.position = CGPoint(x: 176, y: 240)
-        mapcover.addChild(monB)
+        //        let ItemA = GameItem.buildsmallHealth()
+        //        ItemA.position = CGPoint(x: 176, y: 208)
+        //        mapcover.addChild(ItemA)
+        //        let monA = MonsterNode.buildMonster(Name: "绿头怪", Texture1Name: "f-23.jpg", Texture2Name: "f-53.jpg", Health: 50, Attack: 20, Defence: 1, Money: 1, Exper: 1)
+        //        monA.position = CGPoint(x: 176, y: 176)
+        //        mapcover.addChild(monA)
+        //
+        //        let monB = MonsterNode.buildMonster(Name: "红头怪", Texture1Name: "f-24.jpg", Texture2Name: "f-54.jpg", Health: 50, Attack: 11, Defence: 1, Money: 1, Exper: 1)
+        //        monB.position = CGPoint(x: 176, y: 240)
+        //        mapcover.addChild(monB)
         
         
         let stairA = staircaseNode.init(presentFloor: 0, position: CGPoint(x: 176, y: 336), isUp: true)
@@ -609,7 +650,7 @@ class testScene: SKScene {
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if isFighting {
+        if isFighting || isShowingAlertView {
             return
         }
         for touch in touches {
@@ -618,7 +659,6 @@ class testScene: SKScene {
             print("移动前位置坐标为x = \(p2.x) y = \(p2.y)")
             let location = touch.location(in: self.map!)
             //获取点击位置
-//            print("点击位置为x = \(location.x), y = \(location.y)")
             if location.x < 0 || location.x > 352 || location.y < 0 || location.y > 352 {// 这个括号的内容以后会转移到按钮
                 print("触摸点不在区域内")
                 //展示怪物信息列表
@@ -631,7 +671,16 @@ class testScene: SKScene {
                         let node2 = node as! MonsterNode
                         //纹理集中的图片可以使用SKTexture正确读出但是不能用UIImage读出，很奇怪
                         let model = MonsterModel.init(HeadImage:node2.monsterPicture!, Name: node2.monsterName, Attack: node2.monsterAttack, Defence: node2.monsterDefence, Health: node2.monsterHealth, Money: node2.monsterMoney, Exper: node2.monsterExperience)
-                        list.DataArr?.add(model)
+                        var flag = false
+                        for model2 in list.DataArr! {
+                            let model3 = model2 as! MonsterModel
+                            if model3.name == model.name {
+                                flag = true
+                            }
+                        }
+                        if !flag {
+                            list.DataArr?.add(model)
+                        }
                         
                     }
                 }
@@ -648,19 +697,19 @@ class testScene: SKScene {
                         self.player?.moveAction(WithDirection: "上", EventNodes: t)
                         
                         //下面代码已经废弃，事件处理和逻辑判断均转交player类进行处理，将对应方向的节点传递进去
-                            //这里可以顺利检测到player的父节点上的其他子节点并触发事件，且节点hidden后不会继续触发，重置游戏后遍历所有子节点更改为ishidden = false 即可
-//                        let a = CGPoint(x: p2.x, y: p2.y + 32)
-//                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
-//                        let t = cover.nodes(at: a)
-//                        if t.count > 0 {
-//                            print("检测到事件触发点")
-//                            for w in t {
-//                                let w2 = w as! SKSpriteNode
-//                                w2.isHidden = true
-//                            }
-//                        }else{  //如果没有触发事件，则进行移动
-//                            self.player?.moveAction(WithDirection: "上")  //逻辑地图的判断内置在
-//                        }
+                        //这里可以顺利检测到player的父节点上的其他子节点并触发事件，且节点hidden后不会继续触发，重置游戏后遍历所有子节点更改为ishidden = false 即可
+                        //                        let a = CGPoint(x: p2.x, y: p2.y + 32)
+                        //                        let cover = self.childNode(withName: "mapcover") as! SKSpriteNode
+                        //                        let t = cover.nodes(at: a)
+                        //                        if t.count > 0 {
+                        //                            print("检测到事件触发点")
+                        //                            for w in t {
+                        //                                let w2 = w as! SKSpriteNode
+                        //                                w2.isHidden = true
+                        //                            }
+                        //                        }else{  //如果没有触发事件，则进行移动
+                        //                            self.player?.moveAction(WithDirection: "上")  //逻辑地图的判断内置在
+                        //                        }
                     }else{  //四分区域左侧
                         let a = CGPoint(x: p2.x - 32, y: p2.y)
                         let cover = self.mapmask?.childNode(withName: "mapcover\(player.AtFloor)") as! SKSpriteNode

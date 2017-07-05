@@ -14,18 +14,18 @@ class GameItem: SKSpriteNode {
     //道具类 包括但不限于 宝石 钥匙 血瓶 剑盾 金币等
     //static let texture不能用于赋值，因此如果这样写每次生成一个实例都会生成这么多纹理，作废
     /*
-    let smallHealth:SKTexture = SKTexture(imageNamed: "f-670.jpg")  //+200HP
-    let mediumHealth:SKTexture = SKTexture(imageNamed: "f-671.jpg") // +500HP
-    let blueKey:SKTexture = SKTexture(imageNamed: "f-606.jpg")  //蓝钥匙
-    let redKey:SKTexture = SKTexture(imageNamed: "f-605.jpg")  //红钥匙
-    let yellowKey:SKTexture = SKTexture(imageNamed: "f-607.jpg") //黄钥匙
-    let AttackDiamond:SKTexture = SKTexture(imageNamed: "f-675.jpg")  //攻击宝石
-    let defenceDiamond:SKTexture = SKTexture(imageNamed: "f-676.jpg") //防御宝石
-    */
+     let smallHealth:SKTexture = SKTexture(imageNamed: "f-670.jpg")  //+200HP
+     let mediumHealth:SKTexture = SKTexture(imageNamed: "f-671.jpg") // +500HP
+     let blueKey:SKTexture = SKTexture(imageNamed: "f-606.jpg")  //蓝钥匙
+     let redKey:SKTexture = SKTexture(imageNamed: "f-605.jpg")  //红钥匙
+     let yellowKey:SKTexture = SKTexture(imageNamed: "f-607.jpg") //黄钥匙
+     let AttackDiamond:SKTexture = SKTexture(imageNamed: "f-675.jpg")  //攻击宝石
+     let defenceDiamond:SKTexture = SKTexture(imageNamed: "f-676.jpg") //防御宝石
+     */
     
     var ItemName:String = ""
-
-//MARK: 建立节点
+    
+    //MARK: 建立节点
     //已经有 小血瓶+200 中血瓶+500 红蓝黄钥匙 攻击防御宝石
     class func buildsmallHealth()->GameItem{
         let smallHealth:SKTexture = SKTexture(imageNamed: "f-670.jpg")  //+200HP
@@ -66,6 +66,7 @@ class GameItem: SKSpriteNode {
         let AttackDiamond:SKTexture = SKTexture(imageNamed: "f-675.jpg")  //攻击宝石
         let node = GameItem.init(texture: AttackDiamond, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
         node.ItemName = "AttackDiamond"
         return node
     }
@@ -81,6 +82,27 @@ class GameItem: SKSpriteNode {
         let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         node.ItemName = "balanceDiamond"
+        return node
+    }
+    class func buildyellowDoor()->GameItem{
+        let texture = SKTexture(imageNamed: "f-603.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.ItemName = "yellowDoor"
+        return node
+    }
+    class func buildblueDoor()->GameItem{
+        let texture = SKTexture(imageNamed: "f-602.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.ItemName = "blueDoor"
+        return node
+    }
+    class func buildredDoor()->GameItem{
+        let texture = SKTexture(imageNamed: "f-601.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.ItemName = "redDoor"
         return node
     }
     
@@ -128,6 +150,41 @@ class GameItem: SKSpriteNode {
         case "balanceDiamond":
             player.defence += 3
             player.attack += 3
+            self.isHidden = true
+            break
+        case "yellowDoor":
+            if player.yellowKey >= 1 {
+                player.yellowKey -= 1
+                self.isHidden = true
+            }else{
+                let view = refuseView.init(text: "缺少黄钥匙")
+                let vc = UIApplication.shared.keyWindow?.rootViewController
+                let view2 = vc?.view as! SKView
+                let scene = view2.scene as! testScene
+                scene.isShowingAlertView = true
+                vc?.view.addSubview(view)
+            }
+            break
+        case "blueDoor":
+            if player.blueKey >= 1 {
+                player.blueKey -= 1
+                self.isHidden = true
+            }else{
+                let view = refuseView.init(text: "缺少蓝钥匙")
+                let vc = UIApplication.shared.keyWindow?.rootViewController
+                vc?.view.addSubview(view)
+            }
+            break
+        case "redDoor":
+            if player.redKey >= 1 {
+                player.redKey -= 1
+                self.isHidden = true
+            }else{
+                let view = refuseView.init(text: "缺少红钥匙")
+                let vc = UIApplication.shared.keyWindow?.rootViewController
+                vc?.view.addSubview(view)
+            }
+            break
         default:
             print("未命中任意一条")
             break
@@ -160,6 +217,7 @@ class MonsterNode: SKSpriteNode {
         
         let a = MonsterNode(texture: texture1, color: SKColor.clear, size: CGSize(width: 32, height: 32))
         a.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        a.zPosition = 1.0
         //制作怪物纹理替换
         let act1 = SKAction.wait(forDuration: 1)
         let act2 = SKAction.setTexture(texture2)
@@ -178,7 +236,7 @@ class MonsterNode: SKSpriteNode {
         a.monsterPicture = UIImage.init(named: Texture1Name)
         return a
     }
-
+    
     
 }
 
@@ -192,6 +250,7 @@ class staircaseNode :SKSpriteNode {
         }else{
             super.init(texture: SKTexture(imageNamed: "f-588.jpg"), color: SKColor.clear, size: CGSize(width: 32, height: 32))
         }
+        self.zPosition = 1.0
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.position = position
         self.presentFloor = presentFloor
@@ -216,10 +275,11 @@ class ShopNode: SKSpriteNode {
 
 class refuseView: UIView {
     init(text:String) {
-        super.init(frame: CGRect(x: 57, y: 200, width: 300, height: 30))
-        self.backgroundColor = SKColor.white
-        let label = UILabel.init(frame: CGRect(x: 30, y: 2, width: 260, height: 26))
+        super.init(frame: CGRect(x: (414 - 352) / 2, y: 20, width: 352, height: 352))
+        self.backgroundColor = SKColor.clear
+        let label = UILabel.init(frame: CGRect(x: 30, y: 202, width: 260, height: 26))
         label.text = text
+        label.backgroundColor = SKColor.white
         label.textAlignment = .center
         self.addSubview(label)
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(disappear))
@@ -231,6 +291,10 @@ class refuseView: UIView {
     }
     func disappear(){
         self.removeFromSuperview()
+        let vc = UIApplication.shared.keyWindow?.rootViewController
+        let view2 = vc?.view as! SKView
+        let scene = view2.scene as! testScene
+        scene.isShowingAlertView = false
     }
     
 }
