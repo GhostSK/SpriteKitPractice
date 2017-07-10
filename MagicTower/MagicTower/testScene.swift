@@ -365,8 +365,13 @@ class Player: SKSpriteNode {
                         }
                     }
                 }
-            }else{
-                //未完待续，商店节点预定
+            }else if w is ShopNode {
+                let a = w as! ShopNode
+                if a.isMoneyShop {  //商店
+                    
+                }else{  //神秘老头
+                    
+                }
             }
             
             

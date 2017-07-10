@@ -134,7 +134,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B63C904D1E78DC9C001A0673 /* Build configuration list for PBXProject "particleSystem" */;
+			buildConfigurationList = B63C904D1E78DC9C001A0673 /* Build configuration list for PBXProject "particlesystem" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -330,7 +330,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B63C904D1E78DC9C001A0673 /* Build configuration list for PBXProject "particleSystem" */ = {
+		B63C904D1E78DC9C001A0673 /* Build configuration list for PBXProject "particlesystem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B63C90681E78DC9C001A0673 /* Debug */,

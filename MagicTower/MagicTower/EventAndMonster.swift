@@ -283,6 +283,10 @@ class staircaseNode :SKSpriteNode {
 class ShopNode: SKSpriteNode {
     var isMoneyShop:Bool = true  //true 金钱商店 false 经验值商店
     
+
+    
+    
+    
 }
 
 

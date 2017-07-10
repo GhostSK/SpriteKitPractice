@@ -147,6 +147,7 @@
             break;
             
         default:
+            point = CGPointZero;
             break;
     }
     SKAction *move = [SKAction moveTo:point duration:0.01];
