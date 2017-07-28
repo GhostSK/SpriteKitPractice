@@ -282,10 +282,36 @@ class staircaseNode :SKSpriteNode {
 
 class ShopNode: SKSpriteNode {
     var isMoneyShop:Bool = true  //true 金钱商店 false 经验值商店
+    var NodeName:String = ""
+    class func buildShopNode(isMoneyShop:Bool,Name:String) -> ShopNode {
+        let node = ShopNode.init(texture: nil, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        //该节点应该用于触发事件 调出tableview窗口
+        //节点本身不能进行添加tableview因为格式不兼容
+        node.NodeName = Name
+        
+        return node
+    }
+    
+    func showShop(isMoneyShop:Bool, ShopName:String) {
+        print("展示商店页面")
+        
+    }
     
 
+    func setPosition(hang:Int, lie:Int) {
+        let a = (lie - 1) * 32 + 16
+        let b = (hang - 1) * 32 + 16
+        let p = CGPoint(x: a, y: b)
+        self.position = p
+    }
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+    }
     
-    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }
 

@@ -38,16 +38,16 @@ class logicMap: NSObject {
     
     override init() {
         super.init()
-        self.Map0 = buildLogicMap(MapStr: "00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00000100000\n00001110000\n00000100000\n00000100000\n00000100000")
-        self.Map1 = buildLogicMap(MapStr: "11111111111\n00000000001\n11111011101\n11101011101\n01001000101\n11101111101\n11101000001\n01001111111\n11100100010\n11101110111\n11101110111")
-        self.Map2 = buildLogicMap(MapStr: "10111011110\n10101011110\n10101011110\n10101000010\n10101111110\n10100100100\n11111101110\n10100101010\n10101101010\n10101101010\n10101101010")
-        self.Map3 = buildLogicMap(MapStr: "11100100000\n11101110111\n11100100101\n01001110101\n11100010101\n10111110101\n10000011101\n11111001001\n00001011101\n01111011101\n11000011101")
+        self.Map0 = buildLogicMap(MapStr: "00000100000.00000100000.00000100000.00000100000.00000100000.00000100000.00000100000.00001110000.00000100000.00000100000.00000100000")
+        self.Map1 = buildLogicMap(MapStr: "11111111111.00000000001.11111011101.11101011101.01001000101.11101111101.11101000001.01001111111.11100100010.11101110111.11101110111")
+        self.Map2 = buildLogicMap(MapStr: "10111011110.10101011110.10101011110.10101000010.10101111110.10100100100.11111101110.10100101010.10101101010.10101101010.10101101010")
+        self.Map3 = buildLogicMap(MapStr: "11100100000.11101110111.11100100101.01001110101.11100010101.10111110101.10000011101.11111001001.00001011101.01111011101.11000011101")
     }
     
     func buildLogicMap(MapStr:String)->NSMutableArray{
         
         let LogicMapStr = MapStr
-        let LogicMaptemp = LogicMapStr.components(separatedBy: "\n")
+        let LogicMaptemp = LogicMapStr.components(separatedBy: ".")
         //        print("\(LogicMaptemp)")
         let LogicMap:NSMutableArray = NSMutableArray.init()
         for line in LogicMaptemp {
@@ -59,7 +59,7 @@ class logicMap: NSObject {
             LogicMap.add(temp)
             //            print("本行分割结果为\(temp)")
         }
-        //        print("最终结果为\n\(LogicMap)")
+        //        print("最终结果为.\(LogicMap)")
         //到这里LogicMap中存在一个正确的二维数组，可用
         //该方法可正确切割汉语字符串为单字
         
@@ -75,7 +75,7 @@ class logicMap: NSObject {
 }
 
 class Player: SKSpriteNode {
-    static var player = Player.init()
+    static let player = Player.init()
     var Mainscene:testScene? = nil
     //六维属性
     var health:Int = 1000
@@ -367,11 +367,11 @@ class Player: SKSpriteNode {
                 }
             }else if w is ShopNode {
                 let a = w as! ShopNode
-                if a.isMoneyShop {  //商店
-                    
-                }else{  //神秘老头
-                    
-                }
+                    //在这里根据节点名字灌输数据来源          
+                    let shop = ShopTableView.buildView(NodeName: a.NodeName, isMoneyShop: a.isMoneyShop)
+                    let vc = UIApplication.shared.keyWindow?.rootViewController
+                    vc?.view.addSubview(shop)
+
             }
             
             
@@ -607,6 +607,12 @@ class testScene: SKScene {
 //        let ItemB = GameItem.buildyellowDoor()
 //        ItemB.setPosition(hang: 6, lie: 6)
 //        mapcover.addChild(ItemB)
+        
+            //商店节点加载方法
+//        let D1 = ShopNode.buildShopNode(isMoneyShop: true, Name: "Floor3Shop")
+//        D1.setPosition(hang: 6, lie: 6)
+//        mapcover.addChild(D1)
+        
         
 //                let ItemA = GameItem.buildsmallHealth()
 //                ItemA.position = CGPoint(x: 176, y: 208)
@@ -868,6 +874,11 @@ class testScene: SKScene {
         map.addChild(downStairs1)
         let upStairs1 = staircaseNode.init(presentFloor: 3, position: CGPoint(x: 336, y: 16), isUp: true)
         map.addChild(upStairs1)
+//        let shopNode = GameItem.
+        
+        
+        
+        
     }
     
 }
