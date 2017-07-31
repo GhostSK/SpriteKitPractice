@@ -41,6 +41,7 @@ class ShopTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     }
     func loadData(NodeName:String){
         if NodeName == "Floor3Shop" {
+            // 3楼金钱商店 25金800血 25金4攻击 25金4防御，100金升级 退出
             
         }
     }

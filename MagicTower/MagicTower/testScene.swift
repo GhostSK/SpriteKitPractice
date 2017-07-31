@@ -298,11 +298,38 @@ class Player: SKSpriteNode {
                 self.Mainscene?.isFighting = true
                 let a = w as! MonsterNode
                 let playerInfo = Player.shareInstance()
+                //计算损伤，如果损伤超过玩家现有生命值，同样不触发战斗
+                let MonA = a.monsterAttack
+                let MonD = a.monsterDefence
+                let PlayA = playerInfo.attack
+                let PlayD = playerInfo.defence
                 
-                if a.monsterDefence >= playerInfo.attack {
+                var damageFlag = true  //用来标记损伤是否超过现有生命值
+                
+                if PlayA > MonD {  //能打动
+                    if PlayD >= MonA {  //自身不破防，0损伤
+                        damageFlag = true
+                    }else{
+                        var D1 = Int(a.monsterHealth / (PlayA - MonD))  //回合数
+                        let D2 = a.monsterHealth % (PlayA - MonD)
+                        if D2 != 0 {  //如果不是整数倍，回合数+1
+                            D1 += 1
+                        }
+                        let D3 = D1 * (MonA - PlayD)  //计算损伤
+                        if D3 >= playerInfo.health {  //超过可承受损伤
+                            damageFlag = false
+                        }
+                        
+                    }
+                }else{
+                    damageFlag = false
+                }
+                
+                if a.monsterDefence >= playerInfo.attack || !damageFlag {
                     let view = refuseView.init(text: "你太弱了，练练再来吧！")
                     let vc = UIApplication.shared.keyWindow?.rootViewController
                     vc?.view.addSubview(view)
+                    self.Mainscene?.isFighting = false
                     return
                 }else{
                     let model = MonsterModel.init(HeadImage: a.monsterPicture!, Name: a.monsterName, Attack: a.monsterAttack, Defence: a.monsterDefence, Health: a.monsterHealth, Money: a.monsterMoney, Exper: a.monsterExperience)
@@ -373,9 +400,7 @@ class Player: SKSpriteNode {
                     vc?.view.addSubview(shop)
 
             }
-            
-            
-            
+ 
         }
     }
     
