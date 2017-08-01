@@ -115,6 +115,40 @@ class GameItem: SKSpriteNode {
         node.ItemName = "redDoor"
         return node
     }
+    class func buildRailing()->GameItem{
+        let texture = SKTexture(imageNamed: "f-600.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
+        node.ItemName = "railing"
+        return node
+    }
+    class func SbuildFloor2Hinder()->GameItem{
+        //本节点不能交互，在触发对应剧情后消失，消失方法可以考虑遍历二层所有子节点抓ItemName对应节点然后设置hidden
+        let texture = SKTexture(imageNamed: "f-604.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
+        node.ItemName = "Floor2Hinder"
+        return node
+    }
+    
+    class func SbuildFloor2Person1()->GameItem{
+        let texture = SKTexture(imageNamed: "f-680.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
+        node.ItemName = "Floor2Person1"
+        return node
+    }
+    class func SbuildFloor2Person2()->GameItem{
+        let texture = SKTexture(imageNamed: "f-681.jpg")
+        let node = GameItem.init(texture: texture, color: SKColor.clear, size: CGSize(width: 32, height: 32))
+        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        node.zPosition = 1.0
+        node.ItemName = "Floor2Person2"
+        return node
+    }
     
     func setPosition(hang:Int, lie:Int) {
         let a = (lie - 1) * 32 + 16
@@ -129,7 +163,7 @@ class GameItem: SKSpriteNode {
         
         switch self.ItemName {
         case "smallHealth":
-            player.health += 200
+            player.health += 250
             print("血量+200")
             self.isHidden = true
             break
@@ -201,6 +235,9 @@ class GameItem: SKSpriteNode {
                 vc?.view.addSubview(view)
             }
             break
+        case "railing":
+            self.isHidden = true
+            break
         default:
             print("未命中任意一条")
             break
@@ -235,7 +272,7 @@ class MonsterNode: SKSpriteNode {
         a.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         a.zPosition = 1.0
         //制作怪物纹理替换
-        let act1 = SKAction.wait(forDuration: 1)
+        let act1 = SKAction.wait(forDuration: 0.5)
         let act2 = SKAction.setTexture(texture2)
         let act3 = SKAction.setTexture(texture1)
         let Actionsequence = SKAction.sequence([act1, act2, act1, act3])
