@@ -329,12 +329,7 @@ class ShopNode: SKSpriteNode {
         
         return node
     }
-    
-    func showShop(isMoneyShop:Bool, ShopName:String) {
-        print("展示商店页面")
-        
-    }
-    
+   
 
     func setPosition(hang:Int, lie:Int) {
         let a = (lie - 1) * 32 + 16

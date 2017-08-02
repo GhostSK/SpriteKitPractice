@@ -83,7 +83,7 @@ class Player: SKSpriteNode {
     var defence:Int = 10
     var level:Int = 1
     var experience:Int = 0
-    var money:Int = 0
+    var money:Int = 100
     //钥匙持有量
     var yellowKey:Int = 1
     var blueKey:Int = 1

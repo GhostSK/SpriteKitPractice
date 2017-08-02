@@ -95,6 +95,8 @@ class ShopTableView: UIView,UITableViewDelegate,UITableViewDataSource {
                 if player.money >= 25 {
                     player.money -= 25
                     player.attack += 4
+                    let view = refuseView.init(text: "攻击力提升了四点！")
+                    self.addSubview(view)
                 }else{
                     let view = refuseView.init(text: "金钱不足")
                     let vc = UIApplication.shared.keyWindow?.rootViewController
@@ -116,6 +118,8 @@ class ShopTableView: UIView,UITableViewDelegate,UITableViewDataSource {
                 if player.money >= 25 {
                     player.money -= 25
                     player.defence += 4
+                    let view = refuseView.init(text: "防御力提升了四点！")
+                    self.addSubview(view)
                 }else{
                     let view = refuseView.init(text: "金钱不足")
                     let vc = UIApplication.shared.keyWindow?.rootViewController
@@ -137,6 +141,8 @@ class ShopTableView: UIView,UITableViewDelegate,UITableViewDataSource {
                 if player.money >= 25 {
                     player.money -= 25
                     player.health += 800
+                    let view = refuseView.init(text: "血量提升了八百点！")
+                    self.addSubview(view)
                 }else{
                     let view = refuseView.init(text: "金钱不足")
                     let vc = UIApplication.shared.keyWindow?.rootViewController
