@@ -24,14 +24,13 @@ class GameScene: SKScene {
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
 
         self.buildBalls()
-        
+        self.buildPocket()
         
         
  
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.ball?.physicsBody?.applyImpulse(CGVector(dx: 15.0, dy: 10.0))
         self.ball!.physicsBody?.isDynamic = true
         print("\(self.ball!.position.x) +++ \(self.ball!.position.y)")
         print("\(self.ball!.size.width) +++ \(self.ball!.size.height)")
@@ -39,7 +38,7 @@ class GameScene: SKScene {
             let touchA:UITouch = touch
             let touchPoint = touchA.location(in: self)
             print("点击位置是 x = \(touchPoint.x), y = \(touchPoint.y)")
-            self.ball?.physicsBody?.applyImpulse(CGVector(dx: (self.ball!.position.x - touchPoint.x) / self.view!.frame.size.width * 414 , dy: (self.ball!.position.y - touchPoint.y) / self.view!.frame.size.width * 414))
+            self.ball?.physicsBody?.applyImpulse(CGVector(dx: (self.ball!.position.x - touchPoint.x) / self.view!.frame.size.width * 500 , dy: (self.ball!.position.y - touchPoint.y) / self.view!.frame.size.width * 500))
         }
         
 
@@ -93,7 +92,87 @@ class GameScene: SKScene {
     
     
     func buildPocket(){
-//        let pocket1 = SKSpriteNode(
+        let path1 = UIBezierPath.init()
+        path1.move(to: CGPoint(x: 15, y: 15))
+        path1.addLine(to: CGPoint(x: 35, y: 15))
+        path1.addQuadCurve(to: CGPoint(x: 15, y: 35), controlPoint: CGPoint(x: 35, y: 35))
+        path1.addLine(to: CGPoint(x: 15, y: 15))
+        
+        
+        let pocket1 = SKShapeNode(path: path1.cgPath)
+        pocket1.physicsBody = SKPhysicsBody(polygonFrom: path1.cgPath)
+        pocket1.fillColor = SKColor.black
+        pocket1.strokeColor = SKColor.black
+        pocket1.physicsBody?.isDynamic = false
+        addChild(pocket1)
+        
+        let path2 = UIBezierPath.init()
+        path2.move(to: CGPoint(x: self.view!.frame.size.width - 15, y: 15))
+        path2.addLine(to: CGPoint(x: self.view!.frame.size.width - 35, y: 15))
+        path2.addQuadCurve(to: CGPoint(x: self.view!.frame.size.width - 15, y: 35), controlPoint: CGPoint(x: self.view!.frame.size.width - 35, y: 35))
+        path2.addLine(to: CGPoint(x: self.view!.frame.size.width - 15, y: 15))
+        
+        
+        let pocket2 = SKShapeNode(path: path2.cgPath)
+        pocket2.physicsBody = SKPhysicsBody(polygonFrom: path2.cgPath)
+        pocket2.fillColor = SKColor.black
+        pocket2.strokeColor = SKColor.black
+        pocket2.physicsBody?.isDynamic = false
+        addChild(pocket2)
+        
+        let path3 = UIBezierPath.init()
+        path3.move(to: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height - 15))
+        path3.addLine(to: CGPoint(x: self.view!.frame.size.width - 35, y: self.view!.frame.size.height - 15))
+        path3.addQuadCurve(to: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height - 35), controlPoint: CGPoint(x: self.view!.frame.size.width - 35, y: self.view!.frame.size.height - 35))
+        path3.addLine(to: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height - 15))
+        
+        
+        let pocket3 = SKShapeNode(path: path3.cgPath)
+        pocket3.physicsBody = SKPhysicsBody(polygonFrom: path3.cgPath)
+        pocket3.fillColor = SKColor.black
+        pocket3.strokeColor = SKColor.black
+        pocket3.physicsBody?.isDynamic = false
+        addChild(pocket3)
+        
+        let path4 = UIBezierPath.init()
+        path4.move(to: CGPoint(x:15, y: self.view!.frame.size.height - 15))
+        path4.addLine(to: CGPoint(x: 35, y: self.view!.frame.size.height - 15))
+        path4.addQuadCurve(to: CGPoint(x: 15, y: self.view!.frame.size.height - 35), controlPoint: CGPoint(x: 35, y: self.view!.frame.size.height - 35))
+        path4.addLine(to: CGPoint(x: 15, y: self.view!.frame.size.height - 15))
+        
+        
+        let pocket4 = SKShapeNode(path: path4.cgPath)
+        pocket4.physicsBody = SKPhysicsBody(polygonFrom: path4.cgPath)
+        pocket4.fillColor = SKColor.black
+        pocket4.strokeColor = SKColor.black
+        pocket4.physicsBody?.isDynamic = false
+        addChild(pocket4)
+        
+        let path5 = UIBezierPath.init()
+        path5.move(to: CGPoint(x: 15, y: self.view!.frame.size.height / 2 - 15))
+        path5.addLine(to: CGPoint(x: 15, y: self.view!.frame.size.height / 2 + 15))
+        path5.addArc(withCenter: CGPoint(x: 15, y: self.view!.frame.size.height / 2), radius: 15, startAngle:1.5, endAngle: -1.5, clockwise: false)
+        
+        
+        let pocket5 = SKShapeNode(path: path5.cgPath)
+        pocket5.physicsBody = SKPhysicsBody(polygonFrom: path5.cgPath)
+        pocket5.fillColor = SKColor.black
+        pocket5.strokeColor = SKColor.black
+        pocket5.physicsBody?.isDynamic = false
+        addChild(pocket5)
+        
+        let path6 = UIBezierPath.init()
+        path6.move(to: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height / 2 - 15))
+        path6.addLine(to: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height / 2 + 15))
+        path6.addArc(withCenter: CGPoint(x: self.view!.frame.size.width - 15, y: self.view!.frame.size.height / 2), radius: 15, startAngle:1.5, endAngle: -1.5, clockwise: true)
+        
+        
+        let pocket6 = SKShapeNode(path: path6.cgPath)
+        pocket6.physicsBody = SKPhysicsBody(polygonFrom: path6.cgPath)
+        pocket6.fillColor = SKColor.black
+        pocket6.strokeColor = SKColor.black
+        pocket6.physicsBody?.isDynamic = false
+        addChild(pocket6)
         
         
         
