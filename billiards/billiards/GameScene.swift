@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ball:SKSpriteNode? = nil
     var count:Int = 0
     var point:CGPoint = CGPoint.zero
+    var cue:SKSpriteNode? = nil
     override func didMove(to view: SKView) {
         //建立物理世界
         self.backgroundColor = SKColor.white
@@ -23,8 +24,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(backnode)
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
         self.physicsWorld.contactDelegate = self
+        
         self.buildBalls()
         self.buildPocket()
+        self.setcue()
+        
         
         
  
@@ -38,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let touchA:UITouch = touch
             let touchPoint = touchA.location(in: self)
             print("点击位置是 x = \(touchPoint.x), y = \(touchPoint.y)")
-            self.ball?.physicsBody?.applyImpulse(CGVector(dx: (self.ball!.position.x - touchPoint.x) / self.view!.frame.size.width * 500 , dy: (self.ball!.position.y - touchPoint.y) / self.view!.frame.size.width * 500))
+//            self.ball?.physicsBody?.applyImpulse(CGVector(dx: (self.ball!.position.x - touchPoint.x) / self.view!.frame.size.width * 15000 , dy: (self.ball!.position.y - touchPoint.y) / self.view!.frame.size.width * 15000))
         }
         
 
@@ -46,8 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     override func didSimulatePhysics(){
         if self.ball!.position.x - self.point.x < 0.03 && self.ball!.position.y - self.point.y < 0.03 {
-//            self.ball?.physicsBody?.isDynamic = false
-//            print("球停下了 x = \(self.ball!.position.x) y = \(self.ball!.position.y)")
+
         }
         self.point = self.ball!.position
         
@@ -60,7 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     func buildBalls(){
-        self.buildBall(textureName: "球球 (0).png", position: CGPoint(x: 60, y: 150))
+        self.buildBall(textureName: "球球 (0).png", position: CGPoint(x: 160, y: 150))
         self.buildBall(textureName: "球球 (1).png", position: CGPoint(x: 280, y: 250))
         self.buildBall(textureName: "球球 (2).png", position: CGPoint(x: 240, y: 250))
         self.buildBall(textureName: "球球 (3).png", position: CGPoint(x: 200, y: 250))
@@ -72,18 +75,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.buildBall(textureName: "球球 (9).png", position: CGPoint(x: 160, y: 380))
         
     }
+    
     func buildBall(textureName:String, position:CGPoint){
         let ball1 = SKSpriteNode(texture: SKTexture(imageNamed: textureName))
         ball1.position = position
         ball1.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//        ball1.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: textureName), size: ball1.size)
         ball1.physicsBody = SKPhysicsBody(circleOfRadius: 16, center: CGPoint(x: 0.5, y: 0.5))
         ball1.physicsBody?.isDynamic = true
         ball1.physicsBody?.restitution = 0.85
-        ball1.physicsBody?.linearDamping = 0.28
-        ball1.physicsBody?.friction = 0.45
+        ball1.physicsBody?.linearDamping = 1.0
+        ball1.physicsBody?.friction = 0.25
         ball1.physicsBody?.angularDamping = 0.12
-        ball1.physicsBody?.mass = 0.4
+        ball1.physicsBody?.mass = 8
         ball1.physicsBody?.contactTestBitMask = 3
         ball1.physicsBody?.categoryBitMask = 1
         
@@ -95,7 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func buildPocket(){
+    func buildPocket(){  //球袋
         let path1 = UIBezierPath.init()
         path1.move(to: CGPoint(x: 15, y: 15))
         path1.addLine(to: CGPoint(x: 35, y: 15))
@@ -191,6 +194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(pocket6)
   
     }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         print("发生了碰撞")
         let bodyA = contact.bodyA
@@ -216,5 +220,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didEnd(_ contact: SKPhysicsContact) {
         
     }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        let point = touch!.location(in: self.ball!)
+        let arc = -point.x / point.y
+        print("计算弧度arc = \(arc)")
+        self.cue?.zRotation = atan(arc)
+    }
+    
+    func setcue(){
+        let cue = SKSpriteNode(color: SKColor.brown, size: CGSize(width: 10, height: 200))
+        cue.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        cue.position = CGPoint(x: 212, y: 368)
+        cue.zRotation = 0
+        self.cue = cue
+        addChild(cue)
+
+    }
+    
     
 }

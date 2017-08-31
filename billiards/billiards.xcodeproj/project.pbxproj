@@ -17,6 +17,7 @@
 		B61017DE1F317F3000768B88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61017DC1F317F3000768B88 /* Main.storyboard */; };
 		B61017E01F317F3000768B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B61017DF1F317F3000768B88 /* Assets.xcassets */; };
 		B61017E31F317F3000768B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61017E11F317F3000768B88 /* LaunchScreen.storyboard */; };
+		B613AAFE1F57FD680043956A /* 球杆.png in Resources */ = {isa = PBXBuildFile; fileRef = B613AAFD1F57FD680043956A /* 球杆.png */; };
 		B6E3BC9A1F56631D00AFD768 /* 球球 (0).png in Resources */ = {isa = PBXBuildFile; fileRef = B6E3BC901F56631D00AFD768 /* 球球 (0).png */; };
 		B6E3BC9B1F56631D00AFD768 /* 球球 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = B6E3BC911F56631D00AFD768 /* 球球 (1).png */; };
 		B6E3BC9C1F56631D00AFD768 /* 球球 (2).png in Resources */ = {isa = PBXBuildFile; fileRef = B6E3BC921F56631D00AFD768 /* 球球 (2).png */; };
@@ -42,6 +43,7 @@
 		B61017DF1F317F3000768B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B61017E21F317F3000768B88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B61017E41F317F3000768B88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B613AAFD1F57FD680043956A /* 球杆.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "球杆.png"; sourceTree = "<group>"; };
 		B6E3BC901F56631D00AFD768 /* 球球 (0).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "球球 (0).png"; sourceTree = "<group>"; };
 		B6E3BC911F56631D00AFD768 /* 球球 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "球球 (1).png"; sourceTree = "<group>"; };
 		B6E3BC921F56631D00AFD768 /* 球球 (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "球球 (2).png"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				B6E3BC971F56631D00AFD768 /* 球球 (7).png */,
 				B6E3BC981F56631D00AFD768 /* 球球 (8).png */,
 				B6E3BC991F56631D00AFD768 /* 球球 (9).png */,
+				B613AAFD1F57FD680043956A /* 球杆.png */,
 				B61017E11F317F3000768B88 /* LaunchScreen.storyboard */,
 				B61017E41F317F3000768B88 /* Info.plist */,
 			);
@@ -179,6 +182,7 @@
 				B61017E01F317F3000768B88 /* Assets.xcassets in Resources */,
 				B6E3BC9D1F56631D00AFD768 /* 球球 (3).png in Resources */,
 				B6E3BC9A1F56631D00AFD768 /* 球球 (0).png in Resources */,
+				B613AAFE1F57FD680043956A /* 球杆.png in Resources */,
 				B6E3BC9C1F56631D00AFD768 /* 球球 (2).png in Resources */,
 				B6E3BCA31F56631D00AFD768 /* 球球 (9).png in Resources */,
 				B61017E31F317F3000768B88 /* LaunchScreen.storyboard in Resources */,
