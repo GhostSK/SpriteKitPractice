@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var ball:SKSpriteNode? = nil
     var count:Int = 0
     var point:CGPoint = CGPoint.zero
@@ -22,7 +22,7 @@ class GameScene: SKScene {
         backnode.position = CGPoint(x: 15, y: 15)
         addChild(backnode)
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
-
+        self.physicsWorld.contactDelegate = self
         self.buildBalls()
         self.buildPocket()
         
@@ -76,16 +76,20 @@ class GameScene: SKScene {
         let ball1 = SKSpriteNode(texture: SKTexture(imageNamed: textureName))
         ball1.position = position
         ball1.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        ball1.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: textureName), size: ball1.size)
+//        ball1.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: textureName), size: ball1.size)
+        ball1.physicsBody = SKPhysicsBody(circleOfRadius: 16, center: CGPoint(x: 0.5, y: 0.5))
         ball1.physicsBody?.isDynamic = true
         ball1.physicsBody?.restitution = 0.85
         ball1.physicsBody?.linearDamping = 0.28
         ball1.physicsBody?.friction = 0.45
         ball1.physicsBody?.angularDamping = 0.12
         ball1.physicsBody?.mass = 0.4
-        ball1.physicsBody?.collisionBitMask = 3
+        ball1.physicsBody?.contactTestBitMask = 3
+        ball1.physicsBody?.categoryBitMask = 1
+        
         if textureName == "球球 (0).png" {
             self.ball = ball1  //白球
+            ball1.name = "智障白球"
         }
         addChild(ball1)
     }
@@ -104,6 +108,8 @@ class GameScene: SKScene {
         pocket1.fillColor = SKColor.black
         pocket1.strokeColor = SKColor.black
         pocket1.physicsBody?.isDynamic = false
+        pocket1.physicsBody?.categoryBitMask = 3
+        pocket1.physicsBody?.contactTestBitMask = 1
         addChild(pocket1)
         
         let path2 = UIBezierPath.init()
@@ -118,6 +124,8 @@ class GameScene: SKScene {
         pocket2.fillColor = SKColor.black
         pocket2.strokeColor = SKColor.black
         pocket2.physicsBody?.isDynamic = false
+        pocket2.physicsBody?.categoryBitMask = 3
+        pocket2.physicsBody?.contactTestBitMask = 1
         addChild(pocket2)
         
         let path3 = UIBezierPath.init()
@@ -132,6 +140,8 @@ class GameScene: SKScene {
         pocket3.fillColor = SKColor.black
         pocket3.strokeColor = SKColor.black
         pocket3.physicsBody?.isDynamic = false
+        pocket3.physicsBody?.categoryBitMask = 3
+        pocket3.physicsBody?.contactTestBitMask = 1
         addChild(pocket3)
         
         let path4 = UIBezierPath.init()
@@ -146,6 +156,8 @@ class GameScene: SKScene {
         pocket4.fillColor = SKColor.black
         pocket4.strokeColor = SKColor.black
         pocket4.physicsBody?.isDynamic = false
+        pocket4.physicsBody?.categoryBitMask = 3
+        pocket4.physicsBody?.contactTestBitMask = 1
         addChild(pocket4)
         
         let path5 = UIBezierPath.init()
@@ -159,6 +171,8 @@ class GameScene: SKScene {
         pocket5.fillColor = SKColor.black
         pocket5.strokeColor = SKColor.black
         pocket5.physicsBody?.isDynamic = false
+        pocket5.physicsBody?.categoryBitMask = 3
+        pocket5.physicsBody?.contactTestBitMask = 1
         addChild(pocket5)
         
         let path6 = UIBezierPath.init()
@@ -172,11 +186,35 @@ class GameScene: SKScene {
         pocket6.fillColor = SKColor.black
         pocket6.strokeColor = SKColor.black
         pocket6.physicsBody?.isDynamic = false
+        pocket6.physicsBody?.categoryBitMask = 3
+        pocket6.physicsBody?.contactTestBitMask = 1
         addChild(pocket6)
-        
+  
+    }
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("发生了碰撞")
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        if ((bodyA.categoryBitMask == 1 && bodyB.categoryBitMask == 3) || (bodyA.categoryBitMask == 3 && bodyB.categoryBitMask == 1)) {
+            print("碰撞了球袋")
+            var disappearBall:SKPhysicsBody? = nil
+            if bodyA.categoryBitMask == 1 {
+                bodyA.node?.removeFromParent()
+                disappearBall = bodyA
+            }else{
+                bodyB.node?.removeFromParent()
+                disappearBall = bodyB
+            }
+            if disappearBall?.node?.name == "智障白球" {
+                disappearBall?.node?.position = CGPoint(x: 100, y: 100)
+                addChild(disappearBall!.node!)
+            }
+        }
         
         
     }
-    
+    func didEnd(_ contact: SKPhysicsContact) {
+        
+    }
     
 }
