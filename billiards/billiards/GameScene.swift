@@ -10,11 +10,27 @@ import SpriteKit
 import GameplayKit
 
 
+class BallInfo: NSObject {
+    var Position: CGPoint = CGPoint.zero
+    var Name: String = ""
+    class func setBallInfo(Position:CGPoint, Name:String) -> BallInfo {
+        let info = BallInfo.init()
+        info.Position = Position
+        info.Name = Name
+        return info
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let kwidth = UIScreen.main.bounds.size.width
     let kheight = UIScreen.main.bounds.size.height
-    var ball:SKSpriteNode? = nil
-    var cue:SKSpriteNode? = nil
+    var ball:SKSpriteNode? = nil //白球
+    var cue:SKSpriteNode? = nil  //球杆节点，无物理实体仅执行动画
+    var GameState:Int = 0  //0:选择角度 1：选择力度 2：等待球停止
+    var AnglePoint:CGPoint = CGPoint.zero  //角度选择位置，相对于白球,同时也是击球动画结束位置
+    var BallsArr:NSMutableArray = NSMutableArray.init()
+    var LastPositionArr:NSMutableArray = NSMutableArray.init()
+    var HitPower:CGFloat = 0.0
     override func didMove(to view: SKView) {
         //建立物理世界
         self.backgroundColor = SKColor.white
@@ -35,30 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.ball!.physicsBody?.isDynamic = true
-        print("\(self.ball!.position.x) +++ \(self.ball!.position.y)")
-        print("\(self.ball!.size.width) +++ \(self.ball!.size.height)")
-        for touch in touches {
-            let touchA:UITouch = touch
-            let touchPoint = touchA.location(in: self)
-            print("点击位置是 x = \(touchPoint.x), y = \(touchPoint.y)")
-//            self.ball?.physicsBody?.applyImpulse(CGVector(dx: (self.ball!.position.x - touchPoint.x) / self.view!.frame.size.width * 15000 , dy: (self.ball!.position.y - touchPoint.y) / self.view!.frame.size.width * 15000))
-        }
-        
-
-        
-    }
-    override func didSimulatePhysics(){
-        
-    }
-    override func didFinishUpdate() {
-
-    }
-    
-    func buildBasephysicsWorld(){
-        
-    }
     func buildBalls(){
         self.buildBall(textureName: "球球 (0).png", position: CGPoint(x: kwidth / 2, y: 100))
         self.buildBall(textureName: "球球 (1).png", position: CGPoint(x: kwidth / 2, y: kheight - 200))
@@ -70,7 +62,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.buildBall(textureName: "球球 (7).png", position: CGPoint(x: kwidth / 2 + 15, y: kheight - 200 + 78))
         self.buildBall(textureName: "球球 (8).png", position: CGPoint(x: kwidth / 2 - 15, y: kheight - 200 + 78))
         self.buildBall(textureName: "球球 (9).png", position: CGPoint(x: kwidth / 2, y: kheight - 200 + 104))
-        
     }
     
     func buildBall(textureName:String, position:CGPoint){
@@ -87,13 +78,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball1.physicsBody?.contactTestBitMask = 3
         ball1.physicsBody?.categoryBitMask = 1
         ball1.name = textureName
+        self.BallsArr.add(ball1)
+        let info = BallInfo.setBallInfo(Position: ball1.position, Name: textureName)
+        self.LastPositionArr.add(info)
         if textureName == "球球 (0).png" {
             self.ball = ball1  //白球
         }
         addChild(ball1)
     }
     
-    
+    func setcue(){
+        let cue = SKSpriteNode(color: SKColor.brown, size: CGSize(width: 10, height: 200))
+        cue.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        cue.position = CGPoint(x: 0, y: 0)
+        cue.zRotation = 3.141592654
+        self.cue = cue
+    }
+
     func buildPocket(){  //球袋
         let path1 = UIBezierPath.init()
         path1.move(to: CGPoint(x: 15, y: 15))
@@ -208,37 +209,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if disappearBall?.node?.name == "球球 (0).png" {
                 disappearBall?.node?.position = CGPoint(x: kwidth / 2, y: 100)
                 addChild(disappearBall!.node!)
+            }else{
+                //可以考虑剔除已经进了的球的信息，to do list
             }
         }
         
         
     }
-    func didEnd(_ contact: SKPhysicsContact) {
-        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.GameState == 0 {
+            self.cue?.isHidden = false
+        }else{
+            
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        let touchpoint = touch!.location(in: self.ball!)
-        let ballPoint = self.ball!.position
-        let arc = -touchpoint.x / touchpoint.y
-        self.cue?.zRotation = atan(arc)
-        let a4 = sqrt(1 / (touchpoint.x * touchpoint.x + touchpoint.y * touchpoint.y))
-        let PointBaseBall = CGPoint(x: 150 * touchpoint.x * a4, y: 150 * touchpoint.y * a4)
-        let truePoint = CGPoint(x: PointBaseBall.x + ballPoint.x, y: PointBaseBall.y + ballPoint.y)
-        self.cue?.position = truePoint
+        if self.GameState == 0 {  //角度
+            let touch = touches.first
+            let touchpoint = touch!.location(in: self.ball!)
+            let ballPoint = self.ball!.position
+            let arc = -touchpoint.x / touchpoint.y
+            self.cue?.zRotation = atan(arc)
+            let a4 = sqrt(1 / (touchpoint.x * touchpoint.x + touchpoint.y * touchpoint.y))
+            let PointBaseBall = CGPoint(x: 150 * touchpoint.x * a4, y: 150 * touchpoint.y * a4)
+            let truePoint = CGPoint(x: PointBaseBall.x + ballPoint.x, y: PointBaseBall.y + ballPoint.y)
+            self.cue?.position = truePoint
+            self.AnglePoint = CGPoint(x: 115 * touchpoint.x * a4, y: 115 * touchpoint.y * a4)
+        } else if self.GameState == 1 {   //力度
+            let touch = touches.first
+            let touchpoint = touch!.location(in: self.ball!)
+            self.HitPower = sqrt(touchpoint.x * touchpoint.x + touchpoint.y * touchpoint.y) //击球力度
+            let ballPoint = self.ball!.position
+            let cuePosition = CGPoint(x: ballPoint.x + self.AnglePoint.x / 115 * (HitPower + 100), y: ballPoint.y + self.AnglePoint.y / 115 * (HitPower + 100))
+            self.cue?.position = cuePosition
+        }
         
     }
-    
-    func setcue(){
-        let cue = SKSpriteNode(color: SKColor.brown, size: CGSize(width: 10, height: 200))
-        cue.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        cue.position = CGPoint(x: 212, y: 368)
-        cue.zRotation = 3.141592654
-        self.cue = cue
-        addChild(cue)
-
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.GameState == 0 {
+            self.GameState = 1
+        }else if self.GameState == 1 {
+            self.GameState = 2
+            let cueAction = SKAction.move(to: CGPoint(x: (self.ball?.position.x)! + self.AnglePoint.x, y: (self.ball?.position.y)! + self.AnglePoint.y), duration: 0.15)
+            self.cue?.run(cueAction, completion: {
+                self.cue?.isHidden = true
+                self.ball?.physicsBody?.applyImpulse(CGVector(dx: -self.AnglePoint.x * self.HitPower, dy: -self.AnglePoint.y * self.HitPower))
+            })
+        }
     }
     
+    override func didFinishUpdate() {
+        if self.GameState == 2 {
+            var isAllBallStop = true
+            for node1 in self.BallsArr {
+                let node = node1 as! SKSpriteNode
+                let ballname = node.name
+                let NewPosition = node.position
+                for Info1 in self.LastPositionArr {
+                    let info = Info1 as! BallInfo
+                    if info.Name == ballname {
+                        let distance = (info.Position.x - NewPosition.x) * (info.Position.x - NewPosition.x) + (info.Position.y - NewPosition.y) * (info.Position.y - NewPosition.y)
+                        if distance > 0.02 {
+                            isAllBallStop = false
+                        }
+                        info.Position = NewPosition
+                    }
+                }
+            }
+            if isAllBallStop == true {
+                self.GameState = 0
+                print("球都静止了")
+            }
+        }
+    }
     
 }
