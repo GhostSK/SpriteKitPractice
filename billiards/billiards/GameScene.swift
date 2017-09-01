@@ -9,10 +9,11 @@
 import SpriteKit
 import GameplayKit
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    let kwidth = UIScreen.main.bounds.size.width
+    let kheight = UIScreen.main.bounds.size.height
     var ball:SKSpriteNode? = nil
-    var count:Int = 0
-    var point:CGPoint = CGPoint.zero
     var cue:SKSpriteNode? = nil
     override func didMove(to view: SKView) {
         //建立物理世界
@@ -49,10 +50,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     override func didSimulatePhysics(){
-        if self.ball!.position.x - self.point.x < 0.03 && self.ball!.position.y - self.point.y < 0.03 {
-
-        }
-        self.point = self.ball!.position
         
     }
     override func didFinishUpdate() {
@@ -63,16 +60,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     func buildBalls(){
-        self.buildBall(textureName: "球球 (0).png", position: CGPoint(x: 160, y: 150))
-        self.buildBall(textureName: "球球 (1).png", position: CGPoint(x: 280, y: 250))
-        self.buildBall(textureName: "球球 (2).png", position: CGPoint(x: 240, y: 250))
-        self.buildBall(textureName: "球球 (3).png", position: CGPoint(x: 200, y: 250))
-        self.buildBall(textureName: "球球 (4).png", position: CGPoint(x: 160, y: 250))
-        self.buildBall(textureName: "球球 (5).png", position: CGPoint(x: 120, y: 290))
-        self.buildBall(textureName: "球球 (6).png", position: CGPoint(x: 280, y: 290))
-        self.buildBall(textureName: "球球 (7).png", position: CGPoint(x: 240, y: 290))
-        self.buildBall(textureName: "球球 (8).png", position: CGPoint(x: 200, y: 290))
-        self.buildBall(textureName: "球球 (9).png", position: CGPoint(x: 160, y: 380))
+        self.buildBall(textureName: "球球 (0).png", position: CGPoint(x: kwidth / 2, y: 100))
+        self.buildBall(textureName: "球球 (1).png", position: CGPoint(x: kwidth / 2, y: kheight - 200))
+        self.buildBall(textureName: "球球 (2).png", position: CGPoint(x: kwidth / 2 + 15, y: kheight - 200 + 26))
+        self.buildBall(textureName: "球球 (3).png", position: CGPoint(x: kwidth / 2 - 15, y: kheight - 200 + 26))
+        self.buildBall(textureName: "球球 (4).png", position: CGPoint(x: kwidth / 2, y: kheight - 200 + 52))
+        self.buildBall(textureName: "球球 (5).png", position: CGPoint(x: kwidth / 2 - 30, y: kheight - 200 + 52))
+        self.buildBall(textureName: "球球 (6).png", position: CGPoint(x: kwidth / 2 + 30, y: kheight - 200 + 52))
+        self.buildBall(textureName: "球球 (7).png", position: CGPoint(x: kwidth / 2 + 15, y: kheight - 200 + 78))
+        self.buildBall(textureName: "球球 (8).png", position: CGPoint(x: kwidth / 2 - 15, y: kheight - 200 + 78))
+        self.buildBall(textureName: "球球 (9).png", position: CGPoint(x: kwidth / 2, y: kheight - 200 + 104))
         
     }
     
@@ -83,16 +80,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball1.physicsBody = SKPhysicsBody(circleOfRadius: 16, center: CGPoint(x: 0.5, y: 0.5))
         ball1.physicsBody?.isDynamic = true
         ball1.physicsBody?.restitution = 0.85
-        ball1.physicsBody?.linearDamping = 1.0
-        ball1.physicsBody?.friction = 0.25
-        ball1.physicsBody?.angularDamping = 0.12
-        ball1.physicsBody?.mass = 8
+        ball1.physicsBody?.linearDamping = 0.90
+        ball1.physicsBody?.friction = 0.20
+        ball1.physicsBody?.angularDamping = 0.15
+        ball1.physicsBody?.mass = 7.5
         ball1.physicsBody?.contactTestBitMask = 3
         ball1.physicsBody?.categoryBitMask = 1
-        
+        ball1.name = textureName
         if textureName == "球球 (0).png" {
             self.ball = ball1  //白球
-            ball1.name = "智障白球"
         }
         addChild(ball1)
     }
@@ -209,8 +205,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bodyB.node?.removeFromParent()
                 disappearBall = bodyB
             }
-            if disappearBall?.node?.name == "智障白球" {
-                disappearBall?.node?.position = CGPoint(x: 100, y: 100)
+            if disappearBall?.node?.name == "球球 (0).png" {
+                disappearBall?.node?.position = CGPoint(x: kwidth / 2, y: 100)
                 addChild(disappearBall!.node!)
             }
         }
@@ -223,17 +219,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
-        let point = touch!.location(in: self.ball!)
-        let arc = -point.x / point.y
-        print("计算弧度arc = \(arc)")
+        let touchpoint = touch!.location(in: self.ball!)
+        let ballPoint = self.ball!.position
+        let arc = -touchpoint.x / touchpoint.y
         self.cue?.zRotation = atan(arc)
+        let a4 = sqrt(1 / (touchpoint.x * touchpoint.x + touchpoint.y * touchpoint.y))
+        let PointBaseBall = CGPoint(x: 150 * touchpoint.x * a4, y: 150 * touchpoint.y * a4)
+        let truePoint = CGPoint(x: PointBaseBall.x + ballPoint.x, y: PointBaseBall.y + ballPoint.y)
+        self.cue?.position = truePoint
+        
     }
     
     func setcue(){
         let cue = SKSpriteNode(color: SKColor.brown, size: CGSize(width: 10, height: 200))
         cue.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         cue.position = CGPoint(x: 212, y: 368)
-        cue.zRotation = 0
+        cue.zRotation = 3.141592654
         self.cue = cue
         addChild(cue)
 
