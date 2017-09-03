@@ -93,6 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cue.position = CGPoint(x: 0, y: 0)
         cue.zRotation = 3.141592654
         self.cue = cue
+        addChild(cue)
+        
     }
 
     func buildPocket(){  //球袋
@@ -227,12 +229,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.GameState == 0 {  //角度
             let touch = touches.first
-            let touchpoint = touch!.location(in: self.ball!)
+            let ballPosition = self.ball?.position
+            let touchPosition = touch!.location(in: (self.ball?.parent)!)
+            let touchpoint = CGPoint(x: (ballPosition?.x)! - touchPosition.x, y:(ballPosition?.y)! - touchPosition.y)
+            print("触摸点相对于球的位置是 x = \(touchpoint.x) y = \(touchpoint.y)")
             let ballPoint = self.ball!.position
             let arc = -touchpoint.x / touchpoint.y
+            print("计算出的arc值是\(arc)")
+            print("对应的弧度值是\(atan(arc))")
             self.cue?.zRotation = atan(arc)
             let a4 = sqrt(1 / (touchpoint.x * touchpoint.x + touchpoint.y * touchpoint.y))
             let PointBaseBall = CGPoint(x: 150 * touchpoint.x * a4, y: 150 * touchpoint.y * a4)
+            print("球杆相对于球的计算位置是 x = \(PointBaseBall.x) y = \(PointBaseBall.y)")
             let truePoint = CGPoint(x: PointBaseBall.x + ballPoint.x, y: PointBaseBall.y + ballPoint.y)
             self.cue?.position = truePoint
             self.AnglePoint = CGPoint(x: 115 * touchpoint.x * a4, y: 115 * touchpoint.y * a4)
