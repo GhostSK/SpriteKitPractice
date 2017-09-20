@@ -10,15 +10,30 @@ import UIKit
 
 class TechViews: UIView {
     
-    let kwidth = UIScreen.main.bounds.size.width
-    let kheight = UIScreen.main.bounds.size.height
+    var kwidth = UIScreen.main.bounds.size.width
+    var kheight = UIScreen.main.bounds.size.height
     var dataArr:[baseMenu]? = nil
     var Title:UILabel? = nil
     var scrollView:UIScrollView? = nil
     
     override init(frame: CGRect) {
+        if kheight < kwidth {
+            let a = kheight
+            kheight = kwidth
+            kwidth = a
+        }
         super.init(frame: CGRect(x: 10, y: 10, width: kheight - 20, height: kwidth - 20))
         self.backgroundColor = UIColor.white
+        self.BuildUpUI()
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func BuildUpUI(){
+        print("width = \(kwidth) height = \(kheight)")
         let backImage = UIImageView.init(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         backImage.image = UIImage(named: "TechBackImage")
         self.addSubview(backImage)
@@ -37,11 +52,25 @@ class TechViews: UIView {
         self.Title = titleLabel
         self.scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 30, width: self.frame.width, height: self.frame.height - 30))
         self.scrollView?.contentSize = CGSize(width: self.frame.width, height: 550)
-        self.scrollView?.backgroundColor = UIColor.black
+        self.scrollView?.backgroundColor = UIColor.clear
         addSubview(self.scrollView!)
-        let a1 = UIView(frame: CGRect(x: 20, y: 320, width: 50, height: 50))
-        a1.backgroundColor = UIColor.white
-        self.scrollView?.addSubview(a1)
+    }
+    
+    
+    func DismissView() {
+        self.removeFromSuperview()
+    }
+    
+}
+
+
+class TechItem: UIView {
+    
+    
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
     }
     
@@ -49,8 +78,10 @@ class TechViews: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func DismissView() {
-        self.removeFromSuperview()
+    func setLocked(isLock:Bool) {
+        if isLock {
+            
+        }
     }
-    
 }
+

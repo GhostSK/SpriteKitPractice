@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B6184DFC1F7118400012A4C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6184DFB1F7118400012A4C3 /* AppDelegate.swift */; };
-		B6184E001F7118400012A4C3 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6184DFF1F7118400012A4C3 /* Actions.sks */; };
 		B6184E021F7118400012A4C3 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6184E011F7118400012A4C3 /* MainScene.swift */; };
 		B6184E041F7118400012A4C3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6184E031F7118400012A4C3 /* GameViewController.swift */; };
 		B6184E071F7118400012A4C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6184E051F7118400012A4C3 /* Main.storyboard */; };
@@ -21,8 +20,7 @@
 
 /* Begin PBXFileReference section */
 		B6184DF81F7118400012A4C3 /* RestaurantManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6184DFB1F7118400012A4C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6184DFF1F7118400012A4C3 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		B6184DFB1F7118400012A4C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		B6184E011F7118400012A4C3 /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainScene.swift; path = ../../MainScene.swift; sourceTree = "<group>"; };
 		B6184E031F7118400012A4C3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = ../../GameViewController.swift; sourceTree = "<group>"; };
 		B6184E061F7118400012A4C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,9 +62,9 @@
 		B6184DFA1F7118400012A4C3 /* RestaurantManager */ = {
 			isa = PBXGroup;
 			children = (
+				B66A85D61F72551D00FAA7F3 /* venders */,
+				B66A85D51F7254E300FAA7F3 /* Application */,
 				B6184E131F711FFB0012A4C3 /* Main */,
-				B6184DFB1F7118400012A4C3 /* AppDelegate.swift */,
-				B6184DFF1F7118400012A4C3 /* Actions.sks */,
 				B6184E051F7118400012A4C3 /* Main.storyboard */,
 				B6184E081F7118400012A4C3 /* Assets.xcassets */,
 				B6184E0A1F7118400012A4C3 /* LaunchScreen.storyboard */,
@@ -109,6 +107,21 @@
 				B66A85CF1F72099200FAA7F3 /* TechViews.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B66A85D51F7254E300FAA7F3 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				B6184DFB1F7118400012A4C3 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		B66A85D61F72551D00FAA7F3 /* venders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = venders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,7 +187,6 @@
 				B6184E071F7118400012A4C3 /* Main.storyboard in Resources */,
 				B6184E091F7118400012A4C3 /* Assets.xcassets in Resources */,
 				B6184E0C1F7118400012A4C3 /* LaunchScreen.storyboard in Resources */,
-				B6184E001F7118400012A4C3 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
