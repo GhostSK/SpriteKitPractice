@@ -26,9 +26,11 @@ class GameViewController: UIViewController {
             
             
             view.ignoresSiblingOrder = true
-            
+            let tech = TechViews(frame: CGRect.zero)
+            view.addSubview(tech)
             view.showsFPS = true
             view.showsNodeCount = true
+            
         }
     }
 

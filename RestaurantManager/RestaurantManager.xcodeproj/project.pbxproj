@@ -24,7 +24,7 @@
 		B6184DFB1F7118400012A4C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6184DFF1F7118400012A4C3 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		B6184E011F7118400012A4C3 /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainScene.swift; path = ../../MainScene.swift; sourceTree = "<group>"; };
-		B6184E031F7118400012A4C3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B6184E031F7118400012A4C3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = ../../GameViewController.swift; sourceTree = "<group>"; };
 		B6184E061F7118400012A4C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6184E081F7118400012A4C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6184E0B1F7118400012A4C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,7 +67,6 @@
 				B6184E131F711FFB0012A4C3 /* Main */,
 				B6184DFB1F7118400012A4C3 /* AppDelegate.swift */,
 				B6184DFF1F7118400012A4C3 /* Actions.sks */,
-				B6184E031F7118400012A4C3 /* GameViewController.swift */,
 				B6184E051F7118400012A4C3 /* Main.storyboard */,
 				B6184E081F7118400012A4C3 /* Assets.xcassets */,
 				B6184E0A1F7118400012A4C3 /* LaunchScreen.storyboard */,
@@ -97,6 +96,7 @@
 		B6184E151F711FFB0012A4C3 /* SceneAndController */ = {
 			isa = PBXGroup;
 			children = (
+				B6184E031F7118400012A4C3 /* GameViewController.swift */,
 				B6184E011F7118400012A4C3 /* MainScene.swift */,
 			);
 			path = SceneAndController;
