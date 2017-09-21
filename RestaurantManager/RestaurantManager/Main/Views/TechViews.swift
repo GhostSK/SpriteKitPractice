@@ -7,8 +7,9 @@
 //
 
 import UIKit
+//import ARKit
 
-class TechViews: UIView {
+class TechViews: UIView, refreshTechViewDelegate {
     
     var kwidth = UIScreen.main.bounds.size.width
     var kheight = UIScreen.main.bounds.size.height
@@ -69,24 +70,34 @@ class TechViews: UIView {
     func loadData(){
         
         let item0 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[0] as! baseMenu)
+        item0.Itemdelegate = self
         self.scrollView!.addSubview(item0)
         let item1 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[1] as! baseMenu)
+        item1.Itemdelegate = self
         self.scrollView!.addSubview(item1)
         let item2 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[2] as! baseMenu)
+        item2.Itemdelegate = self
         self.scrollView!.addSubview(item2)
         let item3 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[3] as! baseMenu)
+        item3.Itemdelegate = self
         self.scrollView!.addSubview(item3)
         let item4 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[4] as! baseMenu)
+        item4.Itemdelegate = self
         self.scrollView!.addSubview(item4)
         let item5 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[5] as! baseMenu)
+        item5.Itemdelegate = self
         self.scrollView!.addSubview(item5)
         let item6 = TechItem.init(frame: CGRect(x: self.frame.width / 3 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[6] as! baseMenu)
+        item6.Itemdelegate = self
         self.scrollView!.addSubview(item6)
         let item7 = TechItem.init(frame: CGRect(x: self.frame.width / 3 * 2 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[7] as! baseMenu)
+        item7.Itemdelegate = self
         self.scrollView!.addSubview(item7)
         let item8 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 485, width: 55, height: 75), Menu: self.dataArr[8] as! baseMenu)
+        item8.Itemdelegate = self
         self.scrollView!.addSubview(item8)
         let item9 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 620, width: 55, height: 75), Menu: self.dataArr[9] as! baseMenu)
+        item9.Itemdelegate = self
         self.scrollView!.addSubview(item9)
         self.setLines()
     }
@@ -249,6 +260,10 @@ class TechViews: UIView {
         self.removeFromSuperview()
     }
     
+    func refreshView() {
+        //逻辑判断线条颜色
+    }
+    
 }
 
 
@@ -258,7 +273,7 @@ class TechItem: UIView {
     var lockView:UIView? = nil
     var Picture:UIImageView? = nil
     var NameLabel:UILabel? = nil
-    
+    weak var Itemdelegate:refreshTechViewDelegate?
     init(frame:CGRect, Menu:baseMenu) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
@@ -293,5 +308,10 @@ class TechItem: UIView {
             }
         }
     }
+    
+}
+protocol refreshTechViewDelegate : class {
+    
+    func refreshView()
 }
 
