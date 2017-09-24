@@ -59,10 +59,13 @@ class TechViews: UIView, refreshTechViewDelegate {
     }
     
     func buildtestData(){
-        for _ in 0...9 {
+        for i in 0...9 {
             let testModel = baseMenu.init()
             testModel.Name = "担担面"
             testModel.Picture = UIImage(named: "Foodtest01")
+            if i < 3 {
+                testModel.canBeunlock = true
+            }
             self.dataArr.add(testModel)
         }
     }
@@ -278,16 +281,22 @@ class TechViews: UIView, refreshTechViewDelegate {
         if Item0.model?.isLock == false {
             let Line0 = self.LineArr[0] as! CAShapeLayer
             Line0.fillColor = UIColor.white.cgColor
+            let Item = self.IconArr[3] as! TechItem
+            Item.model?.canBeunlock = true
         }
         let Item1 = self.IconArr[1] as! TechItem
         if Item1.model?.isLock == false {
             let Line1 = self.LineArr[1] as! CAShapeLayer
             Line1.fillColor = UIColor.white.cgColor
+            let Item = self.IconArr[4] as! TechItem
+            Item.model?.canBeunlock = true
         }
         let Item2 = self.IconArr[2] as! TechItem
         if Item2.model?.isLock == false {
             let Line2 = self.LineArr[2] as! CAShapeLayer
             Line2.fillColor = UIColor.white.cgColor
+            let Item = self.IconArr[5] as! TechItem
+            Item.model?.canBeunlock = true
         }
         let Item3 = self.IconArr[3] as! TechItem
         if Item3.model?.isLock == false {
@@ -297,6 +306,8 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item4.model?.isLock == false {
                 let Line8 = self.LineArr[8] as! CAShapeLayer
                 Line8.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[6] as! TechItem
+                Item.model?.canBeunlock = true
             }
         }
         let Item4 = self.IconArr[4] as! TechItem
@@ -311,11 +322,15 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item3.model?.isLock == false {
                 let Line8 = self.LineArr[8] as! CAShapeLayer
                 Line8.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[6] as! TechItem
+                Item.model?.canBeunlock = true
             }
             let Item5 = self.IconArr[5] as! TechItem
             if Item5.model?.isLock == false{
                 let Line9 = self.LineArr[9] as! CAShapeLayer
                 Line9.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[7] as! TechItem
+                Item.model?.canBeunlock = true
             }
         }
         let Item5 = self.IconArr[5] as! TechItem
@@ -326,6 +341,8 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item4.model?.isLock == false {
                 let Line9 = self.LineArr[9] as! CAShapeLayer
                 Line9.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[8] as! TechItem
+                Item.model?.canBeunlock = true
             }
         }
         let Item6 = self.IconArr[6] as! TechItem
@@ -336,6 +353,8 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item7.model?.isLock == false {
                 let Line12 = self.LineArr[12] as! CAShapeLayer
                 Line12.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[9] as! TechItem
+                Item.model?.canBeunlock = true
             }
         }
         let Item7 = self.IconArr[7] as! TechItem
@@ -396,7 +415,7 @@ class TechItem: UIView {
     }
     
     @objc func setLocked() {
-        if self.model?.isLock == true {
+        if self.model?.isLock == true && self.model?.canBeunlock == true {
             if self.lockView != nil {
                 self.model?.isLock = false
                 self.lockView?.removeFromSuperview()
