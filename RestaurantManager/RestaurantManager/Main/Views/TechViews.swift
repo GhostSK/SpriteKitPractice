@@ -17,6 +17,7 @@ class TechViews: UIView, refreshTechViewDelegate {
     var Title:UILabel? = nil
     var scrollView:UIScrollView? = nil
     let LineArr:NSMutableArray = NSMutableArray.init()
+    let IconArr:NSMutableArray = NSMutableArray.init()
     override init(frame: CGRect) {
         if kheight < kwidth {
             let a = kheight
@@ -72,33 +73,43 @@ class TechViews: UIView, refreshTechViewDelegate {
         let item0 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[0] as! baseMenu)
         item0.Itemdelegate = self
         self.scrollView!.addSubview(item0)
+        self.IconArr.add(item0)
         let item1 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[1] as! baseMenu)
         item1.Itemdelegate = self
         self.scrollView!.addSubview(item1)
+        self.IconArr.add(item1)
         let item2 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[2] as! baseMenu)
         item2.Itemdelegate = self
         self.scrollView!.addSubview(item2)
+        self.IconArr.add(item2)
         let item3 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[3] as! baseMenu)
         item3.Itemdelegate = self
         self.scrollView!.addSubview(item3)
+        self.IconArr.add(item3)
         let item4 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[4] as! baseMenu)
         item4.Itemdelegate = self
         self.scrollView!.addSubview(item4)
+        self.IconArr.add(item4)
         let item5 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[5] as! baseMenu)
         item5.Itemdelegate = self
         self.scrollView!.addSubview(item5)
+        self.IconArr.add(item5)
         let item6 = TechItem.init(frame: CGRect(x: self.frame.width / 3 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[6] as! baseMenu)
         item6.Itemdelegate = self
         self.scrollView!.addSubview(item6)
+        self.IconArr.add(item6)
         let item7 = TechItem.init(frame: CGRect(x: self.frame.width / 3 * 2 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[7] as! baseMenu)
         item7.Itemdelegate = self
         self.scrollView!.addSubview(item7)
+        self.IconArr.add(item7)
         let item8 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 485, width: 55, height: 75), Menu: self.dataArr[8] as! baseMenu)
         item8.Itemdelegate = self
         self.scrollView!.addSubview(item8)
+        self.IconArr.add(item8)
         let item9 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 620, width: 55, height: 75), Menu: self.dataArr[9] as! baseMenu)
         item9.Itemdelegate = self
         self.scrollView!.addSubview(item9)
+        self.IconArr.add(item9)
         self.setLines()
     }
     func setLines(){
@@ -256,12 +267,94 @@ class TechViews: UIView, refreshTechViewDelegate {
         
     }
     
-    func DismissView() {
+    @objc func DismissView() {
         self.removeFromSuperview()
     }
     
     func refreshView() {
         //逻辑判断线条颜色
+
+        let Item0 = self.IconArr[0] as! TechItem
+        if Item0.model?.isLock == false {
+            let Line0 = self.LineArr[0] as! CAShapeLayer
+            Line0.fillColor = UIColor.white.cgColor
+        }
+        let Item1 = self.IconArr[1] as! TechItem
+        if Item1.model?.isLock == false {
+            let Line1 = self.LineArr[1] as! CAShapeLayer
+            Line1.fillColor = UIColor.white.cgColor
+        }
+        let Item2 = self.IconArr[2] as! TechItem
+        if Item2.model?.isLock == false {
+            let Line2 = self.LineArr[2] as! CAShapeLayer
+            Line2.fillColor = UIColor.white.cgColor
+        }
+        let Item3 = self.IconArr[3] as! TechItem
+        if Item3.model?.isLock == false {
+            let Line3 = self.LineArr[3] as! CAShapeLayer
+            Line3.fillColor = UIColor.white.cgColor
+            let Item4 = self.IconArr[4] as! TechItem
+            if Item4.model?.isLock == false {
+                let Line8 = self.LineArr[8] as! CAShapeLayer
+                Line8.fillColor = UIColor.white.cgColor
+            }
+        }
+        let Item4 = self.IconArr[4] as! TechItem
+        if Item4.model?.isLock == false {
+            let Line4 = self.LineArr[4] as! CAShapeLayer
+            Line4.fillColor = UIColor.white.cgColor
+            let Line6 = self.LineArr[6] as! CAShapeLayer
+            Line6.fillColor = UIColor.white.cgColor
+            let Line7 = self.LineArr[7] as! CAShapeLayer
+            Line7.fillColor = UIColor.white.cgColor
+            let Item3 = self.IconArr[3] as! TechItem
+            if Item3.model?.isLock == false {
+                let Line8 = self.LineArr[8] as! CAShapeLayer
+                Line8.fillColor = UIColor.white.cgColor
+            }
+            let Item5 = self.IconArr[5] as! TechItem
+            if Item5.model?.isLock == false{
+                let Line9 = self.LineArr[9] as! CAShapeLayer
+                Line9.fillColor = UIColor.white.cgColor
+            }
+        }
+        let Item5 = self.IconArr[5] as! TechItem
+        if Item5.model?.isLock == false {
+            let Line5 = self.LineArr[5] as! CAShapeLayer
+            Line5.fillColor = UIColor.white.cgColor
+            let Item4 = self.IconArr[4] as! TechItem
+            if Item4.model?.isLock == false {
+                let Line9 = self.LineArr[9] as! CAShapeLayer
+                Line9.fillColor = UIColor.white.cgColor
+            }
+        }
+        let Item6 = self.IconArr[6] as! TechItem
+        if Item6.model?.isLock == false {
+            let Line10 = self.LineArr[10] as! CAShapeLayer
+            Line10.fillColor = UIColor.white.cgColor
+            let Item7 = self.IconArr[7] as! TechItem
+            if Item7.model?.isLock == false {
+                let Line12 = self.LineArr[12] as! CAShapeLayer
+                Line12.fillColor = UIColor.white.cgColor
+            }
+        }
+        let Item7 = self.IconArr[7] as! TechItem
+        if  Item7.model?.isLock == false {
+            let Line11 = self.LineArr[11] as! CAShapeLayer
+            Line11.fillColor = UIColor.white.cgColor
+            let Item6 = self.IconArr[6] as! TechItem
+            if Item6.model?.isLock == false{
+                let Line12 = self.LineArr[12] as! CAShapeLayer
+                Line12.fillColor = UIColor.white.cgColor
+            }
+        }
+        let Item8 = self.IconArr[8] as! TechItem
+        if  Item8.model?.isLock == false {
+            let Line13 = self.LineArr[13] as! CAShapeLayer
+            Line13.fillColor = UIColor.white.cgColor
+        }
+        
+        
     }
     
 }
@@ -289,7 +382,8 @@ class TechItem: UIView {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(setLocked))
         self.addGestureRecognizer(tap)
         self.lockView = UIView(frame: CGRect(x: 0, y: 0, width: 55, height: 55))
-        self.lockView?.backgroundColor = UIColor.init(colorLiteralRed: 45.0/255, green: 45.0/255, blue: 45.0/255, alpha: 0.65)
+        let backColor = UIColor.init(red: 45.0/255, green: 45.0/255, blue: 45.0/255, alpha: 0.5)
+        self.lockView?.backgroundColor = backColor
         let lock = UIImageView(frame: self.lockView!.frame)
         lock.image = UIImage(named: "FoodLock")
         self.lockView?.addSubview(lock)
@@ -301,17 +395,19 @@ class TechItem: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLocked() {
-        if self.model?.isLock == false {
+    @objc func setLocked() {
+        if self.model?.isLock == true {
             if self.lockView != nil {
+                self.model?.isLock = false
                 self.lockView?.removeFromSuperview()
+                self.Itemdelegate?.refreshView()
             }
         }
     }
     
 }
 protocol refreshTechViewDelegate : class {
-    
+
     func refreshView()
 }
 

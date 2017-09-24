@@ -41,7 +41,7 @@ class baseMenu: NSObject {
     var qualityLevel:NSInteger = 0  //质量等级，影响最终售价
     var TechNeeds:NSInteger = 100  //科技研发值，越高，需要的研发时间就越久
     var taste:FoodTaste = .sweet  //客人口味
-    var isLock:Bool = false    //菜品是否锁定
+    var isLock:Bool = true    //菜品是否锁定
     var isTypeLock：Bool = false    //菜系是否锁定
     
 }
