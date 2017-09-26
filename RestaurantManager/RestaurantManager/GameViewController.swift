@@ -26,8 +26,11 @@ class GameViewController: UIViewController {
             
             
             view.ignoresSiblingOrder = true
-            let tech = TechViews(frame: CGRect.zero)
-            view.addSubview(tech)
+//            let tech = TechViews(frame: CGRect.zero)
+//            view.addSubview(tech)
+            let model = EmployeeModel.init()
+            let employee = employeeViewInMarket.BuildEmployeeView(model: model, PositionPoint: CGPoint(x: 50, y: 50))
+            view.addSubview(employee)
             view.showsFPS = true
             view.showsNodeCount = true
             
