@@ -18,22 +18,20 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             let scene = MainScene(size: self.view!.frame.size)
-                // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
-                
-                // Present the scene
                 view.presentScene(scene)
-            
-            
-            view.ignoresSiblingOrder = true
+
 //            let tech = TechViews(frame: CGRect.zero)
 //            view.addSubview(tech)
+            view.backgroundColor = UIColor.white
+
             let model = EmployeeModel.init()
             let employee = employeeViewInMarket.BuildEmployeeView(model: model, PositionPoint: CGPoint(x: 50, y: 50))
             view.addSubview(employee)
+            
             view.showsFPS = true
             view.showsNodeCount = true
-            
+            view.ignoresSiblingOrder = true
         }
     }
 
