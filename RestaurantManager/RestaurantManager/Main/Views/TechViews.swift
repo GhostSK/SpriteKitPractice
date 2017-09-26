@@ -56,6 +56,7 @@ class TechViews: UIView, refreshTechViewDelegate {
         addSubview(self.scrollView!)
         self.buildtestData()
         self.loadData()
+
     }
     
     func buildtestData(){
