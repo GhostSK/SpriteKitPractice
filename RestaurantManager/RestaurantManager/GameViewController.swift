@@ -25,9 +25,15 @@ class GameViewController: UIViewController {
 //            view.addSubview(tech)
             view.backgroundColor = UIColor.white
 
-            let model = EmployeeModel.init()
-            let employee = employeeViewInMarket.BuildEmployeeView(model: model, PositionPoint: CGPoint(x: 50, y: 50))
-            view.addSubview(employee)
+//            let model = EmployeeModel.init()
+//            let employee = employeeViewInMarket.BuildEmployeeView(model: model, PositionPoint: CGPoint(x: 50, y: 50))
+//            view.addSubview(employee)
+            let arr = NSMutableArray.init()
+            for _ in 0...9 {
+                arr.add(EmployeeModel.init())
+            }
+            let view2 = PersonMarket.init(DataArr: arr)
+            view.addSubview(view2)
             
             view.showsFPS = true
             view.showsNodeCount = true

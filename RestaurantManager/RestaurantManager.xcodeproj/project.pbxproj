@@ -19,6 +19,7 @@
 		B66A85D41F72107300FAA7F3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A85D31F72107300FAA7F3 /* Models.swift */; };
 		B66A85D81F7255BB00FAA7F3 /* categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A85D71F7255BB00FAA7F3 /* categorys.swift */; };
 		B6786BFB1F7A41E4008427A2 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6786BFA1F7A41E4008427A2 /* EmployeeView.swift */; };
+		B6786BFE1F7A8380008427A2 /* PersonMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6786BFD1F7A8380008427A2 /* PersonMarket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B66A85D31F72107300FAA7F3 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B66A85D71F7255BB00FAA7F3 /* categorys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = categorys.swift; sourceTree = "<group>"; };
 		B6786BFA1F7A41E4008427A2 /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
+		B6786BFD1F7A8380008427A2 /* PersonMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMarket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				B6184E171F71202F0012A4C3 /* MainSceneView.swift */,
 				B66A85CF1F72099200FAA7F3 /* TechViews.swift */,
 				B6786BFA1F7A41E4008427A2 /* EmployeeView.swift */,
+				B6786BFD1F7A8380008427A2 /* PersonMarket.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			files = (
 				B6184E181F71202F0012A4C3 /* MainSceneView.swift in Sources */,
 				B6184E021F7118400012A4C3 /* MainScene.swift in Sources */,
+				B6786BFE1F7A8380008427A2 /* PersonMarket.swift in Sources */,
 				B66A85D01F72099200FAA7F3 /* TechViews.swift in Sources */,
 				B66A85D41F72107300FAA7F3 /* Models.swift in Sources */,
 				B6786BFB1F7A41E4008427A2 /* EmployeeView.swift in Sources */,

@@ -11,7 +11,7 @@ import UIKit
 class employeeViewInMarket: UIView {
     class func BuildEmployeeView(model:EmployeeModel, PositionPoint:CGPoint)->employeeViewInMarket{
         let view = employeeViewInMarket.init(frame: CGRect(x: PositionPoint.x, y: PositionPoint.y, width: 260, height: 300))
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.55)
         let headImageView = UIImageView.init(frame: CGRect(x: 15, y: 15, width: 60, height:80))
         headImageView.image = UIImage(named: "443png")
         view.addSubview(headImageView)
@@ -120,6 +120,14 @@ class employeeViewInMarket: UIView {
         return view
     }
     
+    func didEmployed(){
+        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        view.backgroundColor = UIColor.init(red: 147.0/255, green: 147.0/255, blue: 147.0/255, alpha: 0.8)
+        let mark = UIImageView.init(frame: CGRect(x: (view.frame.size.width - 200) / 2, y: (view.frame.size.height - 100) / 2, width: 200, height: 100))
+        mark.image = UIImage.init(named: "招募印章")
+        view.addSubview(mark)
+        self.addSubview(view)
+    }
     
 }
 
