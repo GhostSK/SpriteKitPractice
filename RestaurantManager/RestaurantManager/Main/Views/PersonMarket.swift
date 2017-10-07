@@ -58,6 +58,7 @@ class PersonMarket: UIView {
         btn.isUserInteractionEnabled = false
         let view = self.viewWithTag(9000 + tag) as! employeeViewInMarket
         view.didEmployed()
+        PersonMarketDatabase.BuildData(Fame: 0)
     }
     
     @objc func dismissView() {
@@ -78,5 +79,44 @@ class PersonMarket: UIView {
 
 //该类用来随机生成本次可以招聘的员工
 class PersonMarketDatabase:NSObject {
+    class func BuildData(Fame:NSInteger) -> NSArray {
+        let dataArr = NSMutableArray.init()
+        let count = Int(arc4random() % 5) + 10
+//        print("随机数=\(count)")
+        for _ in 1...count {
+            let model = EmployeeModel.init()
+            model.Name = PersonMarketDatabase.getPersonName(isMan: false)
+            
+            
+            dataArr.add(model)
+        }
+        
+        
+        
+        return dataArr
+    }
+    
+    class func getPersonName(isMan:Bool) -> String {
+        var result = ""
+        let firstNameArr = NSArray.init(objects: "赵","钱","孙","李","周","吴","郑","王","冯","陈","蒋","沈","朱","秦","张","魏","范","柳","白","宁","徐","宋","左","卢","高","林","胡","马","袁","汪","童","蓝","黄","欧阳","上官","司马","夏侯","公孙","慕容")
+        let boyLastNameArr = NSArray.init(objects: "铁林","瑞正","彬","斌","鲁","飞","二狗","狗蛋","大山","云川","长生","长云","长风","博君","丰年","顺","阿狗","楚生","华威","羽","英达","三星","波","小贤","金牙","星汉","建军","三","四","五","大嘴","胖子","阿伯","长老","秀才","小明","定国","安国","兴邦","为民","豪","铁柱")
+        let girlLastNameArr = NSArray.init(objects: "泊怡","欣","洁","翠花","静","从静","小丽","小莉","晓丽","佩君","梦思","艳","芳","文芳","红艳","春依","娟","琴","佳琪","嘉琪","洁珊","珊珊","薇","嘉雯","婷","金秀","锦绣","歆","璇","小璇","如","雅君","蝶","三姐","二妞","秀芬","柔","霞","银霞","彩霞")
+        let a = firstNameArr.count
+        let a1 = Int(arc4random() % UInt32(a))
+        let firstStr:String = firstNameArr.object(at: a1) as! String
+        if isMan == true {
+            let b = boyLastNameArr.count
+            let b1 = Int(arc4random() % UInt32(b))
+            let lastStr:String = boyLastNameArr.object(at: b1) as! String
+            result = firstStr + lastStr
+        }else{
+            let b = girlLastNameArr.count
+            let b1 = Int(arc4random() % UInt32(b))
+            let lastStr:String = girlLastNameArr.object(at: b1) as! String
+            result = firstStr + lastStr
+        }
+        print("得到的名字是\(result)")
+        return result
+    }
     
 }
