@@ -113,7 +113,8 @@ class employeeViewInMarket: UIView {
         let judge = UILabel.init(frame: CGRect(x: 75, y: 260, width: 170, height: 35))
         judge.numberOfLines = 2
         judge.textAlignment = .left
-        judge.text = "吃的挺多，偷懒在行，凑合着用吧。"
+//        judge.text = "吃的挺多，偷懒在行，凑合着用吧。"
+        judge.text = model.judge
         judge.adjustsFontSizeToFitWidth = true
         view.addSubview(judge)
         

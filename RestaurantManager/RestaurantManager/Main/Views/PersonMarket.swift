@@ -58,7 +58,6 @@ class PersonMarket: UIView {
         btn.isUserInteractionEnabled = false
         let view = self.viewWithTag(9000 + tag) as! employeeViewInMarket
         view.didEmployed()
-        PersonMarketDatabase.BuildData(Fame: 0)
     }
     
     @objc func dismissView() {
@@ -85,7 +84,38 @@ class PersonMarketDatabase:NSObject {
 //        print("随机数=\(count)")
         for _ in 1...count {
             let model = EmployeeModel.init()
-            model.Name = PersonMarketDatabase.getPersonName(isMan: false)
+            let male = arc4random() % 100
+            if male % 2 == 0 { //根据性别设定头像记得
+                model.Name = PersonMarketDatabase.getPersonName(isMan: false)
+            }else{
+                model.Name = PersonMarketDatabase.getPersonName(isMan: true)
+            }
+            if Fame < 200 { //最初级雇员，不会高于30，不会低于15
+                var b = arc4random() % 15 + 15
+                model.agility = NSInteger(b)
+                b = arc4random() % 15 + 15
+                model.calculateAbility = NSInteger(b)
+                b = arc4random() % 15 + 15
+                model.charmAbility = NSInteger(b)
+                b = arc4random() % 15 + 15
+                model.CookAbility = NSInteger(b)
+                b = arc4random() % 15 + 15
+                model.Lucky = NSInteger(b)
+                b = arc4random() % 15 + 15
+                model.military = NSInteger(b)
+                let d = model.agility + model.calculateAbility + model.charmAbility + model.CookAbility + model.Lucky + model.military
+                model.Payment = d - 25 + NSInteger(arc4random() % 50)  //初级人才雇用价格等于能力值和挂上一个30以内的随机数
+                let rate = CGFloat(d) / CGFloat(model.Payment)
+                if rate > 1.1 {
+                    model.judge = "能力凑合，要价偏低，值得考虑"
+                }else if rate < 0.9 {
+                    model.judge = "能力凑合，要价偏高，仔细考虑"
+                }else{
+                    model.judge = "水平凑合，要价正常，普普通通"
+                }
+            }else if Fame < 500 {  //脱离初级的阶段
+                
+            }
             
             
             dataArr.add(model)
@@ -99,7 +129,7 @@ class PersonMarketDatabase:NSObject {
     class func getPersonName(isMan:Bool) -> String {
         var result = ""
         let firstNameArr = NSArray.init(objects: "赵","钱","孙","李","周","吴","郑","王","冯","陈","蒋","沈","朱","秦","张","魏","范","柳","白","宁","徐","宋","左","卢","高","林","胡","马","袁","汪","童","蓝","黄","欧阳","上官","司马","夏侯","公孙","慕容")
-        let boyLastNameArr = NSArray.init(objects: "铁林","瑞正","彬","斌","鲁","飞","二狗","狗蛋","大山","云川","长生","长云","长风","博君","丰年","顺","阿狗","楚生","华威","羽","英达","三星","波","小贤","金牙","星汉","建军","三","四","五","大嘴","胖子","阿伯","长老","秀才","小明","定国","安国","兴邦","为民","豪","铁柱")
+        let boyLastNameArr = NSArray.init(objects: "铁林","瑞正","彬","斌","鲁","飞","二狗","狗蛋","大山","云川","长生","长云","长风","博君","丰年","顺","阿狗","楚生","华威","羽","英达","三星","波","小贤","金牙","星汉","建军","三壮","四郎","小五","大嘴","胖子","阿伯","长老","秀才","小明","定国","安国","兴邦","为民","豪","铁柱")
         let girlLastNameArr = NSArray.init(objects: "泊怡","欣","洁","翠花","静","从静","小丽","小莉","晓丽","佩君","梦思","艳","芳","文芳","红艳","春依","娟","琴","佳琪","嘉琪","洁珊","珊珊","薇","嘉雯","婷","金秀","锦绣","歆","璇","小璇","如","雅君","蝶","三姐","二妞","秀芬","柔","霞","银霞","彩霞")
         let a = firstNameArr.count
         let a1 = Int(arc4random() % UInt32(a))

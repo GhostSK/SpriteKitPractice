@@ -32,7 +32,7 @@ class GameViewController: UIViewController {
             for _ in 0...9 {
                 arr.add(EmployeeModel.init())
             }
-            let view2 = PersonMarket.init(DataArr: arr)
+            let view2 = PersonMarket.init(DataArr: PersonMarketDatabase.BuildData(Fame: 0))
             view.addSubview(view2)
             
             view.showsFPS = true

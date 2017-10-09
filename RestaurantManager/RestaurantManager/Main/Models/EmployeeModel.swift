@@ -22,4 +22,5 @@ class EmployeeModel:NSObject {
     var charmAbility: NSInteger = 25  //魅力
     var Lucky: NSInteger = 47 //运气
     var Picture:UIImage? = nil  //照片
+    var judge:String = ""
 }
