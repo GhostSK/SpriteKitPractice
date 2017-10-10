@@ -16,24 +16,23 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
+            view.backgroundColor = UIColor.white
             let scene = MainScene(size: self.view!.frame.size)
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)
 
-//            let tech = TechViews(frame: CGRect.zero)
-//            view.addSubview(tech)
-            view.backgroundColor = UIColor.white
+            let tech = TechViews.buildTechView(type: .America)
+            view.addSubview(tech)
 
 //            let model = EmployeeModel.init()
 //            let employee = employeeViewInMarket.BuildEmployeeView(model: model, PositionPoint: CGPoint(x: 50, y: 50))
 //            view.addSubview(employee)
-            let arr = NSMutableArray.init()
-            for _ in 0...9 {
-                arr.add(EmployeeModel.init())
-            }
-            let view2 = PersonMarket.init(DataArr: PersonMarketDatabase.BuildData(Fame: 0))
-            view.addSubview(view2)
+//            let arr = NSMutableArray.init()
+//            for _ in 0...9 {
+//                arr.add(EmployeeModel.init())
+//            }
+//            let view2 = PersonMarket.init(DataArr: PersonMarketDatabase.BuildData(Fame: 0))
+//            view.addSubview(view2)
             
             view.showsFPS = true
             view.showsNodeCount = true

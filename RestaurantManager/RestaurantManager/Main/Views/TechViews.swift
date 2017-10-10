@@ -13,7 +13,7 @@ class TechViews: UIView, refreshTechViewDelegate {
     
     var kwidth = UIScreen.main.bounds.size.width
     var kheight = UIScreen.main.bounds.size.height
-    let dataArr:NSMutableArray = NSMutableArray.init()
+    var dataArr:NSMutableArray = NSMutableArray.init()
     var Title:UILabel? = nil
     var scrollView:UIScrollView? = nil
     let LineArr:NSMutableArray = NSMutableArray.init()
@@ -27,6 +27,30 @@ class TechViews: UIView, refreshTechViewDelegate {
         super.init(frame: CGRect(x: 10, y: 10, width: kheight - 20, height: kwidth - 20))
         self.backgroundColor = UIColor.white
         self.BuildUpUI()
+    }
+    
+    class func buildTechView(type:MenuType) -> TechViews {
+        let view = TechViews.init(frame: CGRect.zero)
+
+        view.dataArr = FoodDatabase.ShareInstance().getData(type: type)
+        view.loadData()
+        return view
+    }
+    
+    func buildtestData(){
+        for i in 0...9 {
+            let testModel = baseMenu.init()
+            testModel.Name = "担担面"
+            testModel.Picture = UIImage(named: "Foodtest01")
+            if i < 3 {
+                testModel.canBeunlock = true
+            }
+            self.dataArr.add(testModel)
+        }
+    }
+    
+    func setData(type:MenuType) {
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,63 +78,47 @@ class TechViews: UIView, refreshTechViewDelegate {
         self.scrollView?.contentSize = CGSize(width: self.frame.width, height: 700)
         self.scrollView?.backgroundColor = UIColor.clear
         addSubview(self.scrollView!)
-        self.buildtestData()
-        self.loadData()
-
     }
-    
-    func buildtestData(){
-        for i in 0...9 {
-            let testModel = baseMenu.init()
-            testModel.Name = "担担面"
-            testModel.Picture = UIImage(named: "Foodtest01")
-            if i < 3 {
-                testModel.canBeunlock = true
-            }
-            self.dataArr.add(testModel)
-        }
-    }
-    
 
     func loadData(){
         
-        let item0 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[0] as! baseMenu)
+        let item0 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 40, y: 50, width: 80, height: 75), Menu: self.dataArr[0] as! baseMenu)
         item0.Itemdelegate = self
         self.scrollView!.addSubview(item0)
         self.IconArr.add(item0)
-        let item1 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[1] as! baseMenu)
+        let item1 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 40, y: 50, width: 80, height: 75), Menu: self.dataArr[1] as! baseMenu)
         item1.Itemdelegate = self
         self.scrollView!.addSubview(item1)
         self.IconArr.add(item1)
-        let item2 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 50, width: 55, height: 75), Menu: self.dataArr[2] as! baseMenu)
+        let item2 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 40, y: 50, width: 80, height: 75), Menu: self.dataArr[2] as! baseMenu)
         item2.Itemdelegate = self
         self.scrollView!.addSubview(item2)
         self.IconArr.add(item2)
-        let item3 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[3] as! baseMenu)
+        let item3 = TechItem.init(frame: CGRect(x: self.frame.width / 6 - 40, y: 175, width: 80, height: 75), Menu: self.dataArr[3] as! baseMenu)
         item3.Itemdelegate = self
         self.scrollView!.addSubview(item3)
         self.IconArr.add(item3)
-        let item4 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[4] as! baseMenu)
+        let item4 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 40, y: 175, width: 80, height: 75), Menu: self.dataArr[4] as! baseMenu)
         item4.Itemdelegate = self
         self.scrollView!.addSubview(item4)
         self.IconArr.add(item4)
-        let item5 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 27.5, y: 175, width: 55, height: 75), Menu: self.dataArr[5] as! baseMenu)
+        let item5 = TechItem.init(frame: CGRect(x: self.frame.width / 6 * 5 - 40, y: 175, width: 80, height: 75), Menu: self.dataArr[5] as! baseMenu)
         item5.Itemdelegate = self
         self.scrollView!.addSubview(item5)
         self.IconArr.add(item5)
-        let item6 = TechItem.init(frame: CGRect(x: self.frame.width / 3 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[6] as! baseMenu)
+        let item6 = TechItem.init(frame: CGRect(x: self.frame.width / 3 - 40, y: 330, width: 80, height: 75), Menu: self.dataArr[6] as! baseMenu)
         item6.Itemdelegate = self
         self.scrollView!.addSubview(item6)
         self.IconArr.add(item6)
-        let item7 = TechItem.init(frame: CGRect(x: self.frame.width / 3 * 2 - 27.5, y: 330, width: 55, height: 75), Menu: self.dataArr[7] as! baseMenu)
+        let item7 = TechItem.init(frame: CGRect(x: self.frame.width / 3 * 2 - 40, y: 330, width: 80, height: 75), Menu: self.dataArr[7] as! baseMenu)
         item7.Itemdelegate = self
         self.scrollView!.addSubview(item7)
         self.IconArr.add(item7)
-        let item8 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 485, width: 55, height: 75), Menu: self.dataArr[8] as! baseMenu)
+        let item8 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 40, y: 485, width: 80, height: 75), Menu: self.dataArr[8] as! baseMenu)
         item8.Itemdelegate = self
         self.scrollView!.addSubview(item8)
         self.IconArr.add(item8)
-        let item9 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 27.5, y: 620, width: 55, height: 75), Menu: self.dataArr[9] as! baseMenu)
+        let item9 = TechItem.init(frame: CGRect(x: self.frame.width / 2 - 40, y: 620, width: 80, height: 75), Menu: self.dataArr[9] as! baseMenu)
         item9.Itemdelegate = self
         self.scrollView!.addSubview(item9)
         self.IconArr.add(item9)
@@ -391,23 +399,25 @@ class TechItem: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         self.model = Menu
-        self.Picture = UIImageView(frame: CGRect(x: 0, y: 0, width: 55, height: 55))
+        self.Picture = UIImageView(frame: CGRect(x: (frame.size.width - 55) / 2, y: 0, width: 55, height: 55))
         self.Picture!.image = self.model?.Picture
         self.addSubview(Picture!)
-        self.NameLabel = UILabel.init(frame: CGRect(x: 0, y: 55, width: 55, height: 20))
+        self.NameLabel = UILabel.init(frame: CGRect(x: 0, y: 55, width: 80, height: 20))
         NameLabel!.textAlignment = .center
         NameLabel!.text = self.model?.Name
         NameLabel?.adjustsFontSizeToFitWidth = true
         self.addSubview(NameLabel!)
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(setLocked))
         self.addGestureRecognizer(tap)
-        self.lockView = UIView(frame: CGRect(x: 0, y: 0, width: 55, height: 55))
+        self.lockView = UIView(frame: CGRect(x: (frame.size.width - 55) / 2, y: 0, width: 55, height: 55))
         let backColor = UIColor.init(red: 45.0/255, green: 45.0/255, blue: 45.0/255, alpha: 0.5)
         self.lockView?.backgroundColor = backColor
-        let lock = UIImageView(frame: self.lockView!.frame)
+        let lock = UIImageView(frame: CGRect(x: 0, y: 0, width: 55, height: 55))
         lock.image = UIImage(named: "FoodLock")
         self.lockView?.addSubview(lock)
-        self.addSubview(self.lockView!)
+        if Menu.isLock {
+            self.addSubview(self.lockView!)
+        }
         
     }
     
