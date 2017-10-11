@@ -31,7 +31,7 @@ class TechViews: UIView, refreshTechViewDelegate {
     
     class func buildTechView(type:MenuType) -> TechViews {
         let view = TechViews.init(frame: CGRect.zero)
-
+        view.Title?.text = type.rawValue
         view.dataArr = FoodDatabase.ShareInstance().getData(type: type)
         view.loadData()
         return view
@@ -49,9 +49,6 @@ class TechViews: UIView, refreshTechViewDelegate {
         }
     }
     
-    func setData(type:MenuType) {
-
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -350,7 +347,7 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item4.model?.isLock == false {
                 let Line9 = self.LineArr[9] as! CAShapeLayer
                 Line9.fillColor = UIColor.white.cgColor
-                let Item = self.IconArr[8] as! TechItem
+                let Item = self.IconArr[7] as! TechItem
                 Item.model?.canBeunlock = true
             }
         }
@@ -362,7 +359,7 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item7.model?.isLock == false {
                 let Line12 = self.LineArr[12] as! CAShapeLayer
                 Line12.fillColor = UIColor.white.cgColor
-                let Item = self.IconArr[9] as! TechItem
+                let Item = self.IconArr[8] as! TechItem
                 Item.model?.canBeunlock = true
             }
         }
@@ -374,15 +371,17 @@ class TechViews: UIView, refreshTechViewDelegate {
             if Item6.model?.isLock == false{
                 let Line12 = self.LineArr[12] as! CAShapeLayer
                 Line12.fillColor = UIColor.white.cgColor
+                let Item = self.IconArr[8] as! TechItem
+                Item.model?.canBeunlock = true
             }
         }
         let Item8 = self.IconArr[8] as! TechItem
         if  Item8.model?.isLock == false {
             let Line13 = self.LineArr[13] as! CAShapeLayer
             Line13.fillColor = UIColor.white.cgColor
+            let Item9 = self.IconArr[9] as! TechItem
+            Item9.model?.canBeunlock = true
         }
-        
-        
     }
     
 }
@@ -397,13 +396,14 @@ class TechItem: UIView {
     weak var Itemdelegate:refreshTechViewDelegate?
     init(frame:CGRect, Menu:baseMenu) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.clear
         self.model = Menu
         self.Picture = UIImageView(frame: CGRect(x: (frame.size.width - 55) / 2, y: 0, width: 55, height: 55))
         self.Picture!.image = self.model?.Picture
         self.addSubview(Picture!)
         self.NameLabel = UILabel.init(frame: CGRect(x: 0, y: 55, width: 80, height: 20))
         NameLabel!.textAlignment = .center
+        NameLabel?.backgroundColor = UIColor.white
         NameLabel!.text = self.model?.Name
         NameLabel?.adjustsFontSizeToFitWidth = true
         self.addSubview(NameLabel!)

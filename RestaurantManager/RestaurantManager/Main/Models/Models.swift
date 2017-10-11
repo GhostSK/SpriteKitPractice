@@ -16,7 +16,7 @@ enum MenuType: String {
     case Tully = "川菜"
     case Tyrell = "意大利菜"
     case French = "法国菜"
-    case Japan = "日本菜"
+    case Japan = "日式料理"
     case America = "美国菜"
     case India = "印度菜"
     case Korea = "韩国菜"

@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)
 
-            let tech = TechViews.buildTechView(type: .America)
+            let tech = TechViews.buildTechView(type: .Tyrell)
             view.addSubview(tech)
 
 //            let model = EmployeeModel.init()
