@@ -21,7 +21,6 @@
 		B66A85D81F7255BB00FAA7F3 /* categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A85D71F7255BB00FAA7F3 /* categorys.swift */; };
 		B6786BFB1F7A41E4008427A2 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6786BFA1F7A41E4008427A2 /* EmployeeView.swift */; };
 		B6786BFE1F7A8380008427A2 /* PersonMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6786BFD1F7A8380008427A2 /* PersonMarket.swift */; };
-		B67ADB1B1F8CCDDA00B8B93A /* tempFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67ADB1A1F8CCDDA00B8B93A /* tempFile.swift */; };
 		B6F3B69F1F8B731E0046EA61 /* MoneyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F3B69E1F8B731E0046EA61 /* MoneyManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		B66A85D71F7255BB00FAA7F3 /* categorys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = categorys.swift; sourceTree = "<group>"; };
 		B6786BFA1F7A41E4008427A2 /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
 		B6786BFD1F7A8380008427A2 /* PersonMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMarket.swift; sourceTree = "<group>"; };
-		B67ADB1A1F8CCDDA00B8B93A /* tempFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempFile.swift; sourceTree = "<group>"; };
 		B6F3B69E1F8B731E0046EA61 /* MoneyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +101,6 @@
 				B66A85D31F72107300FAA7F3 /* Models.swift */,
 				B638D38F1F78B39000728931 /* EmployeeModel.swift */,
 				B61B84461F8CB9C000E3635A /* FoodDatabase.swift */,
-				B67ADB1A1F8CCDDA00B8B93A /* tempFile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -228,7 +225,6 @@
 				B6786BFB1F7A41E4008427A2 /* EmployeeView.swift in Sources */,
 				B6184E041F7118400012A4C3 /* GameViewController.swift in Sources */,
 				B66A85D81F7255BB00FAA7F3 /* categorys.swift in Sources */,
-				B67ADB1B1F8CCDDA00B8B93A /* tempFile.swift in Sources */,
 				B6184DFC1F7118400012A4C3 /* AppDelegate.swift in Sources */,
 				B61B84471F8CB9C000E3635A /* FoodDatabase.swift in Sources */,
 				B638D3901F78B39000728931 /* EmployeeModel.swift in Sources */,
