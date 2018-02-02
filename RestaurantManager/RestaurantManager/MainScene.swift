@@ -17,7 +17,7 @@ class MainScene: SKScene {
     var topBar:UIView? = nil
     
     override func didMove(to view: SKView) {
-        
+
 //        let bottomBar = UIView(frame: CGRect(x: 0, y: kwidth - 30, width: kheight - 100, height: 30))
 //        self.view?.addSubview(bottomBar)
 //        self.backgroundColor = SKColor.red

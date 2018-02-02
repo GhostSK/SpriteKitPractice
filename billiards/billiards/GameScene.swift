@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //建立物理世界
         self.backgroundColor = SKColor.white
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 15, y: 15, width: self.view!.frame.size.width - 30, height: self.view!.frame.size.height - 30))
-        let backnode = SKSpriteNode.init(color: SKColor.init(colorLiteralRed: 153.0/255.0, green: 204.0/255.0, blue: 51.0/255.0, alpha: 1.0), size: CGSize(width: self.view!.frame.size.width - 30, height: self.view!.frame.size.height - 30))
+        let backnode = SKSpriteNode.init(color: SKColor.init(red: 153.0/255.0, green: 204.0/255.0, blue: 51.0/255.0, alpha: 1.0), size: CGSize(width: self.view!.frame.size.width - 30, height: self.view!.frame.size.height - 30))
         backnode.anchorPoint = CGPoint.zero
         backnode.position = CGPoint(x: 15, y: 15)
         addChild(backnode)
